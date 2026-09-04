@@ -100,3 +100,190 @@ export {
 
 // Components - Navigation
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
+export { 
+  VerticalTabs, 
+  VerticalTabsList, 
+  VerticalTabsTrigger, 
+  VerticalTabsContent,
+  verticalTabsVariants 
+} from "./vertical-tabs"
+export type { VerticalTabsProps } from "./vertical-tabs"
+export { 
+  Breadcrumb, 
+  BreadcrumbList, 
+  BreadcrumbItem, 
+  BreadcrumbLink, 
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+  breadcrumbVariants 
+} from "./breadcrumb"
+export type { BreadcrumbProps } from "./breadcrumb"
+export { Stepper, Step, stepperVariants } from "./stepper"
+export type { StepperProps, StepProps } from "./stepper"
+export {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  paginationVariants,
+} from "./pagination"
+export type { PaginationProps } from "./pagination"
+export {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+  CommandShortcut,
+  CommandPalette,
+} from "./command-palette"
+export type { CommandPaletteProps } from "./command-palette"
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuRadioGroup,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuLabel,
+  MenuSeparator,
+  MenuGroup,
+  MenuSub,
+  MenuSubTrigger,
+  MenuSubContent,
+  MenuCheckboxItem,
+  MenuRadioGroup,
+  MenuRadioItem,
+  MenuShortcut,
+} from "./dropdown-menu"
+export {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuRadioItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuGroup,
+  ContextMenuPortal,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuRadioGroup,
+} from "./context-menu"
+export {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+  NavigationMenuIndicator,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from "./navigation-menu"
+export {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  MenubarLabel,
+  MenubarCheckboxItem,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarPortal,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarGroup,
+  MenubarSub,
+  MenubarShortcut,
+} from "./menubar"
+
+// Components - Feedback & Overlay
+export { Alert, AlertTitle, AlertDescription, alertVariants } from "./alert"
+export type { AlertProps } from "./alert"
+export {
+  Toast,
+  ToastProvider,
+  ToastViewport,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  ToastAction,
+  toastVariants,
+} from "./toast"
+export type { ToastProps, ToastActionElement } from "./toast"
+export { Banner, bannerVariants } from "./banner"
+export type { BannerProps } from "./banner"
+export {
+  AlertDialog,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+  Confirmation,
+} from "./alert-dialog"
+export type { ConfirmationProps } from "./alert-dialog"
+export {
+  Drawer,
+  DrawerOverlay,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  drawerVariants,
+} from "./drawer"
+export type { DrawerProps } from "./drawer"
+export {
+  Sheet,
+  SheetOverlay,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+  SheetClose,
+  SheetContent,
+  sheetVariants,
+} from "./sheet"
+export type { SheetProps } from "./sheet"
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "./popover"
+export { 
+  Loading, 
+  LoadingSpinner, 
+  LoadingDots, 
+  LoadingBar, 
+  loadingVariants 
+} from "./loading"
+export type { LoadingProps } from "./loading"
