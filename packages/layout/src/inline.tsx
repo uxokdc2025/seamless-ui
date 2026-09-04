@@ -2,12 +2,12 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@seamless/ui"
 
-const stackVariants = cva("flex flex-col", {
+const inlineVariants = cva("flex flex-wrap", {
   variants: {
     gap: {
       none: "gap-0",
       xs: "gap-1",
-      sm: "gap-2", 
+      sm: "gap-2",
       md: "gap-4",
       lg: "gap-6",
       xl: "gap-8",
@@ -18,6 +18,7 @@ const stackVariants = cva("flex flex-col", {
       center: "items-center",
       end: "items-end",
       stretch: "items-stretch",
+      baseline: "items-baseline",
     },
     justify: {
       start: "justify-start",
@@ -30,25 +31,26 @@ const stackVariants = cva("flex flex-col", {
   },
   defaultVariants: {
     gap: "md",
-    align: "stretch",
+    align: "center",
+    justify: "start",
   },
 })
 
-export interface StackProps
+export interface InlineProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof stackVariants> {}
+    VariantProps<typeof inlineVariants> {}
 
-const Stack = React.forwardRef<HTMLDivElement, StackProps>(
+const Inline = React.forwardRef<HTMLDivElement, InlineProps>(
   ({ className, gap, align, justify, ...props }, ref) => {
     return (
       <div
         ref={ref}
-        className={cn(stackVariants({ gap, align, justify, className }))}
+        className={cn(inlineVariants({ gap, align, justify, className }))}
         {...props}
       />
     )
   }
 )
-Stack.displayName = "Stack"
+Inline.displayName = "Inline"
 
-export { Stack, stackVariants }
+export { Inline, inlineVariants }
