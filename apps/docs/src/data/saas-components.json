@@ -1,0 +1,1164 @@
+[
+  {
+    "name": "AccountMenu",
+    "slug": "account-menu",
+    "description": "Dropdown menu for user account actions with profile, settings, and sign-out options.",
+    "category": "User Interface",
+    "props": [
+      {
+        "name": "user",
+        "type": "{",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "avatar",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ActivityFeed",
+    "slug": "activity-feed",
+    "description": "Display a chronological feed of user and system activities with timestamps.",
+    "category": "Data Display",
+    "props": [
+      {
+        "name": "items",
+        "type": "ActivityItem[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "emptyMessage",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AdvancedFilterBuilder",
+    "slug": "advanced-filter-builder",
+    "description": "Visual query builder for complex filtering with rules, groups, and logical operators.",
+    "category": "Data Management",
+    "props": [
+      {
+        "name": "filterGroup",
+        "type": "FilterGroup",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onFilterChange",
+        "type": "(group: FilterGroup) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "fields",
+        "type": "Array<{ value: string; label: string",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "ApiKeyRow",
+    "slug": "api-key-row",
+    "description": "Display and manage API keys with masking, copying, and revocation capabilities.",
+    "category": "Administration",
+    "props": [
+      {
+        "name": "apiKey",
+        "type": "ApiKey",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onCopy",
+        "type": "(key: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onRevoke",
+        "type": "(id: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AppHeader",
+    "slug": "app-header",
+    "description": "Top navigation header with branding, navigation links, and utility actions.",
+    "category": "Shell & Layout",
+    "props": [
+      {
+        "name": "left",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "center",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "right",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AppShell",
+    "slug": "app-shell",
+    "description": "Complete application layout with sidebar, header, and content area. Responsive and collapsible.",
+    "category": "Shell & Layout",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "sidebar",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "header",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "sidebarState",
+        "type": "SidebarState",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onSidebarStateChange",
+        "type": "(state: SidebarState) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "sidebarStorageKey",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "sidebarCollapsible",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AuditLog",
+    "slug": "audit-log",
+    "description": "Security audit trail displaying user actions, timestamps, and change details.",
+    "category": "Administration",
+    "props": [
+      {
+        "name": "entries",
+        "type": "AuditLogEntry[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onLoadMore",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "hasMore",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "BillingSummary",
+    "slug": "billing-summary",
+    "description": "Overview of current usage, costs, and billing cycle information.",
+    "category": "Billing & Usage",
+    "props": [
+      {
+        "name": "currentPeriod",
+        "type": "{",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "start",
+        "type": "Date",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "end",
+        "type": "Date",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "CommandCenter",
+    "slug": "command-center",
+    "description": "Keyboard-driven command palette for quick navigation and actions (Cmd+K).",
+    "category": "User Interface",
+    "props": [
+      {
+        "name": "items",
+        "type": "CommandItem[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "DataToolbar",
+    "slug": "data-toolbar",
+    "description": "Action bar for data tables with selection, bulk actions, and filters.",
+    "category": "Data Management",
+    "props": [
+      {
+        "name": "left",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "center",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "right",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "actions",
+        "type": "Array<{",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"primary\" | \"danger\"",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "DetailDrawer",
+    "slug": "detail-drawer",
+    "description": "Slide-out panel for displaying detailed information and contextual actions.",
+    "category": "Panels & Drawers",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "footer",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "side",
+        "type": "\"left\" | \"right\"",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "EnvironmentBadge",
+    "slug": "environment-badge",
+    "description": "Visual indicator for deployment environment (dev, staging, production).",
+    "category": "Status & Indicators",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "FilterBar",
+    "slug": "filter-bar",
+    "description": "Quick filter toolbar with tags and search for data refinement.",
+    "category": "Data Management",
+    "props": [
+      {
+        "name": "filters",
+        "type": "Filter[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onRemoveFilter",
+        "type": "(key: string) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onClearAll",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Inspector",
+    "slug": "inspector",
+    "description": "Property inspector panel for viewing and editing object attributes.",
+    "category": "Panels & Drawers",
+    "props": [
+      {
+        "name": "items",
+        "type": "InspectorItem[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "IntegrationCard",
+    "slug": "integration-card",
+    "description": "Card displaying third-party integration status, configuration, and actions.",
+    "category": "Integrations",
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "connected",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onConnect",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onDisconnect",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onConfigure",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "externalLink",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "MetricCard",
+    "slug": "metric-card",
+    "description": "Display key performance metrics with trends, changes, and visual indicators.",
+    "category": "Metrics & Analytics",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "value",
+        "type": "string | number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "change",
+        "type": "{",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "trend",
+        "type": "\"up\" | \"down\" | \"neutral\"",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "MetricGroup",
+    "slug": "metric-group",
+    "description": "Grid layout for grouping multiple related metrics together.",
+    "category": "Metrics & Analytics",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "columns",
+        "type": "1 | 2 | 3 | 4",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "NavGroup",
+    "slug": "nav-group",
+    "description": "Collapsible navigation section with a label and child navigation items.",
+    "category": "Navigation",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "collapsible",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Navigation",
+    "slug": "navigation",
+    "description": "Main navigation component orchestrating nav groups and items.",
+    "category": "Navigation",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "NavItem",
+    "slug": "nav-item",
+    "description": "Individual navigation link with icon, label, and active state support.",
+    "category": "Navigation",
+    "props": [
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "badge",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onClick",
+        "type": "(e: React.MouseEvent<HTMLAnchorElement>) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "tooltip",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "NotificationCenter",
+    "slug": "notification-center",
+    "description": "Dropdown panel displaying notifications, alerts, and system messages.",
+    "category": "User Interface",
+    "props": [
+      {
+        "name": "notifications",
+        "type": "Notification[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onMarkAsRead",
+        "type": "(id: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onMarkAllAsRead",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onDismiss",
+        "type": "(id: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "unreadCount",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "PermissionsMatrix",
+    "slug": "permissions-matrix",
+    "description": "Grid view for managing role-based permissions and access control.",
+    "category": "Administration",
+    "props": [
+      {
+        "name": "roles",
+        "type": "Role[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "permissions",
+        "type": "Permission[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "matrix",
+        "type": "Record<string, Record<string, boolean>>",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onTogglePermission",
+        "type": "(roleId: string, permissionId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ProjectSwitcher",
+    "slug": "project-switcher",
+    "description": "Dropdown for switching between multiple projects or workspaces.",
+    "category": "Switchers",
+    "props": [
+      {
+        "name": "projects",
+        "type": "Project[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "currentProject",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onProjectChange",
+        "type": "(projectId: string) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "PropertiesPanel",
+    "slug": "properties-panel",
+    "description": "Side panel for displaying and editing selected object properties.",
+    "category": "Panels & Drawers",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "sections",
+        "type": "Array<{",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "content",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "SavedViews",
+    "slug": "saved-views",
+    "description": "Manage and switch between saved filter and layout configurations.",
+    "category": "Data Management",
+    "props": [
+      {
+        "name": "views",
+        "type": "SavedView[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "currentView",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onViewChange",
+        "type": "(viewId: string) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onSaveView",
+        "type": "(name: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onDeleteView",
+        "type": "(viewId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onToggleStar",
+        "type": "(viewId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "slug": "search",
+    "description": "Global search input with suggestions and keyboard shortcuts.",
+    "category": "User Interface",
+    "props": [
+      {
+        "name": "onClear",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "containerClassName",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "SettingsSection",
+    "slug": "settings-section",
+    "description": "Structured section for grouping related settings with labels and descriptions.",
+    "category": "Settings & Config",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "SidebarNavigation",
+    "slug": "sidebar-navigation",
+    "description": "Collapsible sidebar with hierarchical navigation items and groups.",
+    "category": "Navigation",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "header",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "footer",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "TeamManagement",
+    "slug": "team-management",
+    "description": "Interface for managing team members, roles, and invitations.",
+    "category": "Administration",
+    "props": [
+      {
+        "name": "teams",
+        "type": "Team[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onCreateTeam",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onEditTeam",
+        "type": "(teamId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onViewTeam",
+        "type": "(teamId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "UsageMeter",
+    "slug": "usage-meter",
+    "description": "Visual meter showing resource consumption against quotas and limits.",
+    "category": "Billing & Usage",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "current",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "UserManagement",
+    "slug": "user-management",
+    "description": "Admin interface for user lifecycle management and permissions.",
+    "category": "Administration",
+    "props": [
+      {
+        "name": "users",
+        "type": "User[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onInvite",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onEditUser",
+        "type": "(userId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onRemoveUser",
+        "type": "(userId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onResendInvite",
+        "type": "(userId: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "WorkspaceSwitcher",
+    "slug": "workspace-switcher",
+    "description": "Dropdown for switching between workspaces or organizations.",
+    "category": "Switchers",
+    "props": [
+      {
+        "name": "workspaces",
+        "type": "Workspace[]",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "currentWorkspace",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "onWorkspaceChange",
+        "type": "(workspaceId: string) => void",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  }
+]
