@@ -1,3 +1,6 @@
 # Don't ignore the built registry files - they need to be committed
 !dist/
 !dist/*.json
+
+# Ignore temporary build artifacts from the build script
+packages/
