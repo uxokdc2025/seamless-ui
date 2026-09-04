@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   transpilePackages: [
     "@seamless/tokens",
     "@seamless/ui", 
