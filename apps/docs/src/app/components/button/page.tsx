@@ -18,6 +18,92 @@ export default function ButtonPage() {
 export default function Example() {
   return <Button>Click me</Button>
 }`}
+        sourceFiles={[
+          {
+            path: "ui/button.tsx",
+            content: `import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "./lib/utils"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow hover:shadow-lg transform hover:-translate-y-0.5",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
+
+export { Button, buttonVariants }`,
+          },
+        ]}
+        designGuidance={{
+          whenToUse: [
+            "For primary actions that complete a flow (submit forms, confirm dialogs)",
+            "For navigation to important destinations",
+            "When users need a clear call-to-action",
+          ],
+          spacing: "Use consistent padding (default: h-10 px-4 py-2). Maintain at least 8px between adjacent buttons.",
+          typography: "Text should be sentence case, concise (1-3 words ideally), and action-oriented.",
+          colors: "Use 'default' variant for primary actions, 'outline' or 'ghost' for secondary actions, and 'destructive' only for irreversible actions.",
+          other: [
+            "Disabled buttons should clearly indicate why they are disabled",
+            "Loading states should prevent multiple submissions",
+            "Icon-only buttons must have proper aria-label attributes",
+          ],
+        }}
+        dos={[
+          "Use clear, action-oriented labels (\"Save changes\", \"Delete account\")",
+          "Provide visual feedback on hover and active states",
+          "Use the appropriate variant for the action hierarchy",
+          "Include icons when they aid comprehension",
+          "Make buttons large enough to be easily tappable (minimum 44x44px on mobile)",
+        ]}
+        donts={[
+          "Don't use more than one primary (default) button in the same context",
+          "Don't use vague labels like \"Click here\" or \"Submit\"",
+          "Don't make destructive actions too easy to trigger accidentally",
+          "Don't use buttons for navigation - use links instead (except for important CTAs)",
+          "Don't disable buttons without explaining why",
+        ]}
         props={[
           {
             name: "variant",
