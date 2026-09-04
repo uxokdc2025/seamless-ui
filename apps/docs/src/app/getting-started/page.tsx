@@ -97,7 +97,7 @@ export default function App() {
             <CardContent>
               <Stack gap="md">
                 <p className="text-sm text-muted-foreground">
-                  Seamless UI comes with 5 built-in themes. You can apply them globally or create custom themes.
+                  Seamless UI comes with 8 built-in themes. You can apply them globally or create custom themes.
                 </p>
                 <div>
                   <h3 className="text-sm font-semibold mb-2">Apply a theme</h3>
