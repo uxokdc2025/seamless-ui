@@ -1,15 +1,37 @@
 import * as React from "react"
 import { cn } from "@seamless/ui"
+import {
+  Sidebar,
+  SidebarOverlay,
+  SidebarState,
+} from "@seamless/layout"
 
 export interface AppShellProps {
   children: React.ReactNode
   sidebar?: React.ReactNode
   header?: React.ReactNode
   className?: string
+  sidebarState?: SidebarState
+  onSidebarStateChange?: (state: SidebarState) => void
+  sidebarStorageKey?: string
+  sidebarCollapsible?: boolean
 }
 
 const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
-  ({ children, sidebar, header, className, ...props }, ref) => {
+  (
+    {
+      children,
+      sidebar,
+      header,
+      className,
+      sidebarState,
+      onSidebarStateChange,
+      sidebarStorageKey,
+      sidebarCollapsible = true,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <div
         ref={ref}
@@ -21,13 +43,28 @@ const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
             {header}
           </header>
         )}
-        <div className="flex">
+        <div className="flex h-[calc(100vh-4rem)]">
           {sidebar && (
-            <aside className="w-64 border-r border-border bg-surface p-4">
-              {sidebar}
-            </aside>
+            <>
+              <SidebarOverlay />
+              <Sidebar
+                state={sidebarState}
+                onStateChange={onSidebarStateChange}
+                storageKey={sidebarStorageKey}
+                collapsible={sidebarCollapsible}
+              >
+                {sidebar}
+              </Sidebar>
+            </>
           )}
-          <main className="flex-1 p-6">{children}</main>
+          <main
+            className={cn(
+              "flex-1 overflow-auto p-6",
+              !sidebar && "w-full"
+            )}
+          >
+            {children}
+          </main>
         </div>
       </div>
     )
