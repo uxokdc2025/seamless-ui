@@ -23,25 +23,45 @@ const categories = Array.from(new Set(patterns.map(p => p.category))).sort()
 
 export default function PatternsPage() {
   return (
-    <DocsShell title="Patterns">
+    <DocsShell title="Patterns (Roadmap)">
       <Container size="lg" className="py-8">
         <Stack gap="xl">
           <div>
-            <h1 className="text-4xl font-bold mb-4">Design Patterns</h1>
+            <div className="flex items-center gap-3 mb-4">
+              <h1 className="text-4xl font-bold">Design Patterns</h1>
+              <Badge variant="secondary" className="text-sm">Roadmap</Badge>
+            </div>
             <p className="text-lg text-muted-foreground">
-              Common UI patterns and compositions built with Seamless components. Learn best practices
-              for solving recurring design problems.
+              Planned UI patterns and compositions to be built with Seamless components. These are not yet
+              implemented but represent common design problems we plan to document with best practices,
+              code examples, and interactive previews.
             </p>
           </div>
 
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="pt-6">
+              <div className="space-y-4">
+                <h3 className="font-semibold">🚧 Coming Soon</h3>
+                <p className="text-sm text-muted-foreground">
+                  These patterns are planned for future releases. Each will include working examples,
+                  implementation guidance, and reusable code. Want to contribute? Check our{" "}
+                  <a href="https://github.com/seamless-ui" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+                    GitHub repository
+                  </a>.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           <Grid cols={3} gap="md" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {patterns.map((pattern) => (
-              <Card key={pattern.name} className="hover:shadow-lg hover:border-primary/50 transition-all">
+              <Card key={pattern.name} className="opacity-75">
                 <CardHeader>
                   <div className="flex items-start justify-between mb-2">
                     <Badge variant="outline" className="text-xs">
                       {pattern.category}
                     </Badge>
+                    <Badge variant="secondary" className="text-xs">Planned</Badge>
                   </div>
                   <CardTitle className="text-lg">{pattern.name}</CardTitle>
                 </CardHeader>

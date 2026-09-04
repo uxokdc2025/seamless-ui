@@ -14,7 +14,7 @@ const navigation = [
   { name: "Layout", href: "/layout", icon: "📐" },
   { name: "SaaS", href: "/saas", icon: "💼" },
   { name: "AI", href: "/ai", icon: "🤖" },
-  { name: "Patterns", href: "/patterns", icon: "🎯" },
+  { name: "Patterns (Roadmap)", href: "/patterns", icon: "🎯" },
   { name: "Blocks", href: "/blocks", icon: "🧱" },
   { name: "Themes", href: "/themes", icon: "🎨" },
   { name: "Theme Studio", href: "/theme-studio", icon: "🎛️" },

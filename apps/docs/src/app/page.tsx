@@ -43,7 +43,6 @@ export default function HomePage() {
     { label: "Components", value: "28" },
     { label: "Themes", value: "5" },
     { label: "Blocks", value: "10" },
-    { label: "Patterns", value: "15+" },
   ]
 
   return (
