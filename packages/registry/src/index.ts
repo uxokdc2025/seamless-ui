@@ -27,4 +27,4 @@ export function createRegistryClient(registryUrl: string): RegistryQuery {
 }
 
 // Default registry URL
-export const REGISTRY_URL = "https://seamless-ui.dev/registry"
+export const REGISTRY_URL = "https://seamless-ui-docs.vercel.app"
