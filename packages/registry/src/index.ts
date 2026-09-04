@@ -1,47 +1,30 @@
-// Registry schema for shadcn-compatible component distribution
-export interface ComponentRegistry {
-  name: string
-  type: "components:ui" | "components:layout" | "components:saas" | "components:ai" | "blocks" | "themes"
-  dependencies: string[]
-  files: Array<{
-    name: string
-    content: string
-  }>
-  tailwind?: {
-    config?: any
-    css?: string[]
+// Registry schema and builder for shadcn-compatible component distribution
+export * from "./schema"
+
+// Runtime API for querying the registry
+export interface RegistryQuery {
+  getComponent(name: string): Promise<any>
+  getComponentsByType(type: string): Promise<any[]>
+  getComponentsByNamespace(namespace: string): Promise<any>
+}
+
+export function createRegistryClient(registryUrl: string): RegistryQuery {
+  return {
+    async getComponent(name: string) {
+      const response = await fetch(`${registryUrl}/${name}.json`)
+      return response.json()
+    },
+    async getComponentsByType(type: string) {
+      const response = await fetch(`${registryUrl}/registry.json`)
+      const data = await response.json()
+      return data.items?.filter((item: any) => item.type === type) || []
+    },
+    async getComponentsByNamespace(namespace: string) {
+      const response = await fetch(`${registryUrl}/${namespace}.json`)
+      return response.json()
+    },
   }
 }
 
-export const registry: ComponentRegistry[] = [
-  {
-    name: "button",
-    type: "components:ui",
-    dependencies: ["@radix-ui/react-slot", "class-variance-authority", "clsx", "tailwind-merge"],
-    files: [
-      {
-        name: "components/ui/button.tsx",
-        content: "// Button component implementation"
-      }
-    ]
-  },
-  {
-    name: "dashboard-01",
-    type: "blocks",
-    dependencies: ["@seamless/ui", "@seamless/layout"],
-    files: [
-      {
-        name: "blocks/dashboard-01.tsx",
-        content: "// Dashboard block implementation"
-      }
-    ]
-  }
-]
-
-export function getComponent(name: string): ComponentRegistry | undefined {
-  return registry.find(component => component.name === name)
-}
-
-export function getComponentsByType(type: ComponentRegistry["type"]): ComponentRegistry[] {
-  return registry.filter(component => component.type === type)
-}
+// Default registry URL
+export const REGISTRY_URL = "https://seamless-ui.dev/registry"
