@@ -1,0 +1,143 @@
+/* Seamless UI Design Tokens */
+
+:root {
+  /* Color palette */
+  --color-background: #15101a;
+  --color-foreground: #f3ebda;
+  --color-surface: #251d2c;
+  --color-surface-raised: #2e2436;
+  --color-overlay: #1c1622;
+  
+  --color-primary: #d4a574;
+  --color-primary-foreground: #15101a;
+  --color-secondary: #2e2436;
+  --color-secondary-foreground: #f3ebda;
+  --color-accent: #5ab896;
+  --color-accent-foreground: #15101a;
+  --color-muted: #251d2c;
+  --color-muted-foreground: #a59783;
+  
+  --color-success: #5ab896;
+  --color-warning: #d4a574;
+  --color-destructive: #c4607e;
+  --color-info: #67e8f9;
+  
+  --color-border: rgba(243, 235, 218, 0.08);
+  --color-border-subtle: rgba(243, 235, 218, 0.04);
+  --color-border-strong: rgba(212, 165, 116, 0.20);
+  
+  --color-input: #251d2c;
+  --color-ring: #d4a574;
+  --color-card: #251d2c;
+  --color-card-foreground: #f3ebda;
+  --color-popover: #251d2c;
+  --color-popover-foreground: #f3ebda;
+
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+/* Brand themes */
+[data-theme="midnight-aubergine"] {
+  --color-background: #15101a;
+  --color-foreground: #f3ebda;
+  --color-surface: #251d2c;
+  --color-surface-raised: #2e2436;
+  --color-primary: #d4a574;
+  --color-accent: #5ab896;
+  --color-destructive: #c4607e;
+}
+
+[data-theme="together"] {
+  --color-background: #10131a;
+  --color-foreground: #f4f7fb;
+  --color-surface: #202735;
+  --color-surface-raised: #293344;
+  --color-primary: #67e8f9;
+  --color-accent: #7dd3fc;
+  --color-destructive: #a78bfa;
+}
+
+[data-theme="airtable"] {
+  --color-background: #f7f9fc;
+  --color-foreground: #182230;
+  --color-surface: #f1f4f8;
+  --color-surface-raised: #e4eaf2;
+  --color-primary: #2563eb;
+  --color-accent: #059669;
+  --color-destructive: #7c3aed;
+}
+
+[data-theme="claude"] {
+  --color-background: #1a1715;
+  --color-foreground: #f7f1e8;
+  --color-surface: #302824;
+  --color-surface-raised: #3c3028;
+  --color-primary: #e07a50;
+  --color-accent: #8fc7a3;
+  --color-destructive: #c98a9d;
+}
+
+[data-theme="discord"] {
+  --color-background: #1e1f22;
+  --color-foreground: #f2f3f5;
+  --color-surface: #313338;
+  --color-surface-raised: #404249;
+  --color-primary: #5865f2;
+  --color-accent: #23a559;
+  --color-destructive: #f23f42;
+}
+
+[data-theme="elevenlabs"] {
+  --color-background: #0b0b0b;
+  --color-foreground: #f5f5f5;
+  --color-surface: #1d1d1d;
+  --color-surface-raised: #292929;
+  --color-primary: #f97316;
+  --color-accent: #84cc16;
+  --color-destructive: #d946ef;
+}
+
+[data-theme="ibm"] {
+  --color-background: #101820;
+  --color-foreground: #f4f7fb;
+  --color-surface: #1f2e3b;
+  --color-surface-raised: #2a3b4a;
+  --color-primary: #78a9ff;
+  --color-accent: #42be65;
+  --color-destructive: #be95ff;
+}
+
+[data-theme="meta"] {
+  --color-background: #0b1020;
+  --color-foreground: #f4f7ff;
+  --color-surface: #1a2542;
+  --color-surface-raised: #243256;
+  --color-primary: #60a5fa;
+  --color-accent: #34d399;
+  --color-destructive: #a78bfa;
+}
+
+/* Light mode */
+[data-mode="light"] {
+  --color-background: #f7f8fb;
+  --color-foreground: #182230;
+  --color-surface: #f1f4f8;
+  --color-surface-raised: #e7ebf2;
+  --color-overlay: #ffffff;
+  --color-muted-foreground: #64748b;
+  --color-border: rgba(24, 34, 48, 0.12);
+  --color-border-subtle: rgba(24, 34, 48, 0.06);
+}
+
+[data-mode="light"][data-theme="midnight-aubergine"] {
+  --color-primary: #8b5e34;
+  --color-accent: #047857;
+  --color-destructive: #a21caf;
+}
+
+/* Base styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}

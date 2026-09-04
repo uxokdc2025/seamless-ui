@@ -1,0 +1,10 @@
+/* Storybook-specific styles */
+@import '../../../../packages/tokens/src/index.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

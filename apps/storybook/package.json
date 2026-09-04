@@ -1,0 +1,37 @@
+{
+  "name": "@seamless/storybook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Storybook workbench",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "start": "storybook dev",
+    "clean": "rm -rf storybook-static"
+  },
+  "dependencies": {
+    "@seamless/tokens": "workspace:*",
+    "@seamless/ui": "workspace:*",
+    "@seamless/layout": "workspace:*",
+    "@seamless/saas": "workspace:*",
+    "@seamless/ai": "workspace:*",
+    "@seamless/themes": "workspace:*",
+    "@seamless/blocks": "workspace:*",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.4.0",
+    "@storybook/addon-interactions": "^8.4.0",
+    "@storybook/addon-links": "^8.4.0",
+    "@storybook/blocks": "^8.4.0",
+    "@storybook/react": "^8.4.0",
+    "@storybook/react-vite": "^8.4.0",
+    "@storybook/test": "^8.4.0",
+    "storybook": "^8.4.0",
+    "typescript": "^5.6.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "vite": "^6.0.0"
+  }
+}

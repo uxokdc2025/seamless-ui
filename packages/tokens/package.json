@@ -1,0 +1,17 @@
+{
+  "name": "@seamless/tokens",
+  "version": "0.1.0",
+  "description": "Semantic design tokens (CSS vars) — 8 brand themes x light/dark",
+  "main": "src/index.css",
+  "types": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./css": "./src/index.css",
+    "./tokens": "./src/tokens.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
