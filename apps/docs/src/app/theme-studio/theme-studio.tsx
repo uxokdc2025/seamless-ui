@@ -24,7 +24,8 @@ import {
   Badge,
   Checkbox,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Separator
 } from "@seamless/ui"
 import { Container, Stack, Grid } from "@seamless/layout"
 import { Download, Upload, RotateCcw, Palette, Type, Layout, Layers, Zap, Focus, Sun, Moon } from "lucide-react"
