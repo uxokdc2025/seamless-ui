@@ -1,0 +1,8 @@
+{
+  "name": "seamless-ui-docs",
+  "version": 2,
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "pnpm install"
+}
