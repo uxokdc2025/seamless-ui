@@ -35,6 +35,19 @@ interface ComponentPageProps {
   }>
   related?: string[]
   storybookUrl?: string
+  sourceFiles?: Array<{
+    path: string
+    content: string
+  }>
+  designGuidance?: {
+    whenToUse?: string[]
+    spacing?: string
+    typography?: string
+    colors?: string
+    other?: string[]
+  }
+  dos?: string[]
+  donts?: string[]
 }
 
 export function ComponentPage({
@@ -50,6 +63,10 @@ export function ComponentPage({
   keyboard = [],
   related = [],
   storybookUrl,
+  sourceFiles = [],
+  designGuidance,
+  dos = [],
+  donts = [],
 }: ComponentPageProps) {
   const [copied, setCopied] = useState<string | null>(null)
 
@@ -95,6 +112,7 @@ export function ComponentPage({
           <TabsList>
             <TabsTrigger value="install">Installation</TabsTrigger>
             <TabsTrigger value="usage">Usage</TabsTrigger>
+            {sourceFiles.length > 0 && <TabsTrigger value="source">Source</TabsTrigger>}
             <TabsTrigger value="props">Props</TabsTrigger>
             {variants.length > 0 && <TabsTrigger value="variants">Variants</TabsTrigger>}
             {examples.length > 0 && <TabsTrigger value="examples">Examples</TabsTrigger>}
@@ -147,6 +165,35 @@ export function ComponentPage({
               </CardContent>
             </Card>
           </TabsContent>
+
+          {sourceFiles.length > 0 && (
+            <TabsContent value="source">
+              <Stack gap="md">
+                {sourceFiles.map((file, idx) => (
+                  <Card key={idx}>
+                    <CardHeader>
+                      <CardTitle className="text-base font-mono">{file.path}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="relative">
+                        <pre className="bg-muted p-4 rounded-md overflow-x-auto max-h-[500px]">
+                          <code className="text-xs">{file.content}</code>
+                        </pre>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="absolute top-2 right-2 h-8 w-8"
+                          onClick={() => copyToClipboard(file.content, `source-${idx}`)}
+                        >
+                          {copied === `source-${idx}` ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Stack>
+            </TabsContent>
+          )}
 
           <TabsContent value="props">
             <Card>
@@ -296,6 +343,101 @@ export function ComponentPage({
               </div>
             </CardContent>
           </Card>
+        )}
+
+        {/* Design Guidance */}
+        {designGuidance && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Design Guidance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Stack gap="md">
+                {designGuidance.whenToUse && designGuidance.whenToUse.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold mb-2">When to Use</h4>
+                    <ul className="space-y-1 ml-4">
+                      {designGuidance.whenToUse.map((item, idx) => (
+                        <li key={idx} className="text-sm list-disc">{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {designGuidance.spacing && (
+                  <div>
+                    <h4 className="font-semibold mb-2">Spacing</h4>
+                    <p className="text-sm text-muted-foreground">{designGuidance.spacing}</p>
+                  </div>
+                )}
+                {designGuidance.typography && (
+                  <div>
+                    <h4 className="font-semibold mb-2">Typography</h4>
+                    <p className="text-sm text-muted-foreground">{designGuidance.typography}</p>
+                  </div>
+                )}
+                {designGuidance.colors && (
+                  <div>
+                    <h4 className="font-semibold mb-2">Colors</h4>
+                    <p className="text-sm text-muted-foreground">{designGuidance.colors}</p>
+                  </div>
+                )}
+                {designGuidance.other && designGuidance.other.length > 0 && (
+                  <div>
+                    <ul className="space-y-1 ml-4">
+                      {designGuidance.other.map((item, idx) => (
+                        <li key={idx} className="text-sm list-disc">{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </Stack>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Do/Don't */}
+        {(dos.length > 0 || donts.length > 0) && (
+          <div className="grid md:grid-cols-2 gap-6">
+            {dos.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <span className="text-green-600">✓</span> Do
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {dos.map((item, idx) => (
+                      <li key={idx} className="text-sm flex items-start gap-2">
+                        <span className="text-green-600 mt-0.5">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
+            {donts.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <span className="text-red-600">✗</span> Don't
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {donts.map((item, idx) => (
+                      <li key={idx} className="text-sm flex items-start gap-2">
+                        <span className="text-red-600 mt-0.5">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         )}
       </Stack>
     </Container>
