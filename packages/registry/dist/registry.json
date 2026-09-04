@@ -1,0 +1,848 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "seamless",
+  "homepage": "https://seamless-ui.dev",
+  "items": [
+    {
+      "name": "@seamless/ui/button",
+      "type": "registry:ui",
+      "title": "Button",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/button.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Slot } from \"@radix-ui/react-slot\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst buttonVariants = cva(\n  \"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90 shadow hover:shadow-lg transform hover:-translate-y-0.5\",\n        destructive: \"bg-destructive text-destructive-foreground hover:bg-destructive/90\",\n        outline: \"border border-input bg-background hover:bg-accent hover:text-accent-foreground\",\n        secondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\n        ghost: \"hover:bg-accent hover:text-accent-foreground\",\n        link: \"text-primary underline-offset-4 hover:underline\",\n      },\n      size: {\n        default: \"h-10 px-4 py-2\",\n        sm: \"h-9 rounded-md px-3\",\n        lg: \"h-11 rounded-md px-8\",\n        icon: \"h-10 w-10\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nexport interface ButtonProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof buttonVariants> {\n  asChild?: boolean\n}\n\nconst Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\n  ({ className, variant, size, asChild = false, ...props }, ref) => {\n    const Comp = asChild ? Slot : \"button\"\n    return (\n      <Comp\n        className={cn(buttonVariants({ variant, size, className }))}\n        ref={ref}\n        {...props}\n      />\n    )\n  }\n)\nButton.displayName = \"Button\"\n\nexport { Button, buttonVariants }"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "files": [
+        {
+          "path": "registry/default/ui/button-group.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst buttonGroupVariants = cva(\n  \"inline-flex items-center\",\n  {\n    variants: {\n      orientation: {\n        horizontal: \"flex-row [&>*:not(:first-child)]:rounded-l-none [&>*:not(:last-child)]:rounded-r-none [&>*:not(:first-child)]:-ml-px\",\n        vertical: \"flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:last-child)]:rounded-b-none [&>*:not(:first-child)]:-mt-px\",\n      },\n      spacing: {\n        none: \"\",\n        sm: \"gap-1\",\n        md: \"gap-2\",\n        lg: \"gap-4\",\n      },\n    },\n    defaultVariants: {\n      orientation: \"horizontal\",\n      spacing: \"none\",\n    },\n  }\n)\n\nexport interface ButtonGroupProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof buttonGroupVariants> {\n  asChild?: boolean\n}\n\nconst ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(\n  ({ className, orientation, spacing, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        role=\"group\"\n        className={cn(buttonGroupVariants({ orientation, spacing, className }))}\n        {...props}\n      />\n    )\n  }\n)\nButtonGroup.displayName = \"ButtonGroup\"\n\nexport { ButtonGroup, buttonGroupVariants }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/input",
+      "type": "registry:ui",
+      "title": "Input",
+      "files": [
+        {
+          "path": "registry/default/ui/input.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface InputProps\n  extends React.InputHTMLAttributes<HTMLInputElement> {}\n\nconst Input = React.forwardRef<HTMLInputElement, InputProps>(\n  ({ className, type, ...props }, ref) => {\n    return (\n      <input\n        type={type}\n        className={cn(\n          \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n          className\n        )}\n        ref={ref}\n        {...props}\n      />\n    )\n  }\n)\nInput.displayName = \"Input\"\n\nexport { Input }"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "files": [
+        {
+          "path": "registry/default/ui/textarea.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst textareaVariants = cva(\n  \"flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n  {\n    variants: {\n      resize: {\n        none: \"resize-none\",\n        vertical: \"resize-y\",\n        horizontal: \"resize-x\",\n        both: \"resize\",\n      },\n    },\n    defaultVariants: {\n      resize: \"vertical\",\n    },\n  }\n)\n\nexport interface TextareaProps\n  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,\n    VariantProps<typeof textareaVariants> {}\n\nconst Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(\n  ({ className, resize, ...props }, ref) => {\n    return (\n      <textarea\n        className={cn(textareaVariants({ resize, className }))}\n        ref={ref}\n        {...props}\n      />\n    )\n  }\n)\nTextarea.displayName = \"Textarea\"\n\nexport { Textarea, textareaVariants }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/label",
+      "type": "registry:ui",
+      "title": "Label",
+      "dependencies": [
+        "@radix-ui/react-label"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/label.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as LabelPrimitive from \"@radix-ui/react-label\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst labelVariants = cva(\n  \"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\"\n)\n\nconst Label = React.forwardRef<\n  React.ElementRef<typeof LabelPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &\n    VariantProps<typeof labelVariants>\n>(({ className, ...props }, ref) => (\n  <LabelPrimitive.Root\n    ref={ref}\n    className={cn(labelVariants(), className)}\n    {...props}\n  />\n))\nLabel.displayName = LabelPrimitive.Root.displayName\n\nexport { Label }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "dependencies": [
+        "@radix-ui/react-checkbox"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/checkbox.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as CheckboxPrimitive from \"@radix-ui/react-checkbox\"\nimport { Check } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nconst Checkbox = React.forwardRef<\n  React.ElementRef<typeof CheckboxPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>\n>(({ className, ...props }, ref) => (\n  <CheckboxPrimitive.Root\n    ref={ref}\n    className={cn(\n      \"peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground\",\n      className\n    )}\n    {...props}\n  >\n    <CheckboxPrimitive.Indicator\n      className={cn(\"flex items-center justify-center text-current\")}\n    >\n      <Check className=\"h-4 w-4\" />\n    </CheckboxPrimitive.Indicator>\n  </CheckboxPrimitive.Root>\n))\nCheckbox.displayName = CheckboxPrimitive.Root.displayName\n\nexport { Checkbox }"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/radio",
+      "type": "registry:ui",
+      "title": "Radio",
+      "dependencies": [
+        "@radix-ui/react-radio-group"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/radio.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as RadioGroupPrimitive from \"@radix-ui/react-radio-group\"\nimport { Circle } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nconst RadioGroup = React.forwardRef<\n  React.ElementRef<typeof RadioGroupPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>\n>(({ className, ...props }, ref) => {\n  return (\n    <RadioGroupPrimitive.Root\n      className={cn(\"grid gap-2\", className)}\n      {...props}\n      ref={ref}\n    />\n  )\n})\nRadioGroup.displayName = RadioGroupPrimitive.Root.displayName\n\nconst Radio = React.forwardRef<\n  React.ElementRef<typeof RadioGroupPrimitive.Item>,\n  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>\n>(({ className, ...props }, ref) => {\n  return (\n    <RadioGroupPrimitive.Item\n      ref={ref}\n      className={cn(\n        \"aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n        className\n      )}\n      {...props}\n    >\n      <RadioGroupPrimitive.Indicator className=\"flex items-center justify-center\">\n        <Circle className=\"h-2.5 w-2.5 fill-current text-current\" />\n      </RadioGroupPrimitive.Indicator>\n    </RadioGroupPrimitive.Item>\n  )\n})\nRadio.displayName = RadioGroupPrimitive.Item.displayName\n\nexport { RadioGroup, Radio }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "dependencies": [
+        "@radix-ui/react-switch"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/switch.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as SwitchPrimitives from \"@radix-ui/react-switch\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst switchVariants = cva(\n  \"peer inline-flex shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input\",\n  {\n    variants: {\n      size: {\n        default: \"h-6 w-11\",\n        sm: \"h-5 w-9\",\n        lg: \"h-7 w-14\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\nconst switchThumbVariants = cva(\n  \"pointer-events-none block rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=unchecked]:translate-x-0\",\n  {\n    variants: {\n      size: {\n        default: \"h-5 w-5 data-[state=checked]:translate-x-5\",\n        sm: \"h-4 w-4 data-[state=checked]:translate-x-4\",\n        lg: \"h-6 w-6 data-[state=checked]:translate-x-7\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\nexport interface SwitchProps\n  extends React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>,\n    VariantProps<typeof switchVariants> {}\n\nconst Switch = React.forwardRef<\n  React.ElementRef<typeof SwitchPrimitives.Root>,\n  SwitchProps\n>(({ className, size, ...props }, ref) => (\n  <SwitchPrimitives.Root\n    className={cn(switchVariants({ size, className }))}\n    {...props}\n    ref={ref}\n  >\n    <SwitchPrimitives.Thumb className={cn(switchThumbVariants({ size }))} />\n  </SwitchPrimitives.Root>\n))\nSwitch.displayName = SwitchPrimitives.Root.displayName\n\nexport { Switch, switchVariants }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/select",
+      "type": "registry:ui",
+      "title": "Select",
+      "dependencies": [
+        "@radix-ui/react-select"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/select.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as SelectPrimitive from \"@radix-ui/react-select\"\nimport { Check, ChevronDown, ChevronUp } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nconst Select = SelectPrimitive.Root\n\nconst SelectGroup = SelectPrimitive.Group\n\nconst SelectValue = SelectPrimitive.Value\n\nconst SelectTrigger = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.Trigger>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>\n>(({ className, children, ...props }, ref) => (\n  <SelectPrimitive.Trigger\n    ref={ref}\n    className={cn(\n      \"flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1\",\n      className\n    )}\n    {...props}\n  >\n    {children}\n    <SelectPrimitive.Icon asChild>\n      <ChevronDown className=\"h-4 w-4 opacity-50\" />\n    </SelectPrimitive.Icon>\n  </SelectPrimitive.Trigger>\n))\nSelectTrigger.displayName = SelectPrimitive.Trigger.displayName\n\nconst SelectScrollUpButton = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>\n>(({ className, ...props }, ref) => (\n  <SelectPrimitive.ScrollUpButton\n    ref={ref}\n    className={cn(\n      \"flex cursor-default items-center justify-center py-1\",\n      className\n    )}\n    {...props}\n  >\n    <ChevronUp className=\"h-4 w-4\" />\n  </SelectPrimitive.ScrollUpButton>\n))\nSelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName\n\nconst SelectScrollDownButton = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>\n>(({ className, ...props }, ref) => (\n  <SelectPrimitive.ScrollDownButton\n    ref={ref}\n    className={cn(\n      \"flex cursor-default items-center justify-center py-1\",\n      className\n    )}\n    {...props}\n  >\n    <ChevronDown className=\"h-4 w-4\" />\n  </SelectPrimitive.ScrollDownButton>\n))\nSelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName\n\nconst SelectContent = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>\n>(({ className, children, position = \"popper\", ...props }, ref) => (\n  <SelectPrimitive.Portal>\n    <SelectPrimitive.Content\n      ref={ref}\n      className={cn(\n        \"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\n        position === \"popper\" &&\n          \"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1\",\n        className\n      )}\n      position={position}\n      {...props}\n    >\n      <SelectScrollUpButton />\n      <SelectPrimitive.Viewport\n        className={cn(\n          \"p-1\",\n          position === \"popper\" &&\n            \"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]\"\n        )}\n      >\n        {children}\n      </SelectPrimitive.Viewport>\n      <SelectScrollDownButton />\n    </SelectPrimitive.Content>\n  </SelectPrimitive.Portal>\n))\nSelectContent.displayName = SelectPrimitive.Content.displayName\n\nconst SelectLabel = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.Label>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>\n>(({ className, ...props }, ref) => (\n  <SelectPrimitive.Label\n    ref={ref}\n    className={cn(\"py-1.5 pl-8 pr-2 text-sm font-semibold\", className)}\n    {...props}\n  />\n))\nSelectLabel.displayName = SelectPrimitive.Label.displayName\n\nconst SelectItem = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.Item>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>\n>(({ className, children, ...props }, ref) => (\n  <SelectPrimitive.Item\n    ref={ref}\n    className={cn(\n      \"relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\n      className\n    )}\n    {...props}\n  >\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\n      <SelectPrimitive.ItemIndicator>\n        <Check className=\"h-4 w-4\" />\n      </SelectPrimitive.ItemIndicator>\n    </span>\n\n    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\n  </SelectPrimitive.Item>\n))\nSelectItem.displayName = SelectPrimitive.Item.displayName\n\nconst SelectSeparator = React.forwardRef<\n  React.ElementRef<typeof SelectPrimitive.Separator>,\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>\n>(({ className, ...props }, ref) => (\n  <SelectPrimitive.Separator\n    ref={ref}\n    className={cn(\"-mx-1 my-1 h-px bg-muted\", className)}\n    {...props}\n  />\n))\nSelectSeparator.displayName = SelectPrimitive.Separator.displayName\n\nexport {\n  Select,\n  SelectGroup,\n  SelectValue,\n  SelectTrigger,\n  SelectContent,\n  SelectLabel,\n  SelectItem,\n  SelectSeparator,\n  SelectScrollUpButton,\n  SelectScrollDownButton,\n}"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "files": [
+        {
+          "path": "registry/default/ui/native-select.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { ChevronDown } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface NativeSelectProps\n  extends React.SelectHTMLAttributes<HTMLSelectElement> {\n  placeholder?: string\n}\n\nconst NativeSelect = React.forwardRef<HTMLSelectElement, NativeSelectProps>(\n  ({ className, placeholder, children, ...props }, ref) => {\n    return (\n      <div className=\"relative w-full\">\n        <select\n          className={cn(\n            \"flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none pr-10\",\n            className\n          )}\n          ref={ref}\n          {...props}\n        >\n          {placeholder && (\n            <option value=\"\" disabled>\n              {placeholder}\n            </option>\n          )}\n          {children}\n        </select>\n        <ChevronDown className=\"absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50 pointer-events-none\" />\n      </div>\n    )\n  }\n)\nNativeSelect.displayName = \"NativeSelect\"\n\nexport { NativeSelect }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/combobox.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Check, ChevronsUpDown, X } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\nimport { Button } from \"./button\"\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\"\n\nconst Popover = PopoverPrimitive.Root\nconst PopoverTrigger = PopoverPrimitive.Trigger\n\nconst PopoverContent = React.forwardRef<\n  React.ElementRef<typeof PopoverPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>\n>(({ className, align = \"start\", sideOffset = 4, ...props }, ref) => (\n  <PopoverPrimitive.Portal>\n    <PopoverPrimitive.Content\n      ref={ref}\n      align={align}\n      sideOffset={sideOffset}\n      className={cn(\n        \"z-50 w-full min-w-[var(--radix-popover-trigger-width)] rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\n        className\n      )}\n      {...props}\n    />\n  </PopoverPrimitive.Portal>\n))\nPopoverContent.displayName = PopoverPrimitive.Content.displayName\n\nexport interface ComboboxOption {\n  value: string\n  label: string\n  disabled?: boolean\n}\n\nexport interface ComboboxProps {\n  options: ComboboxOption[]\n  value?: string\n  onChange?: (value: string) => void\n  placeholder?: string\n  searchPlaceholder?: string\n  emptyMessage?: string\n  disabled?: boolean\n  className?: string\n  clearable?: boolean\n}\n\nfunction Combobox({\n  options,\n  value,\n  onChange,\n  placeholder = \"Select an option...\",\n  searchPlaceholder = \"Search...\",\n  emptyMessage = \"No results found.\",\n  disabled,\n  className,\n  clearable = false,\n}: ComboboxProps) {\n  const [open, setOpen] = React.useState(false)\n  const [search, setSearch] = React.useState(\"\")\n\n  const selectedOption = options.find((option) => option.value === value)\n\n  const filteredOptions = React.useMemo(() => {\n    if (!search) return options\n    return options.filter((option) =>\n      option.label.toLowerCase().includes(search.toLowerCase())\n    )\n  }, [options, search])\n\n  const handleSelect = (currentValue: string) => {\n    onChange?.(currentValue === value ? \"\" : currentValue)\n    setOpen(false)\n    setSearch(\"\")\n  }\n\n  const handleClear = (e: React.MouseEvent) => {\n    e.stopPropagation()\n    onChange?.(\"\")\n  }\n\n  return (\n    <Popover open={open} onOpenChange={setOpen}>\n      <PopoverTrigger asChild>\n        <Button\n          variant=\"outline\"\n          role=\"combobox\"\n          aria-expanded={open}\n          className={cn(\n            \"w-full justify-between\",\n            !value && \"text-muted-foreground\",\n            className\n          )}\n          disabled={disabled}\n        >\n          {selectedOption ? selectedOption.label : placeholder}\n          <div className=\"flex items-center gap-1\">\n            {clearable && value && (\n              <X\n                className=\"h-4 w-4 shrink-0 opacity-50 hover:opacity-100\"\n                onClick={handleClear}\n              />\n            )}\n            <ChevronsUpDown className=\"h-4 w-4 shrink-0 opacity-50\" />\n          </div>\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent className=\"p-0\">\n        <div className=\"flex items-center border-b px-3\">\n          <input\n            className=\"flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50\"\n            placeholder={searchPlaceholder}\n            value={search}\n            onChange={(e) => setSearch(e.target.value)}\n          />\n        </div>\n        <div className=\"max-h-[300px] overflow-y-auto p-1\">\n          {filteredOptions.length === 0 ? (\n            <div className=\"py-6 text-center text-sm text-muted-foreground\">\n              {emptyMessage}\n            </div>\n          ) : (\n            filteredOptions.map((option) => (\n              <div\n                key={option.value}\n                onClick={() => !option.disabled && handleSelect(option.value)}\n                className={cn(\n                  \"relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none\",\n                  option.disabled\n                    ? \"opacity-50 cursor-not-allowed\"\n                    : \"hover:bg-accent hover:text-accent-foreground cursor-pointer\",\n                  value === option.value && \"bg-accent\"\n                )}\n              >\n                <Check\n                  className={cn(\n                    \"mr-2 h-4 w-4\",\n                    value === option.value ? \"opacity-100\" : \"opacity-0\"\n                  )}\n                />\n                {option.label}\n              </div>\n            ))\n          )}\n        </div>\n      </PopoverContent>\n    </Popover>\n  )\n}\n\nexport { Combobox }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/autocomplete",
+      "type": "registry:ui",
+      "title": "Autocomplete",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/autocomplete.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { X } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\"\n\nconst Popover = PopoverPrimitive.Root\nconst PopoverAnchor = PopoverPrimitive.Anchor\n\nconst PopoverContent = React.forwardRef<\n  React.ElementRef<typeof PopoverPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>\n>(({ className, align = \"start\", sideOffset = 4, ...props }, ref) => (\n  <PopoverPrimitive.Portal>\n    <PopoverPrimitive.Content\n      ref={ref}\n      align={align}\n      sideOffset={sideOffset}\n      className={cn(\n        \"z-50 w-full min-w-[var(--radix-popover-trigger-width)] rounded-md border bg-popover text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\n        className\n      )}\n      {...props}\n    />\n  </PopoverPrimitive.Portal>\n))\nPopoverContent.displayName = PopoverPrimitive.Content.displayName\n\nexport interface AutocompleteOption {\n  value: string\n  label: string\n}\n\nexport interface AutocompleteProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, \"onChange\" | \"onSelect\"> {\n  options: AutocompleteOption[]\n  value?: string\n  onChange?: (value: string) => void\n  onSelect?: (option: AutocompleteOption) => void\n  emptyMessage?: string\n  clearable?: boolean\n  filterOptions?: (options: AutocompleteOption[], query: string) => AutocompleteOption[]\n}\n\nconst Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(\n  (\n    {\n      className,\n      options,\n      value = \"\",\n      onChange,\n      onSelect,\n      emptyMessage = \"No results found.\",\n      clearable = true,\n      filterOptions,\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    const [open, setOpen] = React.useState(false)\n    const [activeIndex, setActiveIndex] = React.useState(-1)\n    const inputRef = React.useRef<HTMLInputElement>(null)\n\n    React.useImperativeHandle(ref, () => inputRef.current!)\n\n    const defaultFilter = (opts: AutocompleteOption[], query: string) => {\n      if (!query) return opts\n      return opts.filter((option) =>\n        option.label.toLowerCase().includes(query.toLowerCase())\n      )\n    }\n\n    const filteredOptions = React.useMemo(() => {\n      const filter = filterOptions || defaultFilter\n      return filter(options, value)\n    }, [options, value, filterOptions])\n\n    const handleSelect = (option: AutocompleteOption) => {\n      onChange?.(option.label)\n      onSelect?.(option)\n      setOpen(false)\n      setActiveIndex(-1)\n    }\n\n    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n      onChange?.(e.target.value)\n      setOpen(true)\n      setActiveIndex(-1)\n    }\n\n    const handleClear = () => {\n      onChange?.(\"\")\n      setOpen(false)\n      inputRef.current?.focus()\n    }\n\n    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {\n      if (!open) {\n        if (e.key === \"ArrowDown\" || e.key === \"ArrowUp\") {\n          setOpen(true)\n        }\n        return\n      }\n\n      switch (e.key) {\n        case \"ArrowDown\":\n          e.preventDefault()\n          setActiveIndex((prev) =>\n            prev < filteredOptions.length - 1 ? prev + 1 : prev\n          )\n          break\n        case \"ArrowUp\":\n          e.preventDefault()\n          setActiveIndex((prev) => (prev > 0 ? prev - 1 : -1))\n          break\n        case \"Enter\":\n          e.preventDefault()\n          if (activeIndex >= 0 && activeIndex < filteredOptions.length) {\n            handleSelect(filteredOptions[activeIndex])\n          }\n          break\n        case \"Escape\":\n          setOpen(false)\n          setActiveIndex(-1)\n          break\n      }\n    }\n\n    return (\n      <Popover open={open && filteredOptions.length > 0} onOpenChange={setOpen}>\n        <div className=\"relative w-full\">\n          <PopoverAnchor asChild>\n            <input\n              ref={inputRef}\n              type=\"text\"\n              className={cn(\n                \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n                clearable && value && \"pr-10\",\n                className\n              )}\n              value={value}\n              onChange={handleChange}\n              onKeyDown={handleKeyDown}\n              onFocus={() => value && setOpen(true)}\n              disabled={disabled}\n              {...props}\n            />\n          </PopoverAnchor>\n          {clearable && value && !disabled && (\n            <button\n              type=\"button\"\n              onClick={handleClear}\n              className=\"absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors\"\n            >\n              <X className=\"h-4 w-4\" />\n              <span className=\"sr-only\">Clear</span>\n            </button>\n          )}\n        </div>\n        <PopoverContent\n          className=\"p-0\"\n          onOpenAutoFocus={(e) => e.preventDefault()}\n        >\n          <div className=\"max-h-[300px] overflow-y-auto p-1\">\n            {filteredOptions.length === 0 ? (\n              <div className=\"py-6 text-center text-sm text-muted-foreground\">\n                {emptyMessage}\n              </div>\n            ) : (\n              filteredOptions.map((option, index) => (\n                <div\n                  key={option.value}\n                  onClick={() => handleSelect(option)}\n                  onMouseEnter={() => setActiveIndex(index)}\n                  className={cn(\n                    \"relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground\",\n                    index === activeIndex && \"bg-accent text-accent-foreground\"\n                  )}\n                >\n                  {option.label}\n                </div>\n              ))\n            )}\n          </div>\n        </PopoverContent>\n      </Popover>\n    )\n  }\n)\nAutocomplete.displayName = \"Autocomplete\"\n\nexport { Autocomplete }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "dependencies": [
+        "@radix-ui/react-slider"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/slider.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as SliderPrimitive from \"@radix-ui/react-slider\"\nimport { cn } from \"./lib/utils\"\n\nconst Slider = React.forwardRef<\n  React.ElementRef<typeof SliderPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>\n>(({ className, ...props }, ref) => (\n  <SliderPrimitive.Root\n    ref={ref}\n    className={cn(\n      \"relative flex w-full touch-none select-none items-center\",\n      className\n    )}\n    {...props}\n  >\n    <SliderPrimitive.Track className=\"relative h-2 w-full grow overflow-hidden rounded-full bg-secondary\">\n      <SliderPrimitive.Range className=\"absolute h-full bg-primary\" />\n    </SliderPrimitive.Track>\n    <SliderPrimitive.Thumb className=\"block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\" />\n  </SliderPrimitive.Root>\n))\nSlider.displayName = SliderPrimitive.Root.displayName\n\nexport { Slider }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "files": [
+        {
+          "path": "registry/default/ui/badge.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst badgeVariants = cva(\n  \"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2\",\n  {\n    variants: {\n      variant: {\n        default: \"border-transparent bg-primary text-primary-foreground hover:bg-primary/80\",\n        secondary: \"border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80\",\n        destructive: \"border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80\",\n        success: \"border-transparent bg-success text-success-foreground hover:bg-success/80\",\n        outline: \"text-foreground border-input\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nexport interface BadgeProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof badgeVariants> {}\n\nfunction Badge({ className, variant, ...props }: BadgeProps) {\n  return (\n    <div className={cn(badgeVariants({ variant }), className)} {...props} />\n  )\n}\n\nexport { Badge, badgeVariants }"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/card",
+      "type": "registry:ui",
+      "title": "Card",
+      "files": [
+        {
+          "path": "registry/default/ui/card.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"./lib/utils\"\n\nconst Card = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    className={cn(\n      \"rounded-lg border bg-card text-card-foreground shadow-sm\",\n      className\n    )}\n    {...props}\n  />\n))\nCard.displayName = \"Card\"\n\nconst CardHeader = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"flex flex-col space-y-1.5 p-6\", className)} {...props} />\n))\nCardHeader.displayName = \"CardHeader\"\n\nconst CardTitle = React.forwardRef<\n  HTMLParagraphElement,\n  React.HTMLAttributes<HTMLHeadingElement>\n>(({ className, ...props }, ref) => (\n  <h3\n    ref={ref}\n    className={cn(\n      \"text-2xl font-semibold leading-none tracking-tight\",\n      className\n    )}\n    {...props}\n  />\n))\nCardTitle.displayName = \"CardTitle\"\n\nconst CardDescription = React.forwardRef<\n  HTMLParagraphElement,\n  React.HTMLAttributes<HTMLParagraphElement>\n>(({ className, ...props }, ref) => (\n  <p\n    ref={ref}\n    className={cn(\"text-sm text-muted-foreground\", className)}\n    {...props}\n  />\n))\nCardDescription.displayName = \"CardDescription\"\n\nconst CardContent = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"p-6 pt-0\", className)} {...props} />\n))\nCardContent.displayName = \"CardContent\"\n\nconst CardFooter = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"flex items-center p-6 pt-0\", className)} {...props} />\n))\nCardFooter.displayName = \"CardFooter\"\n\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "dependencies": [
+        "@radix-ui/react-dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/dialog.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as DialogPrimitive from \"@radix-ui/react-dialog\"\nimport { X } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nconst Dialog = DialogPrimitive.Root\n\nconst DialogTrigger = DialogPrimitive.Trigger\n\nconst DialogPortal = DialogPrimitive.Portal\n\nconst DialogClose = DialogPrimitive.Close\n\nconst DialogOverlay = React.forwardRef<\n  React.ElementRef<typeof DialogPrimitive.Overlay>,\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>\n>(({ className, ...props }, ref) => (\n  <DialogPrimitive.Overlay\n    ref={ref}\n    className={cn(\n      \"fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\n      className\n    )}\n    {...props}\n  />\n))\nDialogOverlay.displayName = DialogPrimitive.Overlay.displayName\n\nconst DialogContent = React.forwardRef<\n  React.ElementRef<typeof DialogPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>\n>(({ className, children, ...props }, ref) => (\n  <DialogPortal>\n    <DialogOverlay />\n    <DialogPrimitive.Content\n      ref={ref}\n      className={cn(\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      <DialogPrimitive.Close className=\"absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground\">\n        <X className=\"h-4 w-4\" />\n        <span className=\"sr-only\">Close</span>\n      </DialogPrimitive.Close>\n    </DialogPrimitive.Content>\n  </DialogPortal>\n))\nDialogContent.displayName = DialogPrimitive.Content.displayName\n\nconst DialogHeader = ({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) => (\n  <div\n    className={cn(\n      \"flex flex-col space-y-1.5 text-center sm:text-left\",\n      className\n    )}\n    {...props}\n  />\n)\nDialogHeader.displayName = \"DialogHeader\"\n\nconst DialogFooter = ({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) => (\n  <div\n    className={cn(\n      \"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2\",\n      className\n    )}\n    {...props}\n  />\n)\nDialogFooter.displayName = \"DialogFooter\"\n\nconst DialogTitle = React.forwardRef<\n  React.ElementRef<typeof DialogPrimitive.Title>,\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>\n>(({ className, ...props }, ref) => (\n  <DialogPrimitive.Title\n    ref={ref}\n    className={cn(\n      \"text-lg font-semibold leading-none tracking-tight\",\n      className\n    )}\n    {...props}\n  />\n))\nDialogTitle.displayName = DialogPrimitive.Title.displayName\n\nconst DialogDescription = React.forwardRef<\n  React.ElementRef<typeof DialogPrimitive.Description>,\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>\n>(({ className, ...props }, ref) => (\n  <DialogPrimitive.Description\n    ref={ref}\n    className={cn(\"text-sm text-muted-foreground\", className)}\n    {...props}\n  />\n))\nDialogDescription.displayName = DialogPrimitive.Description.displayName\n\nexport {\n  Dialog,\n  DialogPortal,\n  DialogOverlay,\n  DialogClose,\n  DialogTrigger,\n  DialogContent,\n  DialogHeader,\n  DialogFooter,\n  DialogTitle,\n  DialogDescription,\n}"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/tabs.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\nimport { cn } from \"./lib/utils\"\n\nconst Tabs = TabsPrimitive.Root\n\nconst TabsList = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.List>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>\n>(({ className, ...props }, ref) => (\n  <TabsPrimitive.List\n    ref={ref}\n    className={cn(\n      \"inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground\",\n      className\n    )}\n    {...props}\n  />\n))\nTabsList.displayName = TabsPrimitive.List.displayName\n\nconst TabsTrigger = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.Trigger>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>\n>(({ className, ...props }, ref) => (\n  <TabsPrimitive.Trigger\n    ref={ref}\n    className={cn(\n      \"inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm\",\n      className\n    )}\n    {...props}\n  />\n))\nTabsTrigger.displayName = TabsPrimitive.Trigger.displayName\n\nconst TabsContent = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>\n>(({ className, ...props }, ref) => (\n  <TabsPrimitive.Content\n    ref={ref}\n    className={cn(\n      \"mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\n      className\n    )}\n    {...props}\n  />\n))\nTabsContent.displayName = TabsPrimitive.Content.displayName\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent }"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "dependencies": [
+        "react-day-picker",
+        "date-fns"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/calendar.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { ChevronLeft, ChevronRight } from \"lucide-react\"\nimport { DayPicker } from \"react-day-picker\"\nimport { cn } from \"./lib/utils\"\nimport { buttonVariants } from \"./button\"\n\nexport type CalendarProps = React.ComponentProps<typeof DayPicker>\n\nfunction Calendar({\n  className,\n  classNames,\n  showOutsideDays = true,\n  ...props\n}: CalendarProps) {\n  return (\n    <DayPicker\n      showOutsideDays={showOutsideDays}\n      className={cn(\"p-3\", className)}\n      classNames={{\n        months: \"flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0\",\n        month: \"space-y-4\",\n        caption: \"flex justify-center pt-1 relative items-center\",\n        caption_label: \"text-sm font-medium\",\n        nav: \"space-x-1 flex items-center\",\n        nav_button: cn(\n          buttonVariants({ variant: \"outline\" }),\n          \"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100\"\n        ),\n        nav_button_previous: \"absolute left-1\",\n        nav_button_next: \"absolute right-1\",\n        table: \"w-full border-collapse space-y-1\",\n        head_row: \"flex\",\n        head_cell:\n          \"text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]\",\n        row: \"flex w-full mt-2\",\n        cell: \"h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20\",\n        day: cn(\n          buttonVariants({ variant: \"ghost\" }),\n          \"h-9 w-9 p-0 font-normal aria-selected:opacity-100\"\n        ),\n        day_range_end: \"day-range-end\",\n        day_selected:\n          \"bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground\",\n        day_today: \"bg-accent text-accent-foreground\",\n        day_outside:\n          \"day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30\",\n        day_disabled: \"text-muted-foreground opacity-50\",\n        day_range_middle:\n          \"aria-selected:bg-accent aria-selected:text-accent-foreground\",\n        day_hidden: \"invisible\",\n        ...classNames,\n      }}\n      components={{\n        IconLeft: ({ ...props }) => <ChevronLeft className=\"h-4 w-4\" />,\n        IconRight: ({ ...props }) => <ChevronRight className=\"h-4 w-4\" />,\n      }}\n      {...props}\n    />\n  )\n}\nCalendar.displayName = \"Calendar\"\n\nexport { Calendar }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "react-day-picker",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/date-picker.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { format } from \"date-fns\"\nimport { Calendar as CalendarIcon } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\nimport { Button } from \"./button\"\nimport { Calendar } from \"./calendar\"\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\"\n\nconst Popover = PopoverPrimitive.Root\nconst PopoverTrigger = PopoverPrimitive.Trigger\n\nconst PopoverContent = React.forwardRef<\n  React.ElementRef<typeof PopoverPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>\n>(({ className, align = \"center\", sideOffset = 4, ...props }, ref) => (\n  <PopoverPrimitive.Portal>\n    <PopoverPrimitive.Content\n      ref={ref}\n      align={align}\n      sideOffset={sideOffset}\n      className={cn(\n        \"z-50 w-auto rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\n        className\n      )}\n      {...props}\n    />\n  </PopoverPrimitive.Portal>\n))\nPopoverContent.displayName = PopoverPrimitive.Content.displayName\n\nexport interface DatePickerProps {\n  date?: Date\n  onDateChange?: (date: Date | undefined) => void\n  placeholder?: string\n  className?: string\n  disabled?: boolean\n}\n\nfunction DatePicker({\n  date,\n  onDateChange,\n  placeholder = \"Pick a date\",\n  className,\n  disabled,\n}: DatePickerProps) {\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button\n          variant={\"outline\"}\n          className={cn(\n            \"w-[280px] justify-start text-left font-normal\",\n            !date && \"text-muted-foreground\",\n            className\n          )}\n          disabled={disabled}\n        >\n          <CalendarIcon className=\"mr-2 h-4 w-4\" />\n          {date ? format(date, \"PPP\") : <span>{placeholder}</span>}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent className=\"w-auto p-0\">\n        <Calendar\n          mode=\"single\"\n          selected={date}\n          onSelect={onDateChange}\n          initialFocus\n        />\n      </PopoverContent>\n    </Popover>\n  )\n}\n\nexport { DatePicker }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/date-range-picker",
+      "type": "registry:ui",
+      "title": "Date Range Picker",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "react-day-picker",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "calendar",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/date-range-picker.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { format } from \"date-fns\"\nimport { Calendar as CalendarIcon } from \"lucide-react\"\nimport { DateRange } from \"react-day-picker\"\nimport { cn } from \"./lib/utils\"\nimport { Button } from \"./button\"\nimport { Calendar } from \"./calendar\"\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\"\n\nconst Popover = PopoverPrimitive.Root\nconst PopoverTrigger = PopoverPrimitive.Trigger\n\nconst PopoverContent = React.forwardRef<\n  React.ElementRef<typeof PopoverPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>\n>(({ className, align = \"center\", sideOffset = 4, ...props }, ref) => (\n  <PopoverPrimitive.Portal>\n    <PopoverPrimitive.Content\n      ref={ref}\n      align={align}\n      sideOffset={sideOffset}\n      className={cn(\n        \"z-50 w-auto rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\n        className\n      )}\n      {...props}\n    />\n  </PopoverPrimitive.Portal>\n))\nPopoverContent.displayName = PopoverPrimitive.Content.displayName\n\nexport interface DateRangePickerProps {\n  dateRange?: DateRange\n  onDateRangeChange?: (range: DateRange | undefined) => void\n  placeholder?: string\n  className?: string\n  disabled?: boolean\n}\n\nfunction DateRangePicker({\n  dateRange,\n  onDateRangeChange,\n  placeholder = \"Pick a date range\",\n  className,\n  disabled,\n}: DateRangePickerProps) {\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button\n          variant={\"outline\"}\n          className={cn(\n            \"w-[300px] justify-start text-left font-normal\",\n            !dateRange && \"text-muted-foreground\",\n            className\n          )}\n          disabled={disabled}\n        >\n          <CalendarIcon className=\"mr-2 h-4 w-4\" />\n          {dateRange?.from ? (\n            dateRange.to ? (\n              <>\n                {format(dateRange.from, \"LLL dd, y\")} -{\" \"}\n                {format(dateRange.to, \"LLL dd, y\")}\n              </>\n            ) : (\n              format(dateRange.from, \"LLL dd, y\")\n            )\n          ) : (\n            <span>{placeholder}</span>\n          )}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent className=\"w-auto p-0\" align=\"start\">\n        <Calendar\n          initialFocus\n          mode=\"range\"\n          defaultMonth={dateRange?.from}\n          selected={dateRange}\n          onSelect={onDateRangeChange}\n          numberOfMonths={2}\n        />\n      </PopoverContent>\n    </Popover>\n  )\n}\n\nexport { DateRangePicker }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/file-upload",
+      "type": "registry:ui",
+      "title": "File Upload",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/file-upload.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Upload, X, File } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface FileUploadProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, \"type\" | \"onChange\"> {\n  onFilesChange?: (files: File[]) => void\n  maxFiles?: number\n  maxSize?: number\n  accept?: string\n  multiple?: boolean\n  dropzone?: boolean\n  showPreview?: boolean\n}\n\nconst FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(\n  (\n    {\n      className,\n      onFilesChange,\n      maxFiles = 1,\n      maxSize,\n      accept,\n      multiple = false,\n      dropzone = true,\n      showPreview = true,\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    const [files, setFiles] = React.useState<File[]>([])\n    const [isDragging, setIsDragging] = React.useState(false)\n    const inputRef = React.useRef<HTMLInputElement>(null)\n\n    React.useImperativeHandle(ref, () => inputRef.current!)\n\n    const handleFiles = (newFiles: FileList | null) => {\n      if (!newFiles) return\n\n      const fileArray = Array.from(newFiles)\n      const validFiles = fileArray.filter((file) => {\n        if (maxSize && file.size > maxSize) return false\n        return true\n      })\n\n      const finalFiles = multiple\n        ? [...files, ...validFiles].slice(0, maxFiles)\n        : [validFiles[0]].filter(Boolean)\n\n      setFiles(finalFiles)\n      onFilesChange?.(finalFiles)\n    }\n\n    const handleDragOver = (e: React.DragEvent) => {\n      e.preventDefault()\n      if (!disabled) setIsDragging(true)\n    }\n\n    const handleDragLeave = (e: React.DragEvent) => {\n      e.preventDefault()\n      setIsDragging(false)\n    }\n\n    const handleDrop = (e: React.DragEvent) => {\n      e.preventDefault()\n      setIsDragging(false)\n      if (!disabled && dropzone) {\n        handleFiles(e.dataTransfer.files)\n      }\n    }\n\n    const removeFile = (index: number) => {\n      const newFiles = files.filter((_, i) => i !== index)\n      setFiles(newFiles)\n      onFilesChange?.(newFiles)\n    }\n\n    return (\n      <div className={cn(\"w-full\", className)}>\n        <div\n          className={cn(\n            \"relative rounded-lg border-2 border-dashed transition-colors\",\n            isDragging\n              ? \"border-primary bg-primary/5\"\n              : \"border-input hover:border-primary/50\",\n            disabled && \"opacity-50 cursor-not-allowed\",\n            dropzone && \"cursor-pointer\"\n          )}\n          onDragOver={handleDragOver}\n          onDragLeave={handleDragLeave}\n          onDrop={handleDrop}\n          onClick={() => !disabled && inputRef.current?.click()}\n        >\n          <div className=\"flex flex-col items-center justify-center px-6 py-10 text-center\">\n            <Upload className=\"h-10 w-10 text-muted-foreground mb-4\" />\n            <p className=\"text-sm text-muted-foreground mb-1\">\n              <span className=\"font-semibold text-foreground\">\n                Click to upload\n              </span>{\" \"}\n              or drag and drop\n            </p>\n            {accept && (\n              <p className=\"text-xs text-muted-foreground\">\n                {accept.split(\",\").join(\", \")}\n              </p>\n            )}\n            {maxSize && (\n              <p className=\"text-xs text-muted-foreground\">\n                Max size: {(maxSize / 1024 / 1024).toFixed(0)}MB\n              </p>\n            )}\n          </div>\n          <input\n            ref={inputRef}\n            type=\"file\"\n            className=\"sr-only\"\n            accept={accept}\n            multiple={multiple}\n            disabled={disabled}\n            onChange={(e) => handleFiles(e.target.files)}\n            {...props}\n          />\n        </div>\n\n        {showPreview && files.length > 0 && (\n          <div className=\"mt-4 space-y-2\">\n            {files.map((file, index) => (\n              <div\n                key={index}\n                className=\"flex items-center justify-between rounded-md border border-input bg-background px-3 py-2\"\n              >\n                <div className=\"flex items-center gap-2 min-w-0\">\n                  <File className=\"h-4 w-4 shrink-0 text-muted-foreground\" />\n                  <span className=\"text-sm truncate\">{file.name}</span>\n                  <span className=\"text-xs text-muted-foreground shrink-0\">\n                    ({(file.size / 1024).toFixed(1)}KB)\n                  </span>\n                </div>\n                <button\n                  type=\"button\"\n                  onClick={(e) => {\n                    e.stopPropagation()\n                    removeFile(index)\n                  }}\n                  className=\"shrink-0 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2\"\n                >\n                  <X className=\"h-4 w-4\" />\n                  <span className=\"sr-only\">Remove file</span>\n                </button>\n              </div>\n            ))}\n          </div>\n        )}\n      </div>\n    )\n  }\n)\nFileUpload.displayName = \"FileUpload\"\n\nexport { FileUpload }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/form-field",
+      "type": "registry:ui",
+      "title": "Form Field",
+      "files": [
+        {
+          "path": "registry/default/ui/form-field.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"./lib/utils\"\nimport { Label } from \"./label\"\n\nexport interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {\n  label?: string\n  htmlFor?: string\n  required?: boolean\n  error?: string\n  help?: string\n  orientation?: \"vertical\" | \"horizontal\"\n}\n\nconst FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(\n  (\n    {\n      className,\n      label,\n      htmlFor,\n      required,\n      error,\n      help,\n      orientation = \"vertical\",\n      children,\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"space-y-2\",\n          orientation === \"horizontal\" && \"flex items-start gap-4\",\n          className\n        )}\n        {...props}\n      >\n        {label && (\n          <Label\n            htmlFor={htmlFor}\n            className={cn(\n              orientation === \"horizontal\" && \"pt-2 min-w-[120px]\"\n            )}\n          >\n            {label}\n            {required && <span className=\"text-destructive ml-1\">*</span>}\n          </Label>\n        )}\n        <div className=\"flex-1 space-y-1\">\n          {children}\n          {help && !error && (\n            <p className=\"text-sm text-muted-foreground\">{help}</p>\n          )}\n          {error && (\n            <p className=\"text-sm text-destructive\" role=\"alert\">\n              {error}\n            </p>\n          )}\n        </div>\n      </div>\n    )\n  }\n)\nFormField.displayName = \"FormField\"\n\nexport interface FieldGroupProps extends React.HTMLAttributes<HTMLFieldSetElement> {\n  legend?: string\n  description?: string\n  error?: string\n}\n\nconst FieldGroup = React.forwardRef<HTMLFieldSetElement, FieldGroupProps>(\n  ({ className, legend, description, error, children, ...props }, ref) => {\n    return (\n      <fieldset\n        ref={ref}\n        className={cn(\"space-y-4\", className)}\n        aria-invalid={!!error}\n        {...props}\n      >\n        {legend && (\n          <legend className=\"text-lg font-semibold\">{legend}</legend>\n        )}\n        {description && (\n          <p className=\"text-sm text-muted-foreground -mt-2\">{description}</p>\n        )}\n        <div className=\"space-y-4\">{children}</div>\n        {error && (\n          <p className=\"text-sm text-destructive\" role=\"alert\">\n            {error}\n          </p>\n        )}\n      </fieldset>\n    )\n  }\n)\nFieldGroup.displayName = \"FieldGroup\"\n\nexport { FormField, FieldGroup }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/icon-button",
+      "type": "registry:ui",
+      "title": "Icon Button",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/icon-button.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Slot } from \"@radix-ui/react-slot\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst iconButtonVariants = cva(\n  \"inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\n        destructive: \"bg-destructive text-destructive-foreground hover:bg-destructive/90\",\n        outline: \"border border-input bg-background hover:bg-accent hover:text-accent-foreground\",\n        secondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\n        ghost: \"hover:bg-accent hover:text-accent-foreground\",\n        link: \"text-primary underline-offset-4 hover:underline\",\n      },\n      size: {\n        default: \"h-10 w-10\",\n        sm: \"h-9 w-9\",\n        lg: \"h-11 w-11\",\n        xs: \"h-8 w-8\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nexport interface IconButtonProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof iconButtonVariants> {\n  asChild?: boolean\n}\n\nconst IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(\n  ({ className, variant, size, asChild = false, ...props }, ref) => {\n    const Comp = asChild ? Slot : \"button\"\n    return (\n      <Comp\n        className={cn(iconButtonVariants({ variant, size, className }))}\n        ref={ref}\n        {...props}\n      />\n    )\n  }\n)\nIconButton.displayName = \"IconButton\"\n\nexport { IconButton, iconButtonVariants }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "files": [
+        {
+          "path": "registry/default/ui/input-group.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"./lib/utils\"\n\nconst inputGroupVariants = cva(\n  \"flex items-center w-full rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2\",\n  {\n    variants: {\n      size: {\n        default: \"h-10\",\n        sm: \"h-9 text-xs\",\n        lg: \"h-11\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\nexport interface InputGroupProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof inputGroupVariants> {}\n\nconst InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(\n  ({ className, size, children, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(inputGroupVariants({ size, className }))}\n        {...props}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nInputGroup.displayName = \"InputGroup\"\n\nconst InputLeftAddon = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    className={cn(\n      \"flex items-center px-3 text-sm text-muted-foreground border-r border-input bg-muted/50\",\n      className\n    )}\n    {...props}\n  />\n))\nInputLeftAddon.displayName = \"InputLeftAddon\"\n\nconst InputRightAddon = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    className={cn(\n      \"flex items-center px-3 text-sm text-muted-foreground border-l border-input bg-muted/50\",\n      className\n    )}\n    {...props}\n  />\n))\nInputRightAddon.displayName = \"InputRightAddon\"\n\nconst InputLeftElement = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    className={cn(\n      \"flex items-center pl-3 text-muted-foreground pointer-events-none\",\n      className\n    )}\n    {...props}\n  />\n))\nInputLeftElement.displayName = \"InputLeftElement\"\n\nconst InputRightElement = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    className={cn(\n      \"flex items-center pr-3 text-muted-foreground\",\n      className\n    )}\n    {...props}\n  />\n))\nInputRightElement.displayName = \"InputRightElement\"\n\nconst InputElement = React.forwardRef<\n  HTMLInputElement,\n  React.InputHTMLAttributes<HTMLInputElement>\n>(({ className, ...props }, ref) => (\n  <input\n    ref={ref}\n    className={cn(\n      \"flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50\",\n      className\n    )}\n    {...props}\n  />\n))\nInputElement.displayName = \"InputElement\"\n\nexport {\n  InputGroup,\n  InputLeftAddon,\n  InputRightAddon,\n  InputLeftElement,\n  InputRightElement,\n  InputElement,\n  inputGroupVariants,\n}\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/number-input",
+      "type": "registry:ui",
+      "title": "Number Input",
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/number-input.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Minus, Plus } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface NumberInputProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, \"type\" | \"onChange\"> {\n  value?: number\n  onChange?: (value: number | undefined) => void\n  min?: number\n  max?: number\n  step?: number\n  showStepper?: boolean\n  precision?: number\n}\n\nconst NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(\n  (\n    {\n      className,\n      value,\n      onChange,\n      min,\n      max,\n      step = 1,\n      showStepper = true,\n      precision,\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    const formatValue = (val: number | undefined): string => {\n      if (val === undefined || isNaN(val)) return \"\"\n      if (precision !== undefined) {\n        return val.toFixed(precision)\n      }\n      return String(val)\n    }\n\n    const parseValue = (val: string): number | undefined => {\n      if (val === \"\" || val === \"-\") return undefined\n      const parsed = parseFloat(val)\n      if (isNaN(parsed)) return undefined\n      return parsed\n    }\n\n    const clampValue = (val: number | undefined): number | undefined => {\n      if (val === undefined) return undefined\n      let clamped = val\n      if (min !== undefined) clamped = Math.max(min, clamped)\n      if (max !== undefined) clamped = Math.min(max, clamped)\n      return clamped\n    }\n\n    const increment = () => {\n      if (disabled) return\n      const newValue = (value ?? 0) + step\n      const clamped = clampValue(newValue)\n      onChange?.(clamped)\n    }\n\n    const decrement = () => {\n      if (disabled) return\n      const newValue = (value ?? 0) - step\n      const clamped = clampValue(newValue)\n      onChange?.(clamped)\n    }\n\n    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n      const parsed = parseValue(e.target.value)\n      onChange?.(parsed)\n    }\n\n    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {\n      const parsed = parseValue(e.target.value)\n      const clamped = clampValue(parsed)\n      onChange?.(clamped)\n      props.onBlur?.(e)\n    }\n\n    return (\n      <div className=\"relative flex w-full\">\n        <input\n          type=\"text\"\n          inputMode=\"decimal\"\n          className={cn(\n            \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n            showStepper && \"pr-16\",\n            className\n          )}\n          ref={ref}\n          value={formatValue(value)}\n          onChange={handleChange}\n          onBlur={handleBlur}\n          disabled={disabled}\n          {...props}\n        />\n        {showStepper && (\n          <div className=\"absolute right-1 top-1 bottom-1 flex flex-col border-l border-input\">\n            <button\n              type=\"button\"\n              onClick={increment}\n              disabled={disabled || (max !== undefined && (value ?? 0) >= max)}\n              className=\"flex-1 flex items-center justify-center w-8 hover:bg-accent rounded-tr-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed\"\n              aria-label=\"Increment\"\n            >\n              <Plus className=\"h-3 w-3\" />\n            </button>\n            <button\n              type=\"button\"\n              onClick={decrement}\n              disabled={disabled || (min !== undefined && (value ?? 0) <= min)}\n              className=\"flex-1 flex items-center justify-center w-8 hover:bg-accent rounded-br-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed border-t border-input\"\n              aria-label=\"Decrement\"\n            >\n              <Minus className=\"h-3 w-3\" />\n            </button>\n          </div>\n        )}\n      </div>\n    )\n  }\n)\nNumberInput.displayName = \"NumberInput\"\n\nexport { NumberInput }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/otp-input",
+      "type": "registry:ui",
+      "title": "Otp Input",
+      "files": [
+        {
+          "path": "registry/default/ui/otp-input.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface OTPInputProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  length?: number\n  value?: string\n  onChange?: (value: string) => void\n  disabled?: boolean\n  pattern?: \"numeric\" | \"alphanumeric\"\n  mask?: boolean\n}\n\nconst OTPInput = React.forwardRef<HTMLDivElement, OTPInputProps>(\n  (\n    {\n      className,\n      length = 6,\n      value = \"\",\n      onChange,\n      disabled,\n      pattern = \"numeric\",\n      mask = false,\n      ...props\n    },\n    ref\n  ) => {\n    const [activeIndex, setActiveIndex] = React.useState(0)\n    const inputRefs = React.useRef<(HTMLInputElement | null)[]>([])\n\n    const digits = React.useMemo(() => {\n      const arr = value.split(\"\")\n      return Array.from({ length }, (_, i) => arr[i] || \"\")\n    }, [value, length])\n\n    const handleChange = (index: number, digit: string) => {\n      if (disabled) return\n\n      let sanitized = digit\n      if (pattern === \"numeric\") {\n        sanitized = digit.replace(/[^0-9]/g, \"\")\n      } else {\n        sanitized = digit.replace(/[^a-zA-Z0-9]/g, \"\").toUpperCase()\n      }\n\n      if (sanitized.length > 1) {\n        sanitized = sanitized[sanitized.length - 1]\n      }\n\n      const newDigits = [...digits]\n      newDigits[index] = sanitized\n      const newValue = newDigits.join(\"\")\n\n      onChange?.(newValue)\n\n      if (sanitized && index < length - 1) {\n        inputRefs.current[index + 1]?.focus()\n        setActiveIndex(index + 1)\n      }\n    }\n\n    const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {\n      if (e.key === \"Backspace\") {\n        if (!digits[index] && index > 0) {\n          inputRefs.current[index - 1]?.focus()\n          setActiveIndex(index - 1)\n        } else {\n          handleChange(index, \"\")\n        }\n      } else if (e.key === \"ArrowLeft\" && index > 0) {\n        inputRefs.current[index - 1]?.focus()\n        setActiveIndex(index - 1)\n      } else if (e.key === \"ArrowRight\" && index < length - 1) {\n        inputRefs.current[index + 1]?.focus()\n        setActiveIndex(index + 1)\n      }\n    }\n\n    const handlePaste = (e: React.ClipboardEvent) => {\n      e.preventDefault()\n      const pastedData = e.clipboardData.getData(\"text\")\n      let sanitized = pastedData\n      \n      if (pattern === \"numeric\") {\n        sanitized = pastedData.replace(/[^0-9]/g, \"\")\n      } else {\n        sanitized = pastedData.replace(/[^a-zA-Z0-9]/g, \"\").toUpperCase()\n      }\n\n      const newValue = sanitized.slice(0, length)\n      onChange?.(newValue)\n\n      const nextIndex = Math.min(newValue.length, length - 1)\n      inputRefs.current[nextIndex]?.focus()\n      setActiveIndex(nextIndex)\n    }\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\"flex gap-2\", className)}\n        {...props}\n      >\n        {Array.from({ length }, (_, i) => (\n          <input\n            key={i}\n            ref={(el) => {\n              inputRefs.current[i] = el\n            }}\n            type={mask ? \"password\" : \"text\"}\n            inputMode={pattern === \"numeric\" ? \"numeric\" : \"text\"}\n            maxLength={1}\n            value={digits[i]}\n            onChange={(e) => handleChange(i, e.target.value)}\n            onKeyDown={(e) => handleKeyDown(i, e)}\n            onPaste={handlePaste}\n            onFocus={() => setActiveIndex(i)}\n            disabled={disabled}\n            className={cn(\n              \"h-12 w-12 text-center text-lg font-semibold rounded-md border border-input bg-background ring-offset-background transition-colors\",\n              \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2\",\n              \"disabled:cursor-not-allowed disabled:opacity-50\",\n              activeIndex === i && \"border-primary\"\n            )}\n            aria-label={`Digit ${i + 1}`}\n          />\n        ))}\n      </div>\n    )\n  }\n)\nOTPInput.displayName = \"OTPInput\"\n\nexport { OTPInput }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/password-input",
+      "type": "registry:ui",
+      "title": "Password Input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/password-input.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Eye, EyeOff } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface PasswordInputProps\n  extends React.InputHTMLAttributes<HTMLInputElement> {\n  showToggle?: boolean\n}\n\nconst PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(\n  ({ className, showToggle = true, ...props }, ref) => {\n    const [showPassword, setShowPassword] = React.useState(false)\n\n    return (\n      <div className=\"relative w-full\">\n        <input\n          type={showPassword ? \"text\" : \"password\"}\n          className={cn(\n            \"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n            showToggle && \"pr-10\",\n            className\n          )}\n          ref={ref}\n          {...props}\n        />\n        {showToggle && (\n          <button\n            type=\"button\"\n            onClick={() => setShowPassword(!showPassword)}\n            className=\"absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors\"\n            tabIndex={-1}\n            aria-label={showPassword ? \"Hide password\" : \"Show password\"}\n          >\n            {showPassword ? (\n              <EyeOff className=\"h-4 w-4\" />\n            ) : (\n              <Eye className=\"h-4 w-4\" />\n            )}\n          </button>\n        )}\n      </div>\n    )\n  }\n)\nPasswordInput.displayName = \"PasswordInput\"\n\nexport { PasswordInput }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ui/search",
+      "type": "registry:ui",
+      "title": "Search",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ui/search.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Search as SearchIcon, X } from \"lucide-react\"\nimport { cn } from \"./lib/utils\"\n\nexport interface SearchProps\n  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, \"type\"> {\n  onClear?: () => void\n  showClearButton?: boolean\n}\n\nconst Search = React.forwardRef<HTMLInputElement, SearchProps>(\n  ({ className, onClear, showClearButton = true, value, ...props }, ref) => {\n    const handleClear = () => {\n      onClear?.()\n    }\n\n    return (\n      <div className=\"relative w-full\">\n        <SearchIcon className=\"absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none\" />\n        <input\n          type=\"search\"\n          className={cn(\n            \"flex h-10 w-full rounded-md border border-input bg-background pl-10 pr-10 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50\",\n            className\n          )}\n          ref={ref}\n          value={value}\n          {...props}\n        />\n        {showClearButton && value && (\n          <button\n            type=\"button\"\n            onClick={handleClear}\n            className=\"absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors\"\n          >\n            <X className=\"h-4 w-4\" />\n            <span className=\"sr-only\">Clear search</span>\n          </button>\n        )}\n      </div>\n    )\n  }\n)\nSearch.displayName = \"Search\"\n\nexport { Search }\n"
+        },
+        {
+          "path": "registry/default/ui/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "@/lib/utils.ts",
+          "content": "import { type ClassValue, clsx } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/container",
+      "type": "registry:layout",
+      "title": "Container",
+      "files": [
+        {
+          "path": "registry/default/layout/container.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst containerVariants = cva(\"mx-auto\", {\n  variants: {\n    size: {\n      sm: \"max-w-screen-sm\",\n      md: \"max-w-screen-md\", \n      lg: \"max-w-screen-lg\",\n      xl: \"max-w-screen-xl\",\n      \"2xl\": \"max-w-screen-2xl\",\n      full: \"max-w-full\",\n      constrained: \"max-w-7xl\",\n      prose: \"max-w-prose\",\n      \"3xl\": \"max-w-[1600px]\",\n      \"4xl\": \"max-w-[1920px]\",\n    },\n    padding: {\n      none: \"px-0\",\n      sm: \"px-2\",\n      md: \"px-4\",\n      lg: \"px-6\",\n      xl: \"px-8\",\n      \"2xl\": \"px-12\",\n    },\n    fluid: {\n      true: \"w-full\",\n      false: \"\",\n    },\n  },\n  defaultVariants: {\n    size: \"constrained\",\n    padding: \"md\",\n    fluid: false,\n  },\n})\n\nexport interface ContainerProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof containerVariants> {\n  /**\n   * Whether the container should be edge-to-edge (for work apps) or constrained (for content apps)\n   */\n  asChild?: boolean\n}\n\nconst Container = React.forwardRef<HTMLDivElement, ContainerProps>(\n  ({ className, size, padding, fluid, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(containerVariants({ size, padding, fluid, className }))}\n        {...props}\n      />\n    )\n  }\n)\nContainer.displayName = \"Container\"\n\nexport { Container, containerVariants }"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/stack",
+      "type": "registry:layout",
+      "title": "Stack",
+      "files": [
+        {
+          "path": "registry/default/layout/stack.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst stackVariants = cva(\"flex flex-col\", {\n  variants: {\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\", \n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n    },\n    justify: {\n      start: \"justify-start\",\n      center: \"justify-center\",\n      end: \"justify-end\",\n      between: \"justify-between\",\n      around: \"justify-around\",\n      evenly: \"justify-evenly\",\n    },\n  },\n  defaultVariants: {\n    gap: \"md\",\n    align: \"stretch\",\n  },\n})\n\nexport interface StackProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof stackVariants> {}\n\nconst Stack = React.forwardRef<HTMLDivElement, StackProps>(\n  ({ className, gap, align, justify, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(stackVariants({ gap, align, justify, className }))}\n        {...props}\n      />\n    )\n  }\n)\nStack.displayName = \"Stack\"\n\nexport { Stack, stackVariants }"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/inline",
+      "type": "registry:layout",
+      "title": "Inline",
+      "files": [
+        {
+          "path": "registry/default/layout/inline.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst inlineVariants = cva(\"flex flex-wrap\", {\n  variants: {\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n      baseline: \"items-baseline\",\n    },\n    justify: {\n      start: \"justify-start\",\n      center: \"justify-center\",\n      end: \"justify-end\",\n      between: \"justify-between\",\n      around: \"justify-around\",\n      evenly: \"justify-evenly\",\n    },\n  },\n  defaultVariants: {\n    gap: \"md\",\n    align: \"center\",\n    justify: \"start\",\n  },\n})\n\nexport interface InlineProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof inlineVariants> {}\n\nconst Inline = React.forwardRef<HTMLDivElement, InlineProps>(\n  ({ className, gap, align, justify, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(inlineVariants({ gap, align, justify, className }))}\n        {...props}\n      />\n    )\n  }\n)\nInline.displayName = \"Inline\"\n\nexport { Inline, inlineVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/cluster",
+      "type": "registry:layout",
+      "title": "Cluster",
+      "files": [
+        {
+          "path": "registry/default/layout/cluster.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst clusterVariants = cva(\"flex flex-wrap\", {\n  variants: {\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    justify: {\n      start: \"justify-start\",\n      center: \"justify-center\",\n      end: \"justify-end\",\n      between: \"justify-between\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      baseline: \"items-baseline\",\n    },\n  },\n  defaultVariants: {\n    gap: \"md\",\n    justify: \"start\",\n    align: \"center\",\n  },\n})\n\nexport interface ClusterProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof clusterVariants> {}\n\n/**\n * Cluster: A wrapping horizontal layout for collections of items.\n * Similar to Inline but semantically for groups of related items (tags, chips, buttons).\n */\nconst Cluster = React.forwardRef<HTMLDivElement, ClusterProps>(\n  ({ className, gap, justify, align, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(clusterVariants({ gap, justify, align, className }))}\n        {...props}\n      />\n    )\n  }\n)\nCluster.displayName = \"Cluster\"\n\nexport { Cluster, clusterVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/grid",
+      "type": "registry:layout",
+      "title": "Grid",
+      "files": [
+        {
+          "path": "registry/default/layout/grid.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst gridVariants = cva(\"grid\", {\n  variants: {\n    cols: {\n      1: \"grid-cols-1\",\n      2: \"grid-cols-2\",\n      3: \"grid-cols-3\", \n      4: \"grid-cols-4\",\n      5: \"grid-cols-5\",\n      6: \"grid-cols-6\",\n      8: \"grid-cols-8\",\n      12: \"grid-cols-12\",\n      auto: \"grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))]\",\n      \"auto-sm\": \"grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))]\",\n      \"auto-lg\": \"grid-cols-[repeat(auto-fit,minmax(min(400px,100%),1fr))]\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\", \n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n    },\n    justify: {\n      start: \"justify-items-start\",\n      center: \"justify-items-center\",\n      end: \"justify-items-end\",\n      stretch: \"justify-items-stretch\",\n    },\n  },\n  defaultVariants: {\n    cols: \"auto\",\n    gap: \"md\",\n  },\n})\n\nexport interface GridProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof gridVariants> {\n  /**\n   * Custom minimum column width for auto-fit (e.g. \"250px\", \"15rem\")\n   */\n  minColWidth?: string\n}\n\nconst Grid = React.forwardRef<HTMLDivElement, GridProps>(\n  ({ className, cols, gap, align, justify, minColWidth, style, ...props }, ref) => {\n    const autoFitStyle = minColWidth\n      ? {\n          ...style,\n          gridTemplateColumns: `repeat(auto-fit, minmax(min(${minColWidth}, 100%), 1fr))`,\n        }\n      : style\n\n    return (\n      <div\n        ref={ref}\n        className={cn(gridVariants({ cols: minColWidth ? undefined : cols, gap, align, justify, className }))}\n        style={autoFitStyle}\n        {...props}\n      />\n    )\n  }\n)\nGrid.displayName = \"Grid\"\n\nexport { Grid, gridVariants }"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/columns",
+      "type": "registry:layout",
+      "title": "Columns",
+      "files": [
+        {
+          "path": "registry/default/layout/columns.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst columnsVariants = cva(\"grid\", {\n  variants: {\n    cols: {\n      1: \"grid-cols-1\",\n      2: \"grid-cols-1 md:grid-cols-2\",\n      3: \"grid-cols-1 md:grid-cols-2 lg:grid-cols-3\",\n      4: \"grid-cols-1 md:grid-cols-2 lg:grid-cols-4\",\n      5: \"grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5\",\n      6: \"grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6\",\n      12: \"grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n    },\n  },\n  defaultVariants: {\n    cols: 3,\n    gap: \"md\",\n    align: \"stretch\",\n  },\n})\n\nexport interface ColumnsProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof columnsVariants> {\n  /**\n   * Minimum column width for auto-fit (e.g. \"250px\", \"15rem\")\n   * When set, overrides the cols variant with auto-fit responsive behavior\n   */\n  minWidth?: string\n}\n\nconst Columns = React.forwardRef<HTMLDivElement, ColumnsProps>(\n  ({ className, cols, gap, align, minWidth, style, ...props }, ref) => {\n    const autoFitStyle = minWidth\n      ? {\n          ...style,\n          gridTemplateColumns: `repeat(auto-fit, minmax(min(${minWidth}, 100%), 1fr))`,\n        }\n      : style\n\n    return (\n      <div\n        ref={ref}\n        className={cn(columnsVariants({ cols: minWidth ? undefined : cols, gap, align, className }))}\n        style={autoFitStyle}\n        {...props}\n      />\n    )\n  }\n)\nColumns.displayName = \"Columns\"\n\nexport { Columns, columnsVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/split",
+      "type": "registry:layout",
+      "title": "Split",
+      "files": [
+        {
+          "path": "registry/default/layout/split.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst splitVariants = cva(\"flex\", {\n  variants: {\n    direction: {\n      horizontal: \"flex-row\",\n      vertical: \"flex-col\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    align: {\n      start: \"items-start\",\n      center: \"items-center\",\n      end: \"items-end\",\n      stretch: \"items-stretch\",\n      baseline: \"items-baseline\",\n    },\n    justify: {\n      start: \"justify-start\",\n      center: \"justify-center\",\n      end: \"justify-end\",\n      between: \"justify-between\",\n    },\n  },\n  defaultVariants: {\n    direction: \"horizontal\",\n    gap: \"md\",\n    align: \"center\",\n    justify: \"between\",\n  },\n})\n\nexport interface SplitProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof splitVariants> {}\n\n/**\n * Split: Distributes children along a main axis with flexible justification.\n * Common for header bars, toolbar layouts with left/right alignment.\n */\nconst Split = React.forwardRef<HTMLDivElement, SplitProps>(\n  ({ className, direction, gap, align, justify, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(splitVariants({ direction, gap, align, justify, className }))}\n        {...props}\n      />\n    )\n  }\n)\nSplit.displayName = \"Split\"\n\nexport { Split, splitVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/sidebar",
+      "type": "registry:layout",
+      "title": "Sidebar",
+      "files": [
+        {
+          "path": "registry/default/layout/sidebar.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\n\nexport type SidebarState = \"expanded\" | \"collapsed\" | \"mobile\"\n\nexport interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {\n  children: React.ReactNode\n  state?: SidebarState\n  onStateChange?: (state: SidebarState) => void\n  storageKey?: string\n  collapsible?: boolean\n  className?: string\n}\n\ninterface SidebarContextValue {\n  state: SidebarState\n  setState: (state: SidebarState) => void\n  collapsible: boolean\n  isMobile: boolean\n}\n\nconst SidebarContext = React.createContext<SidebarContextValue | undefined>(\n  undefined\n)\n\nexport function useSidebar() {\n  const context = React.useContext(SidebarContext)\n  if (!context) {\n    throw new Error(\"useSidebar must be used within a Sidebar component\")\n  }\n  return context\n}\n\nconst Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(\n  (\n    {\n      children,\n      state: controlledState,\n      onStateChange,\n      storageKey = \"sidebar-state\",\n      collapsible = true,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const [isMobile, setIsMobile] = React.useState(false)\n    const [internalState, setInternalState] = React.useState<SidebarState>(() => {\n      if (typeof window === \"undefined\") return \"expanded\"\n      if (controlledState) return controlledState\n      \n      const stored = localStorage.getItem(storageKey)\n      return (stored as SidebarState) || \"expanded\"\n    })\n\n    const state = controlledState ?? internalState\n    const setState = React.useCallback(\n      (newState: SidebarState) => {\n        if (!collapsible && newState === \"collapsed\") return\n        \n        if (!controlledState) {\n          setInternalState(newState)\n          if (typeof window !== \"undefined\") {\n            localStorage.setItem(storageKey, newState)\n          }\n        }\n        onStateChange?.(newState)\n      },\n      [collapsible, controlledState, onStateChange, storageKey]\n    )\n\n    React.useEffect(() => {\n      const mediaQuery = window.matchMedia(\"(max-width: 768px)\")\n      \n      const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {\n        setIsMobile(e.matches)\n        if (e.matches && state !== \"mobile\") {\n          setState(\"mobile\")\n        } else if (!e.matches && state === \"mobile\") {\n          setState(\"expanded\")\n        }\n      }\n\n      handleChange(mediaQuery)\n      mediaQuery.addEventListener(\"change\", handleChange)\n      \n      return () => mediaQuery.removeEventListener(\"change\", handleChange)\n    }, [state, setState])\n\n    const contextValue = React.useMemo(\n      () => ({ state, setState, collapsible, isMobile }),\n      [state, setState, collapsible, isMobile]\n    )\n\n    return (\n      <SidebarContext.Provider value={contextValue}>\n        <div\n          ref={ref}\n          data-state={state}\n          className={cn(\n            \"relative flex h-full flex-col border-r border-border bg-surface transition-all duration-300\",\n            state === \"expanded\" && \"w-64\",\n            state === \"collapsed\" && \"w-16\",\n            state === \"mobile\" && \"fixed inset-y-0 left-0 z-50 w-64 transform\",\n            className\n          )}\n          {...props}\n        >\n          {children}\n        </div>\n      </SidebarContext.Provider>\n    )\n  }\n)\nSidebar.displayName = \"Sidebar\"\n\nexport interface SidebarHeaderProps extends React.HTMLAttributes<HTMLDivElement> {\n  children: React.ReactNode\n}\n\nconst SidebarHeader = React.forwardRef<HTMLDivElement, SidebarHeaderProps>(\n  ({ children, className, ...props }, ref) => {\n    const { state } = useSidebar()\n    \n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"flex items-center border-b border-border px-4 py-4\",\n          state === \"collapsed\" && \"justify-center px-2\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nSidebarHeader.displayName = \"SidebarHeader\"\n\nexport interface SidebarContentProps extends React.HTMLAttributes<HTMLDivElement> {\n  children: React.ReactNode\n}\n\nconst SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(\n  ({ children, className, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\"flex-1 overflow-y-auto py-2\", className)}\n        {...props}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nSidebarContent.displayName = \"SidebarContent\"\n\nexport interface SidebarFooterProps extends React.HTMLAttributes<HTMLDivElement> {\n  children: React.ReactNode\n}\n\nconst SidebarFooter = React.forwardRef<HTMLDivElement, SidebarFooterProps>(\n  ({ children, className, ...props }, ref) => {\n    const { state } = useSidebar()\n    \n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"mt-auto border-t border-border px-4 py-4\",\n          state === \"collapsed\" && \"px-2\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nSidebarFooter.displayName = \"SidebarFooter\"\n\nexport interface SidebarToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  icon?: React.ReactNode\n}\n\nconst SidebarToggle = React.forwardRef<HTMLButtonElement, SidebarToggleProps>(\n  ({ icon, className, ...props }, ref) => {\n    const { state, setState, collapsible, isMobile } = useSidebar()\n\n    const handleToggle = () => {\n      if (isMobile) {\n        setState(state === \"mobile\" ? \"expanded\" : \"mobile\")\n      } else if (collapsible) {\n        setState(state === \"expanded\" ? \"collapsed\" : \"expanded\")\n      }\n    }\n\n    return (\n      <button\n        ref={ref}\n        type=\"button\"\n        onClick={handleToggle}\n        className={cn(\n          \"inline-flex h-8 w-8 items-center justify-center rounded-md text-foreground-muted transition-colors hover:bg-interactive-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50\",\n          className\n        )}\n        aria-label={state === \"expanded\" ? \"Collapse sidebar\" : \"Expand sidebar\"}\n        {...props}\n      >\n        {icon || (\n          <svg\n            xmlns=\"http://www.w3.org/2000/svg\"\n            width=\"16\"\n            height=\"16\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth=\"2\"\n            strokeLinecap=\"round\"\n            strokeLinejoin=\"round\"\n            className={cn(\n              \"transition-transform\",\n              state === \"collapsed\" && \"rotate-180\"\n            )}\n          >\n            <path d=\"m15 18-6-6 6-6\" />\n          </svg>\n        )}\n      </button>\n    )\n  }\n)\nSidebarToggle.displayName = \"SidebarToggle\"\n\nexport interface SidebarOverlayProps extends React.HTMLAttributes<HTMLDivElement> {}\n\nconst SidebarOverlay = React.forwardRef<HTMLDivElement, SidebarOverlayProps>(\n  ({ className, ...props }, ref) => {\n    const { state, setState, isMobile } = useSidebar()\n\n    if (!isMobile || state !== \"mobile\") return null\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"fixed inset-0 z-40 bg-black/50 backdrop-blur-sm\",\n          className\n        )}\n        onClick={() => setState(\"expanded\")}\n        {...props}\n      />\n    )\n  }\n)\nSidebarOverlay.displayName = \"SidebarOverlay\"\n\nexport {\n  Sidebar,\n  SidebarHeader,\n  SidebarContent,\n  SidebarFooter,\n  SidebarToggle,\n  SidebarOverlay,\n}\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/sidebar-layout",
+      "type": "registry:layout",
+      "title": "Sidebar Layout",
+      "registryDependencies": [
+        "@seamless/layout/sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/default/layout/sidebar-layout.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst sidebarLayoutVariants = cva(\"grid\", {\n  variants: {\n    sidebarWidth: {\n      sm: \"[grid-template-columns:200px_1fr]\",\n      md: \"[grid-template-columns:250px_1fr]\",\n      lg: \"[grid-template-columns:300px_1fr]\",\n      xl: \"[grid-template-columns:350px_1fr]\",\n    },\n    sidebarPosition: {\n      left: \"\",\n      right: \"[grid-template-columns:1fr_var(--sidebar-width)]\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n    },\n    // Responsive behavior\n    collapsible: {\n      true: \"grid-cols-1 lg:grid-cols-[var(--sidebar-width)_1fr]\",\n      false: \"\",\n    },\n  },\n  defaultVariants: {\n    sidebarWidth: \"md\",\n    sidebarPosition: \"left\",\n    gap: \"none\",\n    collapsible: false,\n  },\n})\n\nexport interface SidebarLayoutProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof sidebarLayoutVariants> {\n  /**\n   * Custom sidebar width (e.g., \"280px\", \"20rem\")\n   */\n  customWidth?: string\n}\n\nconst SidebarLayout = React.forwardRef<HTMLDivElement, SidebarLayoutProps>(\n  ({ className, sidebarWidth, sidebarPosition, gap, collapsible, customWidth, style, children, ...props }, ref) => {\n    const customStyle = customWidth\n      ? {\n          ...style,\n          \"--sidebar-width\": customWidth,\n          gridTemplateColumns:\n            sidebarPosition === \"right\" ? `1fr ${customWidth}` : `${customWidth} 1fr`,\n        }\n      : style\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          sidebarLayoutVariants({\n            sidebarWidth: customWidth ? undefined : sidebarWidth,\n            sidebarPosition: customWidth ? undefined : sidebarPosition,\n            gap,\n            collapsible,\n            className,\n          })\n        )}\n        style={customStyle as React.CSSProperties}\n        {...props}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nSidebarLayout.displayName = \"SidebarLayout\"\n\nconst SidebarLayoutSidebar = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <aside\n      ref={ref}\n      className={cn(\"overflow-y-auto\", className)}\n      {...props}\n    />\n  )\n})\nSidebarLayoutSidebar.displayName = \"SidebarLayoutSidebar\"\n\nconst SidebarLayoutContent = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <main\n      ref={ref}\n      className={cn(\"overflow-y-auto\", className)}\n      {...props}\n    />\n  )\n})\nSidebarLayoutContent.displayName = \"SidebarLayoutContent\"\n\nexport { SidebarLayout, SidebarLayoutSidebar, SidebarLayoutContent, sidebarLayoutVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/scroll-area",
+      "type": "registry:layout",
+      "title": "Scroll Area",
+      "files": [
+        {
+          "path": "registry/default/layout/scroll-area.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst scrollAreaVariants = cva(\"relative overflow-hidden\", {\n  variants: {\n    orientation: {\n      vertical: \"overflow-y-auto\",\n      horizontal: \"overflow-x-auto\",\n      both: \"overflow-auto\",\n    },\n    hideScrollbar: {\n      true: \"[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden\",\n      false: \"\",\n    },\n  },\n  defaultVariants: {\n    orientation: \"vertical\",\n    hideScrollbar: false,\n  },\n})\n\nexport interface ScrollAreaProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof scrollAreaVariants> {\n  /**\n   * Custom scrollbar styling\n   */\n  scrollbarClassName?: string\n}\n\n/**\n * ScrollArea: Customizable scrollable container with optional scrollbar styling.\n * Supports vertical, horizontal, or both scroll directions.\n */\nconst ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(\n  ({ className, orientation, hideScrollbar, scrollbarClassName, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          scrollAreaVariants({ orientation, hideScrollbar, className }),\n          scrollbarClassName\n        )}\n        {...props}\n      />\n    )\n  }\n)\nScrollArea.displayName = \"ScrollArea\"\n\n/**\n * ScrollAreaViewport: Inner viewport for scroll content.\n */\nconst ScrollAreaViewport = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <div\n      ref={ref}\n      className={cn(\"h-full w-full\", className)}\n      {...props}\n    />\n  )\n})\nScrollAreaViewport.displayName = \"ScrollAreaViewport\"\n\nexport { ScrollArea, ScrollAreaViewport, scrollAreaVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/page-shell",
+      "type": "registry:layout",
+      "title": "Page Shell",
+      "files": [
+        {
+          "path": "registry/default/layout/page-shell.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\n\nexport interface PageShellProps extends React.HTMLAttributes<HTMLDivElement> {\n  /**\n   * Optional header component\n   */\n  header?: React.ReactNode\n  /**\n   * Optional footer component\n   */\n  footer?: React.ReactNode\n  /**\n   * Main content\n   */\n  children: React.ReactNode\n}\n\n/**\n * PageShell: Full-page layout scaffold with optional header/footer and scrollable main area.\n * Uses CSS grid with header/footer pinned and content area that fills available height.\n */\nconst PageShell = React.forwardRef<HTMLDivElement, PageShellProps>(\n  ({ className, header, footer, children, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"grid h-screen w-full grid-rows-[auto_1fr_auto]\",\n          className\n        )}\n        {...props}\n      >\n        {header && <header className=\"border-b\">{header}</header>}\n        <main className=\"overflow-y-auto\">{children}</main>\n        {footer && <footer className=\"border-t\">{footer}</footer>}\n      </div>\n    )\n  }\n)\nPageShell.displayName = \"PageShell\"\n\nconst PageShellHeader = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <header\n      ref={ref}\n      className={cn(\"border-b px-4 py-3\", className)}\n      {...props}\n    />\n  )\n})\nPageShellHeader.displayName = \"PageShellHeader\"\n\nconst PageShellContent = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <main\n      ref={ref}\n      className={cn(\"overflow-y-auto\", className)}\n      {...props}\n    />\n  )\n})\nPageShellContent.displayName = \"PageShellContent\"\n\nconst PageShellFooter = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <footer\n      ref={ref}\n      className={cn(\"border-t px-4 py-3\", className)}\n      {...props}\n    />\n  )\n})\nPageShellFooter.displayName = \"PageShellFooter\"\n\nexport { PageShell, PageShellHeader, PageShellContent, PageShellFooter }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/workspace",
+      "type": "registry:layout",
+      "title": "Workspace",
+      "files": [
+        {
+          "path": "registry/default/layout/workspace.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst workspaceVariants = cva(\n  \"grid h-screen w-screen overflow-hidden\",\n  {\n    variants: {\n      layout: {\n        \"editor\": \"grid-rows-[auto_1fr]\",\n        \"editor-sidebar\": \"grid-rows-[auto_1fr] grid-cols-1 lg:grid-cols-[250px_1fr]\",\n        \"editor-panels\": \"grid-rows-[auto_1fr] grid-cols-1 lg:grid-cols-[250px_1fr_300px]\",\n        \"full\": \"grid-rows-1\",\n      },\n    },\n    defaultVariants: {\n      layout: \"editor\",\n    },\n  }\n)\n\nexport interface WorkspaceProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof workspaceVariants> {}\n\n/**\n * Workspace: Full-viewport application layout for complex work applications.\n * Commonly used for code editors, design tools, data applications.\n */\nconst Workspace = React.forwardRef<HTMLDivElement, WorkspaceProps>(\n  ({ className, layout, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(workspaceVariants({ layout, className }))}\n        {...props}\n      />\n    )\n  }\n)\nWorkspace.displayName = \"Workspace\"\n\nconst WorkspaceHeader = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <header\n      ref={ref}\n      className={cn(\"border-b bg-background\", className)}\n      {...props}\n    />\n  )\n})\nWorkspaceHeader.displayName = \"WorkspaceHeader\"\n\nconst WorkspaceSidebar = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <aside\n      ref={ref}\n      className={cn(\"border-r bg-muted/30 overflow-y-auto\", className)}\n      {...props}\n    />\n  )\n})\nWorkspaceSidebar.displayName = \"WorkspaceSidebar\"\n\nconst WorkspaceMain = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <main\n      ref={ref}\n      className={cn(\"overflow-hidden\", className)}\n      {...props}\n    />\n  )\n})\nWorkspaceMain.displayName = \"WorkspaceMain\"\n\nconst WorkspacePanel = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => {\n  return (\n    <aside\n      ref={ref}\n      className={cn(\"border-l bg-muted/30 overflow-y-auto\", className)}\n      {...props}\n    />\n  )\n})\nWorkspacePanel.displayName = \"WorkspacePanel\"\n\nexport { \n  Workspace, \n  WorkspaceHeader, \n  WorkspaceSidebar, \n  WorkspaceMain, \n  WorkspacePanel,\n  workspaceVariants \n}\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/dashboard-grid",
+      "type": "registry:layout",
+      "title": "Dashboard Grid",
+      "files": [
+        {
+          "path": "registry/default/layout/dashboard-grid.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@seamless/ui\"\n\nconst dashboardGridVariants = cva(\"grid gap-4\", {\n  variants: {\n    layout: {\n      \"1-col\": \"grid-cols-1\",\n      \"2-col\": \"grid-cols-1 lg:grid-cols-2\",\n      \"3-col\": \"grid-cols-1 md:grid-cols-2 xl:grid-cols-3\",\n      \"4-col\": \"grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4\",\n      \"sidebar-main\": \"grid-cols-1 lg:grid-cols-[300px_1fr]\",\n      \"main-sidebar\": \"grid-cols-1 lg:grid-cols-[1fr_300px]\",\n      \"sidebar-main-sidebar\": \"grid-cols-1 lg:grid-cols-[250px_1fr_250px]\",\n      \"auto-fit\": \"[grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]\",\n    },\n    gap: {\n      none: \"gap-0\",\n      xs: \"gap-1\",\n      sm: \"gap-2\",\n      md: \"gap-4\",\n      lg: \"gap-6\",\n      xl: \"gap-8\",\n      \"2xl\": \"gap-12\",\n    },\n    dense: {\n      true: \"auto-rows-min\",\n      false: \"\",\n    },\n  },\n  defaultVariants: {\n    layout: \"auto-fit\",\n    gap: \"md\",\n    dense: false,\n  },\n})\n\nexport interface DashboardGridProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof dashboardGridVariants> {}\n\n/**\n * DashboardGrid: Responsive grid layout optimized for dashboard layouts with widgets, cards, and panels.\n * Supports common dashboard patterns: metrics grids, sidebar + main content, 3-column layouts.\n */\nconst DashboardGrid = React.forwardRef<HTMLDivElement, DashboardGridProps>(\n  ({ className, layout, gap, dense, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(dashboardGridVariants({ layout, gap, dense, className }))}\n        {...props}\n      />\n    )\n  }\n)\nDashboardGrid.displayName = \"DashboardGrid\"\n\n/**\n * DashboardGridItem: Grid item with optional span configuration.\n */\nexport interface DashboardGridItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  /**\n   * Column span (responsive breakpoints supported via Tailwind)\n   */\n  colSpan?: number\n  /**\n   * Row span\n   */\n  rowSpan?: number\n}\n\nconst DashboardGridItem = React.forwardRef<HTMLDivElement, DashboardGridItemProps>(\n  ({ className, colSpan = 1, rowSpan = 1, style, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(className)}\n        style={{\n          ...style,\n          gridColumn: colSpan > 1 ? `span ${colSpan}` : undefined,\n          gridRow: rowSpan > 1 ? `span ${rowSpan}` : undefined,\n        }}\n        {...props}\n      />\n    )\n  }\n)\nDashboardGridItem.displayName = \"DashboardGridItem\"\n\nexport { DashboardGrid, DashboardGridItem, dashboardGridVariants }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/layout/resizable-panels",
+      "type": "registry:layout",
+      "title": "Resizable Panels",
+      "dependencies": [
+        "react-resizable-panels"
+      ],
+      "files": [
+        {
+          "path": "registry/default/layout/resizable-panels.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\n\nexport interface ResizablePanelsProps extends React.HTMLAttributes<HTMLDivElement> {\n  /**\n   * Direction of the resizable panels\n   */\n  direction?: \"horizontal\" | \"vertical\"\n  /**\n   * Initial sizes as percentages (must sum to 100)\n   */\n  sizes?: number[]\n  /**\n   * Minimum size for each panel in pixels\n   */\n  minSizes?: number[]\n}\n\n/**\n * ResizablePanels: Container for resizable panel layout.\n * Uses CSS resize with overflow handling for interactive panel resizing.\n */\nconst ResizablePanels = React.forwardRef<HTMLDivElement, ResizablePanelsProps>(\n  ({ className, direction = \"horizontal\", children, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"flex h-full w-full overflow-hidden\",\n          direction === \"vertical\" ? \"flex-col\" : \"flex-row\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n      </div>\n    )\n  }\n)\nResizablePanels.displayName = \"ResizablePanels\"\n\nexport interface ResizablePanelProps extends React.HTMLAttributes<HTMLDivElement> {\n  /**\n   * Default size (e.g., \"50%\", \"300px\", \"1fr\")\n   */\n  defaultSize?: string\n  /**\n   * Minimum size in pixels\n   */\n  minSize?: number\n  /**\n   * Maximum size in pixels\n   */\n  maxSize?: number\n  /**\n   * Whether the panel is resizable\n   */\n  resizable?: boolean\n}\n\n/**\n * ResizablePanel: Individual resizable panel.\n */\nconst ResizablePanel = React.forwardRef<HTMLDivElement, ResizablePanelProps>(\n  ({ className, defaultSize = \"1fr\", minSize, maxSize, resizable = true, style, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"overflow-auto\",\n          resizable && \"resize\",\n          className\n        )}\n        style={{\n          ...style,\n          flex: defaultSize,\n          minWidth: minSize ? `${minSize}px` : undefined,\n          maxWidth: maxSize ? `${maxSize}px` : undefined,\n        }}\n        {...props}\n      />\n    )\n  }\n)\nResizablePanel.displayName = \"ResizablePanel\"\n\n/**\n * ResizableHandle: Visual separator/handle between panels.\n */\nexport interface ResizableHandleProps extends React.HTMLAttributes<HTMLDivElement> {\n  direction?: \"horizontal\" | \"vertical\"\n}\n\nconst ResizableHandle = React.forwardRef<HTMLDivElement, ResizableHandleProps>(\n  ({ className, direction = \"horizontal\", ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"bg-border hover:bg-accent transition-colors shrink-0\",\n          direction === \"vertical\" ? \"h-px w-full cursor-row-resize\" : \"w-px h-full cursor-col-resize\",\n          className\n        )}\n        {...props}\n      />\n    )\n  }\n)\nResizableHandle.displayName = \"ResizableHandle\"\n\nexport { ResizablePanels, ResizablePanel, ResizableHandle }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/saas/app-shell",
+      "type": "registry:saas",
+      "title": "App Shell",
+      "registryDependencies": [
+        "@seamless/layout/sidebar"
+      ],
+      "files": [
+        {
+          "path": "registry/default/saas/app-shell.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\nimport {\n  Sidebar,\n  SidebarOverlay,\n  SidebarState,\n} from \"@seamless/layout\"\n\nexport interface AppShellProps {\n  children: React.ReactNode\n  sidebar?: React.ReactNode\n  header?: React.ReactNode\n  className?: string\n  sidebarState?: SidebarState\n  onSidebarStateChange?: (state: SidebarState) => void\n  sidebarStorageKey?: string\n  sidebarCollapsible?: boolean\n}\n\nconst AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(\n  (\n    {\n      children,\n      sidebar,\n      header,\n      className,\n      sidebarState,\n      onSidebarStateChange,\n      sidebarStorageKey,\n      sidebarCollapsible = true,\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\"min-h-screen bg-background\", className)}\n        {...props}\n      >\n        {header && (\n          <header className=\"border-b border-border bg-surface px-6 py-4\">\n            {header}\n          </header>\n        )}\n        <div className=\"flex h-[calc(100vh-4rem)]\">\n          {sidebar && (\n            <>\n              <SidebarOverlay />\n              <Sidebar\n                state={sidebarState}\n                onStateChange={onSidebarStateChange}\n                storageKey={sidebarStorageKey}\n                collapsible={sidebarCollapsible}\n              >\n                {sidebar}\n              </Sidebar>\n            </>\n          )}\n          <main\n            className={cn(\n              \"flex-1 overflow-auto p-6\",\n              !sidebar && \"w-full\"\n            )}\n          >\n            {children}\n          </main>\n        </div>\n      </div>\n    )\n  }\n)\nAppShell.displayName = \"AppShell\"\n\nexport { AppShell }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/saas/navigation",
+      "type": "registry:saas",
+      "title": "Navigation",
+      "files": [
+        {
+          "path": "registry/default/saas/navigation.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\n\nexport interface NavigationProps extends React.HTMLAttributes<HTMLElement> {\n  children: React.ReactNode\n}\n\nconst Navigation = React.forwardRef<HTMLElement, NavigationProps>(\n  ({ children, className, ...props }, ref) => {\n    return (\n      <nav\n        ref={ref}\n        className={cn(\"space-y-1\", className)}\n        aria-label=\"Main navigation\"\n        {...props}\n      >\n        {children}\n      </nav>\n    )\n  }\n)\nNavigation.displayName = \"Navigation\"\n\nexport { Navigation }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/saas/nav-group",
+      "type": "registry:saas",
+      "title": "Nav Group",
+      "files": [
+        {
+          "path": "registry/default/saas/nav-group.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\nimport { useSidebar } from \"@seamless/layout\"\n\nexport interface NavGroupProps extends React.HTMLAttributes<HTMLDivElement> {\n  label?: string\n  icon?: React.ReactNode\n  children: React.ReactNode\n  defaultOpen?: boolean\n  collapsible?: boolean\n}\n\nconst NavGroup = React.forwardRef<HTMLDivElement, NavGroupProps>(\n  (\n    {\n      label,\n      icon,\n      children,\n      defaultOpen = false,\n      collapsible = true,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const { state } = useSidebar()\n    const [isOpen, setIsOpen] = React.useState(defaultOpen)\n    const isCollapsed = state === \"collapsed\"\n    const groupId = React.useId()\n\n    const handleToggle = () => {\n      if (collapsible && !isCollapsed) {\n        setIsOpen(!isOpen)\n      }\n    }\n\n    const handleKeyDown = (e: React.KeyboardEvent) => {\n      if (e.key === \"Enter\" || e.key === \" \") {\n        e.preventDefault()\n        handleToggle()\n      }\n    }\n\n    if (isCollapsed) {\n      return (\n        <div ref={ref} className={cn(\"py-1\", className)} {...props}>\n          {children}\n        </div>\n      )\n    }\n\n    return (\n      <div ref={ref} className={cn(\"py-2\", className)} {...props}>\n        {label && (\n          <div\n            role={collapsible ? \"button\" : undefined}\n            tabIndex={collapsible ? 0 : undefined}\n            onClick={handleToggle}\n            onKeyDown={handleKeyDown}\n            aria-expanded={collapsible ? isOpen : undefined}\n            aria-controls={collapsible ? groupId : undefined}\n            className={cn(\n              \"flex items-center gap-2 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground-muted\",\n              collapsible && [\n                \"cursor-pointer rounded-md transition-colors hover:bg-interactive-hover hover:text-foreground\",\n                \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\",\n              ]\n            )}\n          >\n            {icon && <span className=\"flex-shrink-0\">{icon}</span>}\n            <span className=\"flex-1 truncate\">{label}</span>\n            {collapsible && (\n              <svg\n                xmlns=\"http://www.w3.org/2000/svg\"\n                width=\"12\"\n                height=\"12\"\n                viewBox=\"0 0 24 24\"\n                fill=\"none\"\n                stroke=\"currentColor\"\n                strokeWidth=\"2\"\n                strokeLinecap=\"round\"\n                strokeLinejoin=\"round\"\n                className={cn(\n                  \"flex-shrink-0 transition-transform\",\n                  isOpen && \"rotate-90\"\n                )}\n              >\n                <path d=\"m9 18 6-6-6-6\" />\n              </svg>\n            )}\n          </div>\n        )}\n        <div\n          id={collapsible ? groupId : undefined}\n          className={cn(\n            \"mt-1 space-y-0.5\",\n            collapsible && !isOpen && \"hidden\"\n          )}\n        >\n          {children}\n        </div>\n      </div>\n    )\n  }\n)\nNavGroup.displayName = \"NavGroup\"\n\nexport { NavGroup }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/saas/nav-item",
+      "type": "registry:saas",
+      "title": "Nav Item",
+      "files": [
+        {
+          "path": "registry/default/saas/nav-item.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { cn } from \"@seamless/ui\"\nimport { useSidebar } from \"@seamless/layout\"\n\nexport interface NavItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {\n  icon?: React.ReactNode\n  label: string\n  badge?: React.ReactNode\n  active?: boolean\n  href?: string\n  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void\n  disabled?: boolean\n  tooltip?: string\n}\n\nconst NavItem = React.forwardRef<HTMLAnchorElement, NavItemProps>(\n  (\n    {\n      icon,\n      label,\n      badge,\n      active = false,\n      href = \"#\",\n      onClick,\n      disabled = false,\n      tooltip,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    const { state } = useSidebar()\n    const [showTooltip, setShowTooltip] = React.useState(false)\n    const isCollapsed = state === \"collapsed\"\n\n    return (\n      <div className=\"relative\">\n        <a\n          ref={ref}\n          href={disabled ? undefined : href}\n          onClick={disabled ? undefined : onClick}\n          onMouseEnter={() => isCollapsed && setShowTooltip(true)}\n          onMouseLeave={() => setShowTooltip(false)}\n          className={cn(\n            \"group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors\",\n            \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring\",\n            !disabled && !active && [\n              \"text-foreground-muted hover:bg-interactive-hover hover:text-foreground\",\n            ],\n            active && [\n              \"bg-interactive-active text-foreground\",\n              \"before:absolute before:inset-y-1 before:left-0 before:w-1 before:rounded-full before:bg-brand\",\n            ],\n            disabled && \"pointer-events-none opacity-50\",\n            isCollapsed && \"justify-center px-2\",\n            className\n          )}\n          aria-current={active ? \"page\" : undefined}\n          aria-disabled={disabled}\n          tabIndex={disabled ? -1 : 0}\n          {...props}\n        >\n          {icon && (\n            <span className={cn(\"flex-shrink-0\", isCollapsed ? \"text-lg\" : \"text-base\")}>\n              {icon}\n            </span>\n          )}\n          {!isCollapsed && (\n            <>\n              <span className=\"flex-1 truncate\">{label}</span>\n              {badge && <span className=\"flex-shrink-0\">{badge}</span>}\n            </>\n          )}\n        </a>\n\n        {/* Tooltip for collapsed state */}\n        {isCollapsed && showTooltip && (tooltip || label) && (\n          <div\n            className=\"pointer-events-none absolute left-full top-1/2 z-50 ml-2 -translate-y-1/2 whitespace-nowrap rounded-md bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md\"\n            role=\"tooltip\"\n          >\n            {tooltip || label}\n            <div className=\"absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-popover\" />\n          </div>\n        )}\n      </div>\n    )\n  }\n)\nNavItem.displayName = \"NavItem\"\n\nexport { NavItem }\n"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/ai/agent-card",
+      "type": "registry:ai",
+      "title": "Agent Card",
+      "registryDependencies": [
+        "@seamless/ui/card",
+        "@seamless/ui/badge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ai/agent-card.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Card, CardHeader, CardContent, Badge } from \"@seamless/ui\"\nimport { cn } from \"@seamless/ui\"\nimport { Stack } from \"@seamless/layout\"\n\nexport interface AgentCardProps {\n  name: string\n  status: \"active\" | \"idle\" | \"error\"\n  description?: string\n  metrics?: {\n    tasks: number\n    uptime: string\n  }\n  className?: string\n}\n\nconst AgentCard = React.forwardRef<HTMLDivElement, AgentCardProps>(\n  ({ name, status, description, metrics, className, ...props }, ref) => {\n    const statusColors = {\n      active: \"success\",\n      idle: \"secondary\", \n      error: \"destructive\",\n    } as const\n\n    return (\n      <Card ref={ref} className={cn(\"p-4\", className)} {...props}>\n        <CardHeader className=\"pb-2\">\n          <div className=\"flex items-center justify-between\">\n            <h3 className=\"font-semibold\">{name}</h3>\n            <Badge variant={statusColors[status]}>\n              {status}\n            </Badge>\n          </div>\n        </CardHeader>\n        <CardContent className=\"pt-0\">\n          <Stack gap=\"sm\">\n            {description && (\n              <p className=\"text-sm text-muted-foreground\">{description}</p>\n            )}\n            {metrics && (\n              <div className=\"flex gap-4 text-xs text-muted-foreground\">\n                <span>Tasks: {metrics.tasks}</span>\n                <span>Uptime: {metrics.uptime}</span>\n              </div>\n            )}\n          </Stack>\n        </CardContent>\n      </Card>\n    )\n  }\n)\nAgentCard.displayName = \"AgentCard\"\n\nexport { AgentCard }"
+        }
+      ]
+    },
+    {
+      "name": "@seamless/blocks/dashboard-01",
+      "type": "registry:block",
+      "title": "Dashboard 01",
+      "registryDependencies": [
+        "@seamless/ui/card",
+        "@seamless/layout/grid"
+      ],
+      "files": [
+        {
+          "path": "registry/default/blocks/dashboard-01.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Card, CardHeader, CardContent, CardTitle, Button } from \"@seamless/ui\"\nimport { Grid, Container } from \"@seamless/layout\"\n\nexport interface DashboardProps {\n  title?: string\n  stats?: Array<{\n    label: string\n    value: string | number\n    change?: string\n  }>\n  actions?: Array<{\n    label: string\n    onClick: () => void\n  }>\n}\n\nconst Dashboard01 = React.forwardRef<HTMLDivElement, DashboardProps>(\n  ({ title = \"Dashboard\", stats = [], actions = [], ...props }, ref) => {\n    return (\n      <Container ref={ref} {...props}>\n        <div className=\"space-y-6\">\n          {/* Header */}\n          <div className=\"flex items-center justify-between\">\n            <h1 className=\"text-3xl font-bold\">{title}</h1>\n            <div className=\"flex gap-2\">\n              {actions.map((action, i) => (\n                <Button key={i} onClick={action.onClick}>\n                  {action.label}\n                </Button>\n              ))}\n            </div>\n          </div>\n\n          {/* Stats Grid */}\n          <Grid cols={4} gap=\"md\">\n            {stats.map((stat, i) => (\n              <Card key={i}>\n                <CardHeader className=\"pb-2\">\n                  <CardTitle className=\"text-sm font-medium text-muted-foreground\">\n                    {stat.label}\n                  </CardTitle>\n                </CardHeader>\n                <CardContent className=\"pt-0\">\n                  <div className=\"text-2xl font-bold\">{stat.value}</div>\n                  {stat.change && (\n                    <p className=\"text-xs text-muted-foreground\">{stat.change}</p>\n                  )}\n                </CardContent>\n              </Card>\n            ))}\n          </Grid>\n\n          {/* Main Content Area */}\n          <Card>\n            <CardHeader>\n              <CardTitle>Overview</CardTitle>\n            </CardHeader>\n            <CardContent>\n              <div className=\"h-64 flex items-center justify-center text-muted-foreground\">\n                Dashboard content goes here\n              </div>\n            </CardContent>\n          </Card>\n        </div>\n      </Container>\n    )\n  }\n)\nDashboard01.displayName = \"Dashboard01\"\n\nexport { Dashboard01 }"
+        }
+      ]
+    }
+  ]
+}

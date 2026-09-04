@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "seamless-ai",
+  "homepage": "https://seamless-ui.dev",
+  "items": [
+    {
+      "name": "@seamless/ai/agent-card",
+      "type": "registry:ai",
+      "title": "Agent Card",
+      "registryDependencies": [
+        "@seamless/ui/card",
+        "@seamless/ui/badge"
+      ],
+      "files": [
+        {
+          "path": "registry/default/ai/agent-card.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Card, CardHeader, CardContent, Badge } from \"@seamless/ui\"\nimport { cn } from \"@seamless/ui\"\nimport { Stack } from \"@seamless/layout\"\n\nexport interface AgentCardProps {\n  name: string\n  status: \"active\" | \"idle\" | \"error\"\n  description?: string\n  metrics?: {\n    tasks: number\n    uptime: string\n  }\n  className?: string\n}\n\nconst AgentCard = React.forwardRef<HTMLDivElement, AgentCardProps>(\n  ({ name, status, description, metrics, className, ...props }, ref) => {\n    const statusColors = {\n      active: \"success\",\n      idle: \"secondary\", \n      error: \"destructive\",\n    } as const\n\n    return (\n      <Card ref={ref} className={cn(\"p-4\", className)} {...props}>\n        <CardHeader className=\"pb-2\">\n          <div className=\"flex items-center justify-between\">\n            <h3 className=\"font-semibold\">{name}</h3>\n            <Badge variant={statusColors[status]}>\n              {status}\n            </Badge>\n          </div>\n        </CardHeader>\n        <CardContent className=\"pt-0\">\n          <Stack gap=\"sm\">\n            {description && (\n              <p className=\"text-sm text-muted-foreground\">{description}</p>\n            )}\n            {metrics && (\n              <div className=\"flex gap-4 text-xs text-muted-foreground\">\n                <span>Tasks: {metrics.tasks}</span>\n                <span>Uptime: {metrics.uptime}</span>\n              </div>\n            )}\n          </Stack>\n        </CardContent>\n      </Card>\n    )\n  }\n)\nAgentCard.displayName = \"AgentCard\"\n\nexport { AgentCard }"
+        }
+      ]
+    }
+  ]
+}

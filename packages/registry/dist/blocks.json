@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "seamless-blocks",
+  "homepage": "https://seamless-ui.dev",
+  "items": [
+    {
+      "name": "@seamless/blocks/dashboard-01",
+      "type": "registry:block",
+      "title": "Dashboard 01",
+      "registryDependencies": [
+        "@seamless/ui/card",
+        "@seamless/layout/grid"
+      ],
+      "files": [
+        {
+          "path": "registry/default/blocks/dashboard-01.tsx",
+          "type": "registry:component",
+          "content": "import * as React from \"react\"\nimport { Card, CardHeader, CardContent, CardTitle, Button } from \"@seamless/ui\"\nimport { Grid, Container } from \"@seamless/layout\"\n\nexport interface DashboardProps {\n  title?: string\n  stats?: Array<{\n    label: string\n    value: string | number\n    change?: string\n  }>\n  actions?: Array<{\n    label: string\n    onClick: () => void\n  }>\n}\n\nconst Dashboard01 = React.forwardRef<HTMLDivElement, DashboardProps>(\n  ({ title = \"Dashboard\", stats = [], actions = [], ...props }, ref) => {\n    return (\n      <Container ref={ref} {...props}>\n        <div className=\"space-y-6\">\n          {/* Header */}\n          <div className=\"flex items-center justify-between\">\n            <h1 className=\"text-3xl font-bold\">{title}</h1>\n            <div className=\"flex gap-2\">\n              {actions.map((action, i) => (\n                <Button key={i} onClick={action.onClick}>\n                  {action.label}\n                </Button>\n              ))}\n            </div>\n          </div>\n\n          {/* Stats Grid */}\n          <Grid cols={4} gap=\"md\">\n            {stats.map((stat, i) => (\n              <Card key={i}>\n                <CardHeader className=\"pb-2\">\n                  <CardTitle className=\"text-sm font-medium text-muted-foreground\">\n                    {stat.label}\n                  </CardTitle>\n                </CardHeader>\n                <CardContent className=\"pt-0\">\n                  <div className=\"text-2xl font-bold\">{stat.value}</div>\n                  {stat.change && (\n                    <p className=\"text-xs text-muted-foreground\">{stat.change}</p>\n                  )}\n                </CardContent>\n              </Card>\n            ))}\n          </Grid>\n\n          {/* Main Content Area */}\n          <Card>\n            <CardHeader>\n              <CardTitle>Overview</CardTitle>\n            </CardHeader>\n            <CardContent>\n              <div className=\"h-64 flex items-center justify-center text-muted-foreground\">\n                Dashboard content goes here\n              </div>\n            </CardContent>\n          </Card>\n        </div>\n      </Container>\n    )\n  }\n)\nDashboard01.displayName = \"Dashboard01\"\n\nexport { Dashboard01 }"
+        }
+      ]
+    }
+  ]
+}
