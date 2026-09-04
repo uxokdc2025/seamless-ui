@@ -14,15 +14,18 @@ export {
   SidebarLayoutContent, 
   sidebarLayoutVariants 
 } from "./sidebar-layout"
+export {
   PageShell, 
   PageShellHeader, 
   PageShellContent, 
   PageShellFooter 
 } from "./page-shell"
+export {
   DashboardGrid, 
   DashboardGridItem, 
   dashboardGridVariants 
 } from "./dashboard-grid"
+export {
   Workspace, 
   WorkspaceHeader, 
   WorkspaceSidebar, 
@@ -32,16 +35,19 @@ export {
 } from "./workspace"
 
 // Interactive layouts
+export {
   ResizablePanels, 
   ResizablePanel, 
   ResizableHandle 
 } from "./resizable-panels"
+export {
   ScrollArea, 
   ScrollAreaViewport, 
   scrollAreaVariants 
 } from "./scroll-area"
 
 // Sidebar
+export {
   Sidebar,
   SidebarHeader,
   SidebarContent,
