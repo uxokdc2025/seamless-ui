@@ -39,6 +39,9 @@ importers:
 
   packages/blocks:
     dependencies:
+      '@seamless/ai':
+        specifier: workspace:*
+        version: link:../ai
       '@seamless/layout':
         specifier: workspace:*
         version: link:../layout
