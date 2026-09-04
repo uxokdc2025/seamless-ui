@@ -1,0 +1,22 @@
+{
+  "name": "@seamless/design-systems",
+  "version": "0.1.0",
+  "description": "Public design system catalog with browse/search/filter/preview/import",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": ["src", "data"],
+  "scripts": {
+    "build": "tsc --noEmit",
+    "sync": "node src/sync.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@seamless/designmd": "workspace:*",
+    "@seamless/tokens": "workspace:*",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}
