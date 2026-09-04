@@ -190,6 +190,9 @@ importers:
       '@seamless/ui':
         specifier: workspace:*
         version: link:../ui
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.1
     devDependencies:
       '@types/react':
         specifier: ^19
@@ -337,6 +340,12 @@ importers:
       '@seamless/ui':
         specifier: workspace:*
         version: link:../ui
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.1
+      lucide-react:
+        specifier: ^0.445.0
+        version: 0.445.0(react@19.2.8)
     devDependencies:
       '@types/react':
         specifier: ^19
