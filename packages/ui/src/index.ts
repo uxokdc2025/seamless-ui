@@ -84,6 +84,18 @@ export { Badge, badgeVariants } from "./badge"
 export type { BadgeProps } from "./badge"
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from "./card"
 
+// Components - Data Display
+export { DataTable, dataTableVariants } from "./data-table"
+export type { 
+  DataTableProps, 
+  DataTableColumn, 
+  DataTableSort, 
+  DataTableFilter,
+  DensityType
+} from "./data-table"
+export { DataGrid, dataGridVariants } from "./data-grid"
+export type { DataGridProps, DataGridColumn } from "./data-grid"
+
 // Components - Overlay
 export {
   Dialog,
