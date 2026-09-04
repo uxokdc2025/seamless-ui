@@ -26,6 +26,10 @@ const SidebarContext = React.createContext<SidebarContextValue | undefined>(
 export function useSidebar() {
   const context = React.useContext(SidebarContext)
   if (!context) {
+    // Return a safe default during SSR or when outside provider
+    if (typeof window === "undefined") {
+      return { state: "expanded" as SidebarState, setState: () => {}, collapsible: true, isMobile: false }
+    }
     throw new Error("useSidebar must be used within a Sidebar component")
   }
   return context
