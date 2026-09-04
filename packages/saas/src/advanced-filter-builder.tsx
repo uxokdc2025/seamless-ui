@@ -111,49 +111,52 @@ const AdvancedFilterBuilder = React.forwardRef<
         </div>
 
         {filterGroup.rules.map((rule) => {
-          if ("id" in rule) {
-            return (
-              <div key={rule.id} className="flex items-center gap-2">
-                <select
-                  value={rule.field}
-                  onChange={(e) => updateRule(rule.id, { field: e.target.value })}
-                  className="flex h-9 rounded-md border border-input bg-background px-3 py-1 text-sm"
-                >
-                  {fields.map((field) => (
-                    <option key={field.value} value={field.value}>
-                      {field.label}
-                    </option>
-                  ))}
-                </select>
-                <select
-                  value={rule.operator}
-                  onChange={(e) => updateRule(rule.id, { operator: e.target.value })}
-                  className="flex h-9 rounded-md border border-input bg-background px-3 py-1 text-sm"
-                >
-                  {operators.map((op) => (
-                    <option key={op.value} value={op.value}>
-                      {op.label}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  value={rule.value}
-                  onChange={(e) => updateRule(rule.id, { value: e.target.value })}
-                  className="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-1 text-sm"
-                  placeholder="Value"
-                />
-                <button
-                  onClick={() => removeRule(rule.id)}
-                  className="text-muted-foreground hover:text-foreground"
-                  aria-label="Remove rule"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            )
+          // Type guard: FilterGroup has 'rules' property, FilterRule does not
+          if ("rules" in rule) {
+            // This is a nested FilterGroup, skip rendering for now
+            return null
           }
-          return null
+          // TypeScript now knows this is a FilterRule
+          return (
+            <div key={rule.id} className="flex items-center gap-2">
+              <select
+                value={rule.field}
+                onChange={(e) => updateRule(rule.id, { field: e.target.value })}
+                className="flex h-9 rounded-md border border-input bg-background px-3 py-1 text-sm"
+              >
+                {fields.map((field) => (
+                  <option key={field.value} value={field.value}>
+                    {field.label}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={rule.operator}
+                onChange={(e) => updateRule(rule.id, { operator: e.target.value })}
+                className="flex h-9 rounded-md border border-input bg-background px-3 py-1 text-sm"
+              >
+                {operators.map((op) => (
+                  <option key={op.value} value={op.value}>
+                    {op.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                value={rule.value}
+                onChange={(e) => updateRule(rule.id, { value: e.target.value })}
+                className="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-1 text-sm"
+                placeholder="Value"
+              />
+              <button
+                onClick={() => removeRule(rule.id)}
+                className="text-muted-foreground hover:text-foreground"
+                aria-label="Remove rule"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          )
         })}
 
         {filterGroup.rules.length === 0 && (
