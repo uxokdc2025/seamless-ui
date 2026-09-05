@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@seamless/ui"
 import { applyTheme, themes, modes, type Theme, type Mode } from "@seamless/themes"
-import { Search, Moon, Sun, Github, Menu, X, Home, BookOpen, Blocks, Palette, Layers, Brain, Target } from "lucide-react"
+import { Search, Moon, Sun, Github, Menu, X, Home, BookOpen, Blocks, Palette, Layers, Brain, Target, BarChart3 } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 
@@ -11,6 +11,7 @@ const navigation = [
   { name: "Getting Started", href: "/getting-started", icon: Home },
   { name: "Foundations", href: "/foundations", icon: Palette },
   { name: "Components", href: "/components", icon: Blocks },
+  { name: "Charts", href: "/charts", icon: BarChart3 },
   { name: "Layout", href: "/layout", icon: Layers },
   { name: "SaaS", href: "/saas", icon: Brain },
   { name: "AI", href: "/ai", icon: Brain },
@@ -25,6 +26,7 @@ const navigation = [
 const topNavLinks = [
   { name: "Docs", href: "/getting-started" },
   { name: "Components", href: "/components" },
+  { name: "Charts", href: "/charts" },
   { name: "Blocks", href: "/blocks" },
   { name: "Themes", href: "/themes" },
   { name: "Platform", href: "/layout" },
@@ -98,6 +100,7 @@ const themesGroup = [
   { name: "Design Systems", href: "/design-systems" },
 ]
 const platformGroup = [
+  { name: "Charts", href: "/charts" },
   { name: "Layout", href: "/layout" },
   { name: "SaaS", href: "/saas" },
   { name: "AI", href: "/ai" },
@@ -115,7 +118,7 @@ function getSidebarGroups(pathname: string) {
   if (p.startsWith("/blocks")) {
     return [{ header: "Blocks", items: blocksGroup }]
   }
-  if (p.startsWith("/layout") || p.startsWith("/saas") || p.startsWith("/ai") || p.startsWith("/patterns") || p.startsWith("/registry")) {
+  if (p.startsWith("/charts") || p.startsWith("/layout") || p.startsWith("/saas") || p.startsWith("/ai") || p.startsWith("/patterns") || p.startsWith("/registry")) {
     return [{ header: "Platform", items: platformGroup }]
   }
   return [
