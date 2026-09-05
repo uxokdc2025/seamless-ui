@@ -129,6 +129,46 @@ interface DocsShellProps {
   title?: string
 }
 
+function RightRailTOC({ pathname }: { pathname: string }) {
+  const [items, setItems] = useState<{ id: string; text: string; level: number }[]>([])
+  useEffect(() => {
+    const main = document.querySelector("main")
+    if (!main) { setItems([]); return }
+    const hs = Array.from(main.querySelectorAll("h2, h3")) as HTMLElement[]
+    const out = hs
+      .filter((h) => (h.textContent || "").trim().length > 0)
+      .map((h) => {
+        let id = h.id
+        if (!id) {
+          id = (h.textContent || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
+          h.id = id
+        }
+        return { id, text: (h.textContent || "").trim(), level: h.tagName === "H3" ? 3 : 2 }
+      })
+    setItems(out)
+  }, [pathname])
+  if (items.length === 0) return null
+  return (
+    <aside className="hidden-mobile" style={{ width: "220px", flexShrink: 0, position: "sticky", top: "60px", alignSelf: "flex-start", height: "calc(100vh - 60px)", overflowY: "auto", padding: "32px 16px" }}>
+      <div style={{ fontSize: "13px", fontWeight: 600, marginBottom: "12px", color: "var(--color-foreground)" }}>On This Page</div>
+      <nav style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+        {items.map((it) => (
+          <a
+            key={it.id}
+            href={"#" + it.id}
+            onClick={(e) => { e.preventDefault(); const el = document.getElementById(it.id); if (el) { window.history.replaceState(null, "", "#" + it.id); el.scrollIntoView({ behavior: "smooth", block: "start" }) } }}
+            style={{ fontSize: "13px", color: "var(--color-muted-foreground)", paddingLeft: it.level === 3 ? "12px" : "0", textDecoration: "none", lineHeight: 1.4, transition: "color 0.15s ease" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--color-foreground)" }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--color-muted-foreground)" }}
+          >
+            {it.text}
+          </a>
+        ))}
+      </nav>
+    </aside>
+  )
+}
+
 export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
   const pathname = usePathname()
   const [currentTheme, setCurrentTheme] = useState<Theme>("midnight-aubergine")
@@ -409,6 +449,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
         }}>
           {children}
         </main>
+        {!isHomePage && <RightRailTOC pathname={pathname || "/"} />}
       </div>
 
       <style jsx>{`
