@@ -1,6 +1,7 @@
 "use client"
 
 import { DocsShell } from "../../components/docs-shell"
+import { DesignSystemsCatalog } from "../../components/design-systems-catalog"
 import { Badge, Button } from "@seamless/ui"
 import { FileText, Braces, Palette, Download, Upload, ArrowRight, Check } from "lucide-react"
 
@@ -378,19 +379,9 @@ const dtcg = exportToDtcg(tokens)          // DTCG JSON`}</Code>
           <Section
             id="catalog"
             title="Catalog"
-            description="The Seamless Design Systems catalog indexes public systems and their tokens, maintained automatically by the Research Scout. A curated selection of well-known, permissively-licensed systems is shown below; the full index covers 40+ sources."
+            description="The Seamless Design Systems catalog indexes public design systems and their tokens, maintained automatically by the Research Scout. Search the full set below — filter by name, org, or license."
           >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-                gap: "16px",
-              }}
-            >
-              {catalog.map((e) => (
-                <CatalogCard key={e.name} e={e} />
-              ))}
-            </div>
+            <DesignSystemsCatalog />
             <div
               style={{
                 marginTop: "20px",

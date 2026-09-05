@@ -136,6 +136,7 @@ function Pattern({
       >
         {/* Preview */}
         <div
+          data-toc-ignore
           style={{
             padding: "32px",
             background:

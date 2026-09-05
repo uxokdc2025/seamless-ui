@@ -184,6 +184,7 @@ export default function BlockDetailPage() {
         <div style={{ marginTop: "24px" }}>
           {tab === "preview" ? (
             <div
+              data-toc-ignore
               style={{
                 border: "1px solid var(--color-border)",
                 borderRadius: "12px",

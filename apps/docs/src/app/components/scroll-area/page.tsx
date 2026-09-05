@@ -2,14 +2,13 @@
 
 import { useState, type ReactNode, type CSSProperties } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Separator } from "@seamless/ui"
+import { ScrollArea, Separator } from "@seamless/ui"
 import { Check, Copy } from "lucide-react"
 
 const scrollBox: CSSProperties = {
   height: 200,
   width: 280,
   maxWidth: "100%",
-  overflowY: "auto",
   borderRadius: 8,
   border: "1px solid var(--color-border)",
   background: "var(--color-background)",
@@ -282,29 +281,11 @@ export default function ScrollAreaDocsPage() {
     <Page title="Scroll Area">
       <PageHeader
         title="Scroll Area"
-        description="A scrollable region for overflowing content, styled with the design tokens so it stays consistent across themes."
+        description="Augments native scroll functionality for custom, cross-browser styling that stays consistent across themes."
       />
 
-      <div
-        style={{
-          padding: "12px 16px",
-          borderRadius: 8,
-          border: "1px solid var(--color-border)",
-          background: "var(--color-muted)",
-          fontSize: 13,
-          color: "var(--color-muted-foreground)",
-          lineHeight: 1.6,
-        }}
-      >
-        Note: <code style={{ fontFamily: mono }}>@seamless/ui</code> does not yet
-        export a dedicated <code style={{ fontFamily: mono }}>ScrollArea</code>{" "}
-        component. This page documents the equivalent pattern using a native
-        overflow container styled with design tokens. Swap in the component API
-        below once it ships.
-      </div>
-
       <PreviewCard>
-        <div style={scrollBox}>
+        <ScrollArea style={scrollBox}>
           <p
             style={{
               margin: "0 0 12px",
@@ -331,7 +312,7 @@ export default function ScrollAreaDocsPage() {
               ) : null}
             </div>
           ))}
-        </div>
+        </ScrollArea>
       </PreviewCard>
 
       <Section title="Installation">
@@ -340,19 +321,15 @@ export default function ScrollAreaDocsPage() {
 
       <Section title="Usage">
         <CodeBlock
-          code={`// Native overflow container using design tokens
-<div
-  style={{
-    height: 200,
-    overflowY: "auto",
-    borderRadius: 8,
-    border: "1px solid var(--color-border)",
-    background: "var(--color-background)",
-    padding: 16,
-  }}
->
-  {/* long content */}
-</div>`}
+          code={`import { ScrollArea } from "@seamless/ui"
+
+export function Example() {
+  return (
+    <ScrollArea style={{ height: 200 }}>
+      {/* long content */}
+    </ScrollArea>
+  )
+}`}
         />
       </Section>
 
@@ -360,13 +337,13 @@ export default function ScrollAreaDocsPage() {
         <Example
           title="Vertical scroll"
           description="A fixed-height region that scrolls its overflowing content vertically."
-          code={`<div style={{ height: 160, overflowY: "auto", padding: 16, border: "1px solid var(--color-border)", borderRadius: 8 }}>
+          code={`<ScrollArea orientation="vertical" style={{ height: 160 }}>
   {items.map((item) => (
     <p key={item}>{item}</p>
   ))}
-</div>`}
+</ScrollArea>`}
         >
-          <div style={{ ...scrollBox, height: 160 }}>
+          <ScrollArea orientation="vertical" style={{ ...scrollBox, height: 160 }}>
             {Array.from({ length: 20 }, (_, i) => (
               <p
                 key={i}
@@ -379,24 +356,24 @@ export default function ScrollAreaDocsPage() {
                 Line item number {i + 1}
               </p>
             ))}
-          </div>
+          </ScrollArea>
         </Example>
 
         <Example
           title="Horizontal scroll"
-          description="Set overflowX to scroll a row of items sideways."
-          code={`<div style={{ maxWidth: 320, overflowX: "auto", padding: 16, border: "1px solid var(--color-border)", borderRadius: 8 }}>
+          description="Set orientation to horizontal to scroll a row of items sideways."
+          code={`<ScrollArea orientation="horizontal" style={{ maxWidth: 320, padding: 16 }}>
   <div style={{ display: "flex", gap: 12 }}>
     {cards.map((c) => (
       <div key={c} style={{ minWidth: 120 }}>{c}</div>
     ))}
   </div>
-</div>`}
+</ScrollArea>`}
         >
-          <div
+          <ScrollArea
+            orientation="horizontal"
             style={{
               maxWidth: 320,
-              overflowX: "auto",
               borderRadius: 8,
               border: "1px solid var(--color-border)",
               background: "var(--color-background)",
@@ -418,13 +395,14 @@ export default function ScrollAreaDocsPage() {
                     background: "var(--color-muted)",
                     fontSize: 13,
                     color: "var(--color-foreground)",
+                    flexShrink: 0,
                   }}
                 >
                   Card {i + 1}
                 </div>
               ))}
             </div>
-          </div>
+          </ScrollArea>
         </Example>
       </Section>
 
@@ -436,25 +414,17 @@ export default function ScrollAreaDocsPage() {
             color: "var(--color-muted-foreground)",
           }}
         >
-          When the <code style={{ fontFamily: mono }}>ScrollArea</code>{" "}
-          component ships it is expected to mirror the Radix API below. Until
-          then, the native container above uses standard CSS overflow.
+          ScrollArea renders a styled overflow container and accepts all native{" "}
+          <code style={{ fontFamily: mono }}>div</code> attributes.
         </p>
         <PropsTable
           rows={[
             {
-              prop: "type",
-              type: '"auto" | "always" | "scroll" | "hover"',
-              default: '"hover"',
+              prop: "orientation",
+              type: '"vertical" | "horizontal" | "both"',
+              default: '"vertical"',
               description:
-                "When scrollbars are visible relative to pointer interaction.",
-            },
-            {
-              prop: "scrollHideDelay",
-              type: "number",
-              default: "600",
-              description:
-                "Delay in ms before hiding scrollbars after interaction.",
+                "Which axis the region is allowed to scroll along.",
             },
             {
               prop: "className",

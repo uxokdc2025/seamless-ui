@@ -136,7 +136,7 @@ function ExampleBlock({
         {description}
       </p>
       <div style={{ marginBottom: 12 }}>
-        <Preview minHeight={200}>{children}</Preview>
+        <Preview minHeight={180}>{children}</Preview>
       </div>
       <CodeBlock code={code} />
     </div>

@@ -583,6 +583,7 @@ export function ThemeStudio() {
         {/* CENTER — LIVE PREVIEW (scoped tokens) */}
         <div className="min-w-0 flex-1">
           <div
+            data-toc-ignore
             className="overflow-hidden rounded-xl border"
             style={{ borderColor: chrome.border }}
           >

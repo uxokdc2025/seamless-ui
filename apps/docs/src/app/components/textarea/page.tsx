@@ -33,9 +33,9 @@ function CodeBlock({ code }: { code: string }) {
   )
 }
 
-function Preview({ children }: { children: React.ReactNode }) {
+function Preview({ children, minH = 320 }: { children: React.ReactNode; minH?: number }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: 320, padding: 32, borderRadius: 8, border: "1px solid var(--color-border)", background: "var(--color-muted)" }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: minH, padding: 32, borderRadius: 8, border: "1px solid var(--color-border)", background: "var(--color-muted)" }}>
       {children}
     </div>
   )
@@ -48,7 +48,7 @@ function ExampleSection({ title, description, code, children }: { title: string;
         <h3 style={{ fontSize: 18, fontWeight: 600, margin: 0, color: "var(--color-foreground)" }}>{title}</h3>
         {description && <p style={{ margin: 0, fontSize: 14, color: "var(--color-muted-foreground)" }}>{description}</p>}
       </div>
-      <Preview>{children}</Preview>
+      <Preview minH={180}>{children}</Preview>
       <CodeBlock code={code} />
     </section>
   )

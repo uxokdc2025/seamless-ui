@@ -317,7 +317,7 @@ function ChartCard({ title, subtitle, code, children }: { title: string; subtitl
     </button>
   )
   return (
-    <div style={{ border: "1px solid var(--color-border)", borderRadius: 12, background: "var(--color-card)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+    <div data-toc-ignore style={{ border: "1px solid var(--color-border)", borderRadius: 12, background: "var(--color-card)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, padding: "16px 18px 12px" }}>
         <div>
           <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-card-foreground)" }}>{title}</div>

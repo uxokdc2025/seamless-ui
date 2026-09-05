@@ -39,6 +39,7 @@ const componentLinks = [
   { name: "Aspect Ratio", href: "/components/aspect-ratio" },
   { name: "Avatar", href: "/components/avatar" },
   { name: "Badge", href: "/components/badge" },
+  { name: "Bottom Navigation", href: "/components/bottom-navigation" },
   { name: "Breadcrumb", href: "/components/breadcrumb" },
   { name: "Button", href: "/components/button" },
   { name: "Button Group", href: "/components/button-group" },
@@ -67,10 +68,12 @@ const componentLinks = [
   { name: "Menubar", href: "/components/menubar" },
   { name: "Native Select", href: "/components/native-select" },
   { name: "Navigation Menu", href: "/components/navigation-menu" },
+  { name: "Notification Badge", href: "/components/notification-badge" },
   { name: "Pagination", href: "/components/pagination" },
   { name: "Popover", href: "/components/popover" },
   { name: "Progress", href: "/components/progress" },
   { name: "Radio Group", href: "/components/radio-group" },
+  { name: "Rating", href: "/components/rating" },
   { name: "Resizable", href: "/components/resizable" },
   { name: "Scroll Area", href: "/components/scroll-area" },
   { name: "Select", href: "/components/select" },
@@ -78,6 +81,7 @@ const componentLinks = [
   { name: "Sheet", href: "/components/sheet" },
   { name: "Skeleton", href: "/components/skeleton" },
   { name: "Slider", href: "/components/slider" },
+  { name: "Sparkline", href: "/components/sparkline" },
   { name: "Spinner", href: "/components/spinner" },
   { name: "Switch", href: "/components/switch" },
   { name: "Table", href: "/components/table" },
@@ -140,6 +144,9 @@ function RightRailTOC({ pathname }: { pathname: string }) {
     const hs = Array.from(main.querySelectorAll("h2, h3")) as HTMLElement[]
     const out = hs
       .filter((h) => (h.textContent || "").trim().length > 0)
+      // Skip headings that live inside live previews / rendered blocks so the
+      // TOC only lists the page's own section headings, not demo content.
+      .filter((h) => !h.closest("[data-toc-ignore]"))
       .map((h) => {
         let id = h.id
         if (!id) {
@@ -150,7 +157,9 @@ function RightRailTOC({ pathname }: { pathname: string }) {
       })
     setItems(out)
   }, [pathname])
-  if (items.length === 0) return null
+  // A single-item TOC adds noise, not navigation — hide the rail unless there
+  // are at least two real section headings (matches shadcn's blocks page).
+  if (items.length < 2) return null
   return (
     <aside className="hidden-mobile" style={{ width: "220px", flexShrink: 0, position: "sticky", top: "60px", alignSelf: "flex-start", height: "calc(100vh - 60px)", overflowY: "auto", padding: "32px 16px" }}>
       <div style={{ fontSize: "13px", fontWeight: 600, marginBottom: "12px", color: "var(--color-foreground)" }}>On This Page</div>

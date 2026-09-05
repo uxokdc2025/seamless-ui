@@ -154,7 +154,7 @@ function Example({
       >
         {description}
       </p>
-      <PreviewCard minHeight={200}>{children}</PreviewCard>
+      <PreviewCard minHeight={180}>{children}</PreviewCard>
       <CodeBlock code={code} />
     </div>
   )

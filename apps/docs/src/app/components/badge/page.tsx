@@ -94,8 +94,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
         fontWeight: 600,
         marginTop: "48px",
         marginBottom: "12px",
-        paddingBottom: "8px",
-        borderBottom: "1px solid var(--color-border)",
       }}
     >
       {children}
@@ -133,7 +131,7 @@ function Example({
           border: "1px solid var(--color-border)",
           borderRadius: "8px",
           background: "var(--color-muted)",
-          minHeight: "140px",
+          minHeight: "180px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

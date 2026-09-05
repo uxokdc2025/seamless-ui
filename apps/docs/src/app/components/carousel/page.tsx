@@ -2,96 +2,59 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Check, Copy, ChevronLeft, ChevronRight } from "lucide-react"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@seamless/ui"
+import { Check, Copy } from "lucide-react"
 
-/* Working carousel demo. Mirrors the shadcn <Carousel> API shape for the docs. */
-function CarouselDemo({ count = 5, dots = false }: { count?: number; dots?: boolean }) {
-  const [index, setIndex] = useState(0)
-  const go = (next: number) => setIndex((next + count) % count)
+const slideBox: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: 200,
+  borderRadius: 8,
+  border: "1px solid var(--color-border)",
+  background: "var(--color-muted)",
+  fontSize: 44,
+  fontWeight: 700,
+  color: "var(--color-foreground)",
+}
 
+/* Basic single-slide carousel using the real @seamless/ui component. */
+function CarouselDemo({ count = 5 }: { count?: number }) {
   return (
-    <div style={{ width: "100%", maxWidth: 420, margin: "0 auto" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16, justifyContent: "center" }}>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label="Previous slide"
-          onClick={() => go(index - 1)}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
+    <Carousel style={{ width: 240 }}>
+      <CarouselContent>
+        {Array.from({ length: count }).map((_, i) => (
+          <CarouselItem key={i}>
+            <div style={slideBox}>{i + 1}</div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  )
+}
 
-        <div
-          style={{
-            position: "relative",
-            width: 240,
-            height: 200,
-            overflow: "hidden",
-            borderRadius: 8,
-            border: "1px solid var(--color-border)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              height: "100%",
-              transform: `translateX(-${index * 100}%)`,
-              transition: "transform 0.35s ease",
-            }}
-          >
-            {Array.from({ length: count }).map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: "0 0 100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 44,
-                  fontWeight: 700,
-                  color: "var(--color-foreground)",
-                  background: "var(--color-muted)",
-                }}
-              >
-                {i + 1}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label="Next slide"
-          onClick={() => go(index + 1)}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      </div>
-
-      {dots && (
-        <div style={{ display: "flex", gap: 8, justifyContent: "center", marginTop: 16 }}>
-          {Array.from({ length: count }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              aria-label={`Go to slide ${i + 1}`}
-              onClick={() => setIndex(i)}
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: 999,
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                background: i === index ? "var(--color-primary)" : "var(--color-border)",
-              }}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+/* Multiple slides visible at once via basis utility classes. */
+function CarouselSizesDemo({ count = 6 }: { count?: number }) {
+  return (
+    <Carousel style={{ width: 280 }}>
+      <CarouselContent className="-ml-2">
+        {Array.from({ length: count }).map((_, i) => (
+          <CarouselItem key={i} className="basis-1/3 pl-2">
+            <div style={{ ...slideBox, height: 120, fontSize: 28 }}>{i + 1}</div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
   )
 }
 
@@ -101,8 +64,8 @@ export default function CarouselPage() {
       <div style={{ maxWidth: 880 }}>
         <h1 style={{ fontSize: 34, fontWeight: 700, margin: 0 }}>Carousel</h1>
         <p style={{ color: "var(--color-muted-foreground)", fontSize: 16, marginTop: 8 }}>
-          A slideshow for cycling through a set of items, with previous / next controls and optional
-          pagination dots.
+          A slideshow for cycling through a set of items, with previous and next controls that
+          disable at the start and end.
         </p>
 
         <div style={{ marginTop: 24 }}>
@@ -154,7 +117,7 @@ export default function Example() {
 
         <Example
           title="Basic"
-          description="Cycle through slides with the previous and next controls."
+          description="Cycle through slides with the previous and next controls. The controls disable automatically at the start and end."
           preview={<CarouselDemo count={5} />}
           code={`<Carousel>
   <CarouselContent>
@@ -168,14 +131,19 @@ export default function Example() {
         />
 
         <Example
-          title="With pagination dots"
-          description="Show dots to indicate position and jump directly to a slide."
-          preview={<CarouselDemo count={4} dots />}
+          title="Sizes"
+          description="Show more than one slide at a time by setting the basis of each item."
+          preview={<CarouselSizesDemo count={6} />}
           code={`<Carousel>
-  <CarouselContent>{/* items */}</CarouselContent>
+  <CarouselContent className="-ml-2">
+    {slides.map((s) => (
+      <CarouselItem key={s.id} className="basis-1/3 pl-2">
+        {s.content}
+      </CarouselItem>
+    ))}
+  </CarouselContent>
   <CarouselPrevious />
   <CarouselNext />
-  <CarouselDots />
 </Carousel>`}
         />
 

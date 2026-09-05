@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Copy, Check, Download, ArrowRight, Trash2, Mail } from "lucide-react"
+import { Button, buttonVariants } from "@seamless/ui"
+import { Copy, Check, Download, ArrowRight, Trash2, Mail, Loader2 } from "lucide-react"
 
 const codeBlockStyle: React.CSSProperties = {
   margin: 0,
@@ -94,8 +94,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
         fontWeight: 600,
         marginTop: "48px",
         marginBottom: "12px",
-        paddingBottom: "8px",
-        borderBottom: "1px solid var(--color-border)",
       }}
     >
       {children}
@@ -133,7 +131,7 @@ function Example({
           border: "1px solid var(--color-border)",
           borderRadius: "8px",
           background: "var(--color-muted)",
-          minHeight: "120px",
+          minHeight: "180px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -381,6 +379,49 @@ export default function Example() {
             <Button variant="outline" disabled>
               Disabled
             </Button>
+          </div>
+        </Example>
+
+        <Example
+          title="Loading"
+          description="Show a spinning icon and disable the button while an action is in flight."
+          code={`<Button disabled>
+  <Loader2 className="h-4 w-4 animate-spin" />
+  Please wait
+</Button>`}
+        >
+          <Button disabled style={{ gap: "8px" }}>
+            <Loader2 className="animate-spin" style={{ width: "16px", height: "16px" }} />
+            Please wait
+          </Button>
+        </Example>
+
+        <Example
+          title="As child"
+          description="Use asChild to render a different element (like a link) with button styling, or apply buttonVariants directly."
+          code={`<Button asChild>
+  <a href="/login">Login</a>
+</Button>
+
+<a className={buttonVariants({ variant: "outline" })} href="/docs">
+  Documentation
+</a>`}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            <Button asChild>
+              <a href="#login">Login</a>
+            </Button>
+            <a className={buttonVariants({ variant: "outline" })} href="#docs">
+              Documentation
+            </a>
           </div>
         </Example>
 

@@ -124,6 +124,7 @@ export function BlockPreviewFrame({
   return (
     <div
       ref={ref}
+      data-toc-ignore
       style={{
         border: "1px solid var(--color-border)",
         borderRadius: "12px",
