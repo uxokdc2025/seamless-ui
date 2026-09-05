@@ -1,4 +1,40 @@
+@import "tailwindcss";
 @import "../../../../packages/tokens/src/index.css";
+
+/* Scan the workspace component packages so their utility classes compile */
+@source "../../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../../../../packages/layout/src/**/*.{ts,tsx}";
+@source "../../../../packages/saas/src/**/*.{ts,tsx}";
+@source "../../../../packages/ai/src/**/*.{ts,tsx}";
+@source "../../../../packages/blocks/src/**/*.{ts,tsx}";
+@source "./**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+
+/* Register the semantic colors so bg-*/text-*/border-* utilities generate.
+   Actual values come from :root / [data-mode] / [data-theme] overrides below. */
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #09090b;
+  --color-card: #ffffff;
+  --color-card-foreground: #09090b;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #09090b;
+  --color-primary: #18181b;
+  --color-primary-foreground: #fafafa;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #18181b;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #18181b;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #fafafa;
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-ring: #18181b;
+  --radius: 0.5rem;
+}
+
 
 /* Geist fonts */
 body {
