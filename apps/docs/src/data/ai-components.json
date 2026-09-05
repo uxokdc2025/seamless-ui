@@ -1,0 +1,1221 @@
+[
+  {
+    "name": "AgentActivity",
+    "slug": "agent-activity",
+    "description": "Timeline view of agent actions and events during task execution.",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "activities",
+        "type": "Array<{",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "action",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AgentAvatar",
+    "slug": "agent-avatar",
+    "description": "Visual representation of AI agent with status indicator.",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "imageUrl",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AgentCard",
+    "slug": "agent-card",
+    "description": "Display AI agent status, metrics, and current activity in a card layout.",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "\"active\" | \"idle\" | \"error\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "metrics",
+        "type": "{",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "tasks",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "uptime",
+        "type": "string",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "AgentError",
+    "slug": "agent-error",
+    "description": "Display agent execution errors with context and recovery options.",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "errorMessage",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "errorType",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "stackTrace",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "retryCount",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "maxRetries",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onRetry",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AgentHandoff",
+    "slug": "agent-handoff",
+    "description": "Visual representation of task handoff between agents.",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "fromAgent",
+        "type": "{",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "imageUrl",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AgentQueue",
+    "slug": "agent-queue",
+    "description": "Display queued tasks awaiting agent execution with priority indicators.",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "queueName",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "totalTasks",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "pendingTasks",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "runningTasks",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "completedTasks",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "failedTasks",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "showProgress",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "AgentStatus",
+    "slug": "agent-status",
+    "description": "Badge or indicator showing agent operational status (active, idle, error).",
+    "category": "Agent Components",
+    "props": [
+      {
+        "name": "showIndicator",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ApprovalRequest",
+    "slug": "approval-request",
+    "description": "Card requesting human approval for agent actions with approve/reject controls.",
+    "category": "Interaction",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "requester",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onApprove",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onReject",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onRequestChanges",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "approveLabel",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "rejectLabel",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "requestChangesLabel",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ArtifactPreview",
+    "slug": "artifact-preview",
+    "description": "Preview generated artifacts (files, images, code) with actions.",
+    "category": "Artifacts & Results",
+    "props": [
+      {
+        "name": "filename",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "fileType",
+        "type": "\"image\" | \"code\" | \"text\" | \"json\" | \"markdown\" | \"other\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "onDownload",
+        "type": "() => void",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Blocker",
+    "slug": "blocker",
+    "description": "Display task blockers and dependencies preventing execution.",
+    "category": "Interaction",
+    "props": [
+      {
+        "name": "type",
+        "type": "\"dependency\" | \"needs_input\" | \"capability\" | \"transient\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "reason",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "details",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "blockedSince",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ChatMessage",
+    "slug": "chat-message",
+    "description": "Single chat message with role (user/assistant/system), content, and timestamp.",
+    "category": "Chat & Prompts",
+    "props": [
+      {
+        "name": "role",
+        "type": "\"user\" | \"assistant\" | \"system\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "avatar",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "CostDisplay",
+    "slug": "cost-display",
+    "description": "Show API costs, token usage costs, and total spend for operations.",
+    "category": "Metrics & Costs",
+    "props": [
+      {
+        "name": "amount",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "breakdown",
+        "type": "{",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "inputCost",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "outputCost",
+        "type": "number",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Escalation",
+    "slug": "escalation",
+    "description": "Display escalated issues requiring human intervention or triage.",
+    "category": "Interaction",
+    "props": [
+      {
+        "name": "severity",
+        "type": "\"low\" | \"medium\" | \"high\" | \"critical\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "escalatedBy",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "actions",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ExecutionStatus",
+    "slug": "execution-status",
+    "description": "Current execution state with progress, status, and timing information.",
+    "category": "Execution",
+    "props": [
+      {
+        "name": "status",
+        "type": "\"idle\" | \"running\" | \"completed\" | \"failed\" | \"cancelled\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "startTime",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "endTime",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ExecutionStep",
+    "slug": "execution-step",
+    "description": "Individual step in agent execution with status, duration, and output.",
+    "category": "Execution",
+    "props": [
+      {
+        "name": "step",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "status",
+        "type": "\"pending\" | \"active\" | \"completed\" | \"failed\" | \"skipped\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "FleetStatus",
+    "slug": "fleet-status",
+    "description": "Overview of agent fleet health, availability, and resource usage.",
+    "category": "Fleet & Workers",
+    "props": [
+      {
+        "name": "totalAgents",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "activeAgents",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "idleAgents",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "errorAgents",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "showBreakdown",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "HumanIntervention",
+    "slug": "human-intervention",
+    "description": "Request for human input or decision with context and response interface.",
+    "category": "Interaction",
+    "props": [
+      {
+        "name": "reason",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "details",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "requestedBy",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "actions",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "KanbanTicket",
+    "slug": "kanban-ticket",
+    "description": "Card representation of kanban tasks with status, assignee, and metadata.",
+    "category": "Task Management",
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "status",
+        "type": "\"ready\" | \"todo\" | \"running\" | \"blocked\" | \"review\" | \"done\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "assignee",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "priority",
+        "type": "\"low\" | \"medium\" | \"high\" | \"urgent\"",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "labels",
+        "type": "string[]",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "createdAt",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ModelBadge",
+    "slug": "model-badge",
+    "description": "Badge displaying AI model name with provider-specific styling.",
+    "category": "Badges & Indicators",
+    "props": [
+      {
+        "name": "modelName",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Progress",
+    "slug": "progress",
+    "description": "Visual progress indicator for long-running agent operations.",
+    "category": "Execution",
+    "props": [
+      {
+        "name": "current",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "showPercentage",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "PromptComposer",
+    "slug": "prompt-composer",
+    "description": "Rich text editor for composing prompts with templates and variables.",
+    "category": "Chat & Prompts",
+    "props": [
+      {
+        "name": "onSubmit",
+        "type": "(prompt: string) => void",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "submitLabel",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ProviderBadge",
+    "slug": "provider-badge",
+    "description": "Badge showing AI provider (OpenAI, Anthropic, etc.) with logo.",
+    "category": "Badges & Indicators",
+    "props": [
+      {
+        "name": "providerName",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "QaResult",
+    "slug": "qa-result",
+    "description": "Display quality assurance check results with pass/fail status and details.",
+    "category": "Artifacts & Results",
+    "props": [
+      {
+        "name": "question",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "answer",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "confidence",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "sources",
+        "type": "Array<{",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "Reasoning",
+    "slug": "reasoning",
+    "description": "Display agent reasoning steps and chain-of-thought process.",
+    "category": "Execution",
+    "props": [
+      {
+        "name": "thought",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "expanded",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "RunSummary",
+    "slug": "run-summary",
+    "description": "Summary of completed agent run with outcomes, duration, and resources used.",
+    "category": "Execution",
+    "props": [
+      {
+        "name": "runId",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "\"completed\" | \"failed\" | \"cancelled\" | \"running\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "startTime",
+        "type": "Date | string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "endTime",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "tokenUsage",
+        "type": "{",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "input",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "output",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "description": "",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "RunTimeline",
+    "slug": "run-timeline",
+    "description": "Chronological timeline view of agent run events and milestones.",
+    "category": "Execution",
+    "props": [
+      {
+        "name": "events",
+        "type": "Array<{",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "type",
+        "type": "\"info\" | \"success\" | \"warning\" | \"error\"",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "StreamingState",
+    "slug": "streaming-state",
+    "description": "Indicator showing active streaming response with animation.",
+    "category": "Chat & Prompts",
+    "props": [
+      {
+        "name": "isStreaming",
+        "type": "boolean",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "TaskCard",
+    "slug": "task-card",
+    "description": "Card displaying task information with status, priority, and actions.",
+    "category": "Task Management",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "status",
+        "type": "\"ready\" | \"running\" | \"blocked\" | \"done\" | \"failed\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "assignee",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "priority",
+        "type": "\"low\" | \"medium\" | \"high\" | \"urgent\"",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "createdAt",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "actions",
+        "type": "React.ReactNode",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "TaskStatus",
+    "slug": "task-status",
+    "description": "Badge showing task status (pending, running, done, blocked, failed).",
+    "category": "Task Management",
+    "props": []
+  },
+  {
+    "name": "TokenUsage",
+    "slug": "token-usage",
+    "description": "Display token consumption metrics (input, output, total) for LLM calls.",
+    "category": "Metrics & Costs",
+    "props": [
+      {
+        "name": "inputTokens",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "outputTokens",
+        "type": "number",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "totalTokens",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "showBreakdown",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ToolCall",
+    "slug": "tool-call",
+    "description": "Display agent tool invocation with name, arguments, and execution status.",
+    "category": "Tools & Actions",
+    "props": [
+      {
+        "name": "toolName",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "parameters",
+        "type": "Record<string, unknown>",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "status",
+        "type": "\"pending\" | \"running\" | \"success\" | \"error\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "ToolResult",
+    "slug": "tool-result",
+    "description": "Display tool execution result with output, errors, and timing.",
+    "category": "Tools & Actions",
+    "props": [
+      {
+        "name": "toolName",
+        "type": "string",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "result",
+        "type": "unknown",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "status",
+        "type": "\"success\" | \"error\"",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "timestamp",
+        "type": "Date | string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "TypingState",
+    "slug": "typing-state",
+    "description": "Animated indicator showing agent is composing a response.",
+    "category": "Chat & Prompts",
+    "props": [
+      {
+        "name": "isTyping",
+        "type": "boolean",
+        "description": "",
+        "required": true
+      },
+      {
+        "name": "agentName",
+        "type": "string",
+        "description": "",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "WorkerHealth",
+    "slug": "worker-health",
+    "description": "Health status indicator for agent worker processes.",
+    "category": "Fleet & Workers",
+    "props": [
+      {
+        "name": "cpuUsage",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "memoryUsage",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "responseTime",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "errorRate",
+        "type": "number",
+        "description": "",
+        "required": false
+      },
+      {
+        "name": "showMetrics",
+        "type": "boolean",
+        "description": "",
+        "required": false
+      }
+    ]
+  }
+]
