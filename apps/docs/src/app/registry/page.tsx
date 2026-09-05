@@ -2,8 +2,7 @@
 
 import { DocsShell } from "../../components/docs-shell"
 import { Container, Stack } from "@seamless/layout"
-import { Card, CardHeader, CardTitle, CardContent, Button } from "@seamless/ui"
-import { ExternalLink } from "lucide-react"
+import { Card, CardHeader, CardTitle, CardContent } from "@seamless/ui"
 
 export default function RegistryPage() {
   return (
@@ -87,30 +86,27 @@ export default function RegistryPage() {
             <CardContent>
               <Stack gap="md">
                 <p className="text-muted-foreground">
-                  The registry is available at <code className="bg-muted px-1 py-0.5 rounded text-sm">
-                    /api/registry
-                  </code> and provides programmatic access to all components.
+                  The registry is served directly from this docs site and provides programmatic
+                  access to all components.
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex gap-2">
-                    <code className="bg-muted px-2 py-1 rounded font-mono">GET /api/registry</code>
-                    <span className="text-muted-foreground">List all components</span>
+                    <code className="bg-muted px-2 py-1 rounded font-mono">GET /registry.json</code>
+                    <span className="text-muted-foreground">The full registry index (all items)</span>
                   </div>
                   <div className="flex gap-2">
-                    <code className="bg-muted px-2 py-1 rounded font-mono">GET /api/registry/:name</code>
-                    <span className="text-muted-foreground">Get a specific component</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <code className="bg-muted px-2 py-1 rounded font-mono">GET /api/registry/type/:type</code>
-                    <span className="text-muted-foreground">Filter by type</span>
+                    <code className="bg-muted px-2 py-1 rounded font-mono">GET /r/:name.json</code>
+                    <span className="text-muted-foreground">A single registry item, e.g. /r/button.json</span>
                   </div>
                 </div>
-                <a href="https://github.com/seamless-ui/registry" target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" className="gap-2">
-                    <ExternalLink className="h-4 w-4" />
-                    View Registry Source
-                  </Button>
-                </a>
+                <p className="text-muted-foreground">
+                  Install any component straight from this origin with the shadcn CLI:
+                </p>
+                <div className="bg-muted p-4 rounded-md">
+                  <pre className="text-sm overflow-x-auto">
+                    <code>pnpm dlx shadcn@latest add https://ui.goseamless.ai/r/button.json</code>
+                  </pre>
+                </div>
               </Stack>
             </CardContent>
           </Card>

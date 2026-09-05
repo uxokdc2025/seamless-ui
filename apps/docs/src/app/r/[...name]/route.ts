@@ -10,17 +10,22 @@ export async function GET(
   context: { params: Promise<Params> }
 ) {
   const { name: nameParts } = await context.params
-  
-  // Join the path segments and remove .json extension if present
+
+  // Join the path segments and remove a trailing .json extension if present.
+  // Supports every shape shadcn may request:
+  //   /r/button.json                -> "button"              (bare last segment)
+  //   /r/ui/button.json             -> "ui/button"           (namespace {name} expansion)
+  //   /r/@seamless/ui/button.json   -> "@seamless/ui/button" (fully-qualified name)
   const fullPath = nameParts.join("/")
   const name = fullPath.replace(/\.json$/, "")
-  
-  // Find the component in the registry by name
+  const target = name.replace(/^@seamless\//, "")
+
+  // Find the component in the registry by exact name, namespace-stripped name,
+  // or bare last path segment.
   const component = registry.items.find((item) => {
-    // Match exact name or strip @seamless/ prefix
-    const itemName = item.name.replace(/^@seamless\//, "")
-    const searchName = name.replace(/^@seamless\//, "")
-    return itemName === searchName || item.name === name
+    const stripped = item.name.replace(/^@seamless\//, "") // e.g. "ui/button"
+    const last = item.name.split("/").pop() // e.g. "button"
+    return item.name === name || stripped === target || last === target
   })
 
   if (!component) {

@@ -350,3 +350,39 @@ export type { AspectRatioProps } from "./aspect-ratio"
 export type { CodeProps } from "./code"
 export type { KeyboardKeyProps } from "./keyboard-key"
 export type { SeparatorProps } from "./separator"
+
+// Components - Toggle (MUI-completeness additions)
+export { Toggle, toggleVariants } from "./toggle"
+export type { ToggleProps } from "./toggle"
+export { ToggleGroup, ToggleGroupItem } from "./toggle-group"
+export type { ToggleGroupProps, ToggleGroupItemProps } from "./toggle-group"
+
+// Components - Rating
+export { Rating, ratingVariants } from "./rating"
+export type { RatingProps } from "./rating"
+
+// Components - Sparkline
+export { Sparkline } from "./sparkline"
+export type { SparklineProps } from "./sparkline"
+
+// Components - Bottom Navigation
+export { BottomNavigation, BottomNavigationItem } from "./bottom-navigation"
+export type { BottomNavigationProps, BottomNavigationItemProps } from "./bottom-navigation"
+
+// Components - Notification Badge
+export { NotificationBadge, notificationBadgeVariants } from "./notification-badge"
+export type { NotificationBadgeProps } from "./notification-badge"
+
+// Components - Carousel
+export {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "./carousel"
+export type { CarouselProps } from "./carousel"
+
+// Components - Scroll Area
+export { ScrollArea, scrollAreaVariants } from "./scroll-area"
+export type { ScrollAreaProps } from "./scroll-area"

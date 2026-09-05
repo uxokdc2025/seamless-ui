@@ -601,7 +601,6 @@ export {
           { key: "Type character(s)", description: "Jump to option starting with typed text" },
         ]}
         related={["NativeSelect", "Combobox", "Autocomplete", "RadioGroup"]}
-        storybookUrl="https://storybook.goseamless.ai/?path=/story/ui-select--default"
       />
     </DocsShell>
   )
