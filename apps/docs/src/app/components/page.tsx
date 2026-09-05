@@ -191,11 +191,7 @@ export default function ComponentsPage() {
           </div>
 
           {/* Component Grid with Live Previews */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-            gap: '16px'
-          }}>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((component) => (
               <Link
                 key={component.name}
@@ -206,12 +202,13 @@ export default function ComponentsPage() {
                   color: 'inherit'
                 }}
               >
-                <Card 
+                <div 
+                  className="border rounded-lg overflow-hidden"
                   style={{
                     height: '100%',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
-                    border: '1px solid hsl(var(--color-border))'
+                    borderColor: 'hsl(var(--color-border))'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = 'hsl(var(--color-primary) / 0.5)'
@@ -222,58 +219,47 @@ export default function ComponentsPage() {
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
-                  <CardContent style={{ padding: '0' }}>
-                    {/* Live Preview Area */}
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minHeight: '160px',
-                      padding: '24px',
-                      borderBottom: '1px solid hsl(var(--color-border))',
-                      background: 'hsl(var(--color-muted) / 0.2)'
+                  {/* Live Preview Area */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '180px',
+                    padding: '24px',
+                    background: 'hsl(var(--color-muted) / 0.3)'
+                  }}>
+                    <ComponentPreview componentName={component.preview} />
+                  </div>
+                  
+                  {/* Component Info */}
+                  <div style={{ padding: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
+                    <div style={{ 
+                      fontSize: '12px',
+                      fontWeight: 500,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      color: 'hsl(var(--color-muted-foreground))',
+                      marginBottom: '8px'
                     }}>
-                      <ComponentPreview componentName={component.preview} />
+                      {component.category}
                     </div>
-                    
-                    {/* Component Info */}
-                    <div style={{ padding: '16px' }}>
-                      <div style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'space-between',
-                        marginBottom: '8px'
-                      }}>
-                        <Badge 
-                          variant="outline" 
-                          style={{ 
-                            fontSize: '11px',
-                            fontWeight: 500,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px'
-                          }}
-                        >
-                          {component.category}
-                        </Badge>
-                      </div>
-                      <h3 style={{ 
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        marginBottom: '6px',
-                        color: 'hsl(var(--color-foreground))'
-                      }}>
-                        {component.name}
-                      </h3>
-                      <p style={{ 
-                        fontSize: '13px',
-                        color: 'hsl(var(--color-muted-foreground))',
-                        lineHeight: 1.5
-                      }}>
-                        {component.description}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+                    <h3 style={{ 
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      marginBottom: '4px',
+                      color: 'hsl(var(--color-foreground))'
+                    }}>
+                      {component.name}
+                    </h3>
+                    <p style={{ 
+                      fontSize: '14px',
+                      color: 'hsl(var(--color-muted-foreground))',
+                      lineHeight: 1.5
+                    }}>
+                      {component.description}
+                    </p>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>

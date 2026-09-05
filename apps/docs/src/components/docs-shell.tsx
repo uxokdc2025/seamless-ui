@@ -41,6 +41,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
   const [currentMode, setCurrentMode] = useState<Mode>("light")
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isHomePage = pathname === "/"
 
   useEffect(() => {
     applyTheme({ theme: currentTheme, mode: currentMode })
@@ -256,20 +257,21 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
       {/* Layout: Sidebar + Content */}
       <div style={{ 
         display: 'flex',
-        maxWidth: '1600px',
+        maxWidth: isHomePage ? '100%' : '1600px',
         margin: '0 auto'
       }}>
-        {/* Left Sidebar */}
-        <aside style={{
-          width: '260px',
-          flexShrink: 0,
-          borderRight: '1px solid hsl(var(--color-border))',
-          height: 'calc(100vh - 60px)',
-          position: 'sticky',
-          top: '60px',
-          overflowY: 'auto',
-          padding: '24px 16px'
-        }} className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+        {/* Left Sidebar - Hidden on homepage */}
+        {!isHomePage && (
+          <aside style={{
+            width: '260px',
+            flexShrink: 0,
+            borderRight: '1px solid hsl(var(--color-border))',
+            height: 'calc(100vh - 60px)',
+            position: 'sticky',
+            top: '60px',
+            overflowY: 'auto',
+            padding: '24px 16px'
+          }} className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname?.startsWith(item.href + "/")
@@ -309,33 +311,6 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
             })}
           </nav>
 
-          {/* Theme selector in sidebar */}
-          <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid hsl(var(--color-border))' }}>
-            <label style={{ 
-              display: 'block', 
-              fontSize: '12px', 
-              fontWeight: 500,
-              marginBottom: '8px',
-              color: 'hsl(var(--color-muted-foreground))',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>
-              Theme
-            </label>
-            <Select value={currentTheme} onValueChange={handleThemeChange}>
-              <SelectTrigger className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {themes.map((theme) => (
-                  <SelectItem key={theme} value={theme}>
-                    {theme.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
           {/* External links */}
           <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
             <a
@@ -364,13 +339,14 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
               <span style={{ marginLeft: 'auto', fontSize: '12px' }}>↗</span>
             </a>
           </div>
-        </aside>
+          </aside>
+        )}
 
         {/* Main Content */}
         <main style={{ 
           flex: 1,
           minWidth: 0,
-          padding: '32px'
+          padding: isHomePage ? '0' : '32px'
         }}>
           {children}
         </main>

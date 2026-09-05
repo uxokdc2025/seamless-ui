@@ -44,28 +44,73 @@ export default function BlocksPage() {
             </CardContent>
           </Card>
 
-          <Grid cols={2} gap="md" className="grid-cols-1 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {blocks.map((block) => (
-              <Card key={block.name} className="hover:shadow-lg hover:border-primary/50 transition-all">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <Badge variant="outline" className="text-xs">
-                      {block.category}
-                    </Badge>
+              <div 
+                key={block.name} 
+                className="border rounded-lg overflow-hidden"
+                style={{
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer',
+                  borderColor: 'hsl(var(--color-border))'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'hsl(var(--color-primary) / 0.5)'
+                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'hsl(var(--color-border))'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
+              >
+                {/* Preview Area */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minHeight: '180px',
+                  padding: '24px',
+                  background: 'hsl(var(--color-muted) / 0.3)'
+                }}>
+                  <div style={{ 
+                    fontSize: '14px', 
+                    color: 'hsl(var(--color-muted-foreground))' 
+                  }}>
+                    Preview
                   </div>
-                  <CardTitle className="text-lg">{block.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Stack gap="md">
-                    <p className="text-sm text-muted-foreground">{block.description}</p>
-                    <div className="bg-muted/50 border border-border rounded-md h-40 flex items-center justify-center text-sm text-muted-foreground">
-                      Preview
-                    </div>
-                  </Stack>
-                </CardContent>
-              </Card>
+                </div>
+                
+                {/* Block Info */}
+                <div style={{ padding: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
+                  <div style={{ 
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    color: 'hsl(var(--color-muted-foreground))',
+                    marginBottom: '8px'
+                  }}>
+                    {block.category}
+                  </div>
+                  <h3 style={{ 
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    marginBottom: '4px',
+                    color: 'hsl(var(--color-foreground))'
+                  }}>
+                    {block.name}
+                  </h3>
+                  <p style={{ 
+                    fontSize: '14px',
+                    color: 'hsl(var(--color-muted-foreground))',
+                    lineHeight: 1.5
+                  }}>
+                    {block.description}
+                  </p>
+                </div>
+              </div>
             ))}
-          </Grid>
+          </div>
         </Stack>
       </Container>
     </DocsShell>

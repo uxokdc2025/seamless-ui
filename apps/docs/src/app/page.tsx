@@ -48,7 +48,7 @@ export default function HomePage() {
 
   return (
     <DocsShell title="Seamless UI">
-      <div style={{ margin: '-32px', marginTop: '-32px' }}>
+      <div>
         {/* Hero */}
         <section style={{
           position: 'relative',
@@ -58,7 +58,7 @@ export default function HomePage() {
           padding: '120px 32px'
         }}>
           <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-            <Stack gap="xl">
+            <Stack gap="lg">
               <Badge variant="outline" style={{ 
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -96,7 +96,8 @@ export default function HomePage() {
                 background: 'linear-gradient(to right, hsl(var(--color-foreground)), hsl(var(--color-foreground) / 0.7))',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
+                backgroundClip: 'text',
+                marginTop: '16px'
               }}>
                 Build beautiful UIs, faster
               </h1>
@@ -117,7 +118,7 @@ export default function HomePage() {
                 flexWrap: 'wrap',
                 gap: '16px',
                 justifyContent: 'center',
-                marginTop: '16px'
+                marginTop: '8px'
               }}>
                 <Link href="/getting-started">
                   <Button size="lg" style={{ gap: '8px' }}>
@@ -142,7 +143,7 @@ export default function HomePage() {
                 display: 'flex',
                 gap: '48px',
                 justifyContent: 'center',
-                paddingTop: '32px'
+                paddingTop: '24px'
               }}>
                 {stats.map((stat, idx) => (
                   <div key={idx} style={{ textAlign: 'center' }}>
