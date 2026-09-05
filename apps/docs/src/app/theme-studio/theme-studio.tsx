@@ -28,7 +28,7 @@ import {
   Separator
 } from "@seamless/ui"
 import { Container, Stack, Grid } from "@seamless/layout"
-import { Download, Upload, RotateCcw, Palette, Type, Layout, Layers, Zap, Focus, Sun, Moon } from "lucide-react"
+import { Download, Upload, RotateCcw, Palette, Type, Layout, Layers, Zap, Focus, Sun, Moon, Copy, Check } from "lucide-react"
 
 // Token categories for the theme editor
 const tokenCategories = [
@@ -151,73 +151,134 @@ const defaultTokens: ThemeTokens = {
   },
 }
 
-// Preset themes
+// Preset themes - loaded from the 8 real @seamless/tokens themes
 const presets = {
-  "seamless-default": defaultTokens,
-  "material": {
+  "midnight-aubergine": {
     ...defaultTokens,
     colors: {
       ...defaultTokens.colors,
-      background: "#121212",
-      foreground: "#ffffff",
-      surface: "#1e1e1e",
-      surfaceRaised: "#2c2c2c",
-      primary: "#bb86fc",
-      accent: "#03dac6",
-    },
-    radius: {
-      default: "4",
-      sm: "2",
-      lg: "8",
-      xl: "12",
+      background: "#15101a",
+      foreground: "#f3ebda",
+      surface: "#251d2c",
+      surfaceRaised: "#2e2436",
+      primary: "#d4a574",
+      primaryForeground: "#15101a",
+      accent: "#5ab896",
+      accentForeground: "#15101a",
+      error: "#c4607e",
+      border: "rgba(243, 235, 218, 0.08)",
     },
   },
-  "linear": {
+  "together": {
     ...defaultTokens,
     colors: {
       ...defaultTokens.colors,
-      background: "#ffffff",
-      foreground: "#16161d",
-      surface: "#f7f8f8",
-      surfaceRaised: "#ffffff",
-      primary: "#5e6ad2",
-      accent: "#26b5ce",
-    },
-    radius: {
-      default: "6",
-      sm: "4",
-      lg: "8",
-      xl: "12",
+      background: "#10131a",
+      foreground: "#f4f7fb",
+      surface: "#202735",
+      surfaceRaised: "#293344",
+      primary: "#67e8f9",
+      primaryForeground: "#10131a",
+      accent: "#7dd3fc",
+      accentForeground: "#10131a",
+      error: "#a78bfa",
+      border: "rgba(244, 247, 251, 0.08)",
     },
   },
-  "github": {
+  "airtable": {
     ...defaultTokens,
     colors: {
       ...defaultTokens.colors,
-      background: "#0d1117",
-      foreground: "#c9d1d9",
-      surface: "#161b22",
-      surfaceRaised: "#21262d",
-      primary: "#58a6ff",
-      accent: "#56d364",
+      background: "#f7f9fc",
+      foreground: "#182230",
+      surface: "#f1f4f8",
+      surfaceRaised: "#e4eaf2",
+      primary: "#2563eb",
+      primaryForeground: "#ffffff",
+      accent: "#059669",
+      accentForeground: "#ffffff",
+      error: "#7c3aed",
+      border: "rgba(24, 34, 48, 0.12)",
     },
   },
-  "stripe": {
+  "claude": {
     ...defaultTokens,
     colors: {
       ...defaultTokens.colors,
-      background: "#0a2540",
-      foreground: "#ffffff",
-      surface: "#1a3b5c",
-      surfaceRaised: "#2a4b6c",
-      primary: "#635bff",
-      accent: "#00d4ff",
+      background: "#1a1715",
+      foreground: "#f7f1e8",
+      surface: "#302824",
+      surfaceRaised: "#3c3028",
+      primary: "#e07a50",
+      primaryForeground: "#1a1715",
+      accent: "#8fc7a3",
+      accentForeground: "#1a1715",
+      error: "#c98a9d",
+      border: "rgba(247, 241, 232, 0.08)",
     },
-    radius: {
-      default: "6",
-      sm: "4",
-      lg: "8",
-      xl: "12",
+  },
+  "discord": {
+    ...defaultTokens,
+    colors: {
+      ...defaultTokens.colors,
+      background: "#1e1f22",
+      foreground: "#f2f3f5",
+      surface: "#313338",
+      surfaceRaised: "#404249",
+      primary: "#5865f2",
+      primaryForeground: "#ffffff",
+      accent: "#23a559",
+      accentForeground: "#ffffff",
+      error: "#f23f42",
+      border: "rgba(242, 243, 245, 0.08)",
+    },
+  },
+  "elevenlabs": {
+    ...defaultTokens,
+    colors: {
+      ...defaultTokens.colors,
+      background: "#0b0b0b",
+      foreground: "#f5f5f5",
+      surface: "#1d1d1d",
+      surfaceRaised: "#292929",
+      primary: "#f97316",
+      primaryForeground: "#ffffff",
+      accent: "#84cc16",
+      accentForeground: "#0b0b0b",
+      error: "#d946ef",
+      border: "rgba(245, 245, 245, 0.08)",
+    },
+  },
+  "ibm": {
+    ...defaultTokens,
+    colors: {
+      ...defaultTokens.colors,
+      background: "#101820",
+      foreground: "#f4f7fb",
+      surface: "#1f2e3b",
+      surfaceRaised: "#2a3b4a",
+      primary: "#78a9ff",
+      primaryForeground: "#101820",
+      accent: "#42be65",
+      accentForeground: "#101820",
+      error: "#be95ff",
+      border: "rgba(244, 247, 251, 0.08)",
+    },
+  },
+  "meta": {
+    ...defaultTokens,
+    colors: {
+      ...defaultTokens.colors,
+      background: "#0b1020",
+      foreground: "#f4f7ff",
+      surface: "#1a2542",
+      surfaceRaised: "#243256",
+      primary: "#60a5fa",
+      primaryForeground: "#0b1020",
+      accent: "#34d399",
+      accentForeground: "#0b1020",
+      error: "#a78bfa",
+      border: "rgba(244, 247, 255, 0.08)",
     },
   },
 }
@@ -226,6 +287,8 @@ export function ThemeStudio() {
   const [tokens, setTokens] = useState<ThemeTokens>(defaultTokens)
   const [activeCategory, setActiveCategory] = useState("colors")
   const [mode, setMode] = useState<"light" | "dark">("dark")
+  const [copiedCSS, setCopiedCSS] = useState(false)
+  const [copiedTailwind, setCopiedTailwind] = useState(false)
 
   // Apply tokens to CSS variables
   const applyTokens = useCallback((newTokens: ThemeTokens) => {
@@ -326,6 +389,138 @@ export function ThemeStudio() {
     linkElement.click()
   }
 
+  const copyCSSVariables = () => {
+    const cssVars = `/* Custom Theme CSS Variables */
+:root {
+  /* Colors */
+  --color-background: ${tokens.colors.background};
+  --color-foreground: ${tokens.colors.foreground};
+  --color-surface: ${tokens.colors.surface};
+  --color-surface-raised: ${tokens.colors.surfaceRaised};
+  --color-primary: ${tokens.colors.primary};
+  --color-primary-foreground: ${tokens.colors.primaryForeground};
+  --color-accent: ${tokens.colors.accent};
+  --color-accent-foreground: ${tokens.colors.accentForeground};
+  --color-error: ${tokens.colors.error};
+  --color-success: ${tokens.colors.success};
+  --color-warning: ${tokens.colors.warning};
+  --color-border: ${tokens.colors.border};
+  --color-muted: ${tokens.colors.muted};
+  --color-muted-foreground: ${tokens.colors.mutedForeground};
+  
+  /* Typography */
+  --font-size-base: ${tokens.typography.fontSizeBase}px;
+  --font-size-sm: ${tokens.typography.fontSizeSm}px;
+  --font-size-lg: ${tokens.typography.fontSizeLg}px;
+  --font-size-xl: ${tokens.typography.fontSizeXl}px;
+  --font-weight-normal: ${tokens.typography.fontWeightNormal};
+  --font-weight-medium: ${tokens.typography.fontWeightMedium};
+  --font-weight-bold: ${tokens.typography.fontWeightBold};
+  --line-height-normal: ${tokens.typography.lineHeightNormal};
+  --line-height-tight: ${tokens.typography.lineHeightTight};
+  --letter-spacing-normal: ${tokens.typography.letterSpacingNormal}em;
+  
+  /* Spacing */
+  --space-scale: ${tokens.spacing.scale};
+  --space-1: ${0.25 * parseFloat(tokens.spacing.scale)}rem;
+  --space-2: ${0.5 * parseFloat(tokens.spacing.scale)}rem;
+  --space-4: ${1 * parseFloat(tokens.spacing.scale)}rem;
+  --space-6: ${1.5 * parseFloat(tokens.spacing.scale)}rem;
+  --space-8: ${2 * parseFloat(tokens.spacing.scale)}rem;
+  
+  /* Border Radius */
+  --radius: ${tokens.radius.default}px;
+  --radius-sm: ${tokens.radius.sm}px;
+  --radius-lg: ${tokens.radius.lg}px;
+  --radius-xl: ${tokens.radius.xl}px;
+  
+  /* Shadows */
+  --shadow-sm: ${tokens.shadows.sm};
+  --shadow-base: ${tokens.shadows.base};
+  --shadow-md: ${tokens.shadows.md};
+  --shadow-lg: ${tokens.shadows.lg};
+  
+  /* Motion */
+  --duration-normal: ${tokens.motion.durationNormal}ms;
+  --ease-out: ${tokens.motion.easing};
+  
+  /* Focus */
+  --focus-ring-width: ${tokens.focus.ringWidth}px;
+  --focus-ring-offset: ${tokens.focus.ringOffset}px;
+}
+`
+    navigator.clipboard.writeText(cssVars)
+    setCopiedCSS(true)
+    setTimeout(() => setCopiedCSS(false), 2000)
+  }
+
+  const exportTailwindConfig = () => {
+    const tailwindConfig = `// Tailwind Config Theme Extension
+// Add this to your tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        background: '${tokens.colors.background}',
+        foreground: '${tokens.colors.foreground}',
+        surface: '${tokens.colors.surface}',
+        'surface-raised': '${tokens.colors.surfaceRaised}',
+        primary: '${tokens.colors.primary}',
+        'primary-foreground': '${tokens.colors.primaryForeground}',
+        accent: '${tokens.colors.accent}',
+        'accent-foreground': '${tokens.colors.accentForeground}',
+        error: '${tokens.colors.error}',
+        success: '${tokens.colors.success}',
+        warning: '${tokens.colors.warning}',
+        border: '${tokens.colors.border}',
+        muted: '${tokens.colors.muted}',
+        'muted-foreground': '${tokens.colors.mutedForeground}',
+      },
+      fontSize: {
+        xs: '${tokens.typography.fontSizeSm}px',
+        sm: '${tokens.typography.fontSizeSm}px',
+        base: '${tokens.typography.fontSizeBase}px',
+        lg: '${tokens.typography.fontSizeLg}px',
+        xl: '${tokens.typography.fontSizeXl}px',
+      },
+      fontWeight: {
+        normal: ${tokens.typography.fontWeightNormal},
+        medium: ${tokens.typography.fontWeightMedium},
+        bold: ${tokens.typography.fontWeightBold},
+      },
+      lineHeight: {
+        normal: ${tokens.typography.lineHeightNormal},
+        tight: ${tokens.typography.lineHeightTight},
+      },
+      borderRadius: {
+        DEFAULT: '${tokens.radius.default}px',
+        sm: '${tokens.radius.sm}px',
+        lg: '${tokens.radius.lg}px',
+        xl: '${tokens.radius.xl}px',
+      },
+      boxShadow: {
+        sm: '${tokens.shadows.sm}',
+        DEFAULT: '${tokens.shadows.base}',
+        md: '${tokens.shadows.md}',
+        lg: '${tokens.shadows.lg}',
+      },
+      transitionDuration: {
+        DEFAULT: '${tokens.motion.durationNormal}ms',
+      },
+      transitionTimingFunction: {
+        DEFAULT: '${tokens.motion.easing}',
+      },
+    },
+  },
+}
+`
+    const dataUri = `data:text/javascript;charset=utf-8,${encodeURIComponent(tailwindConfig)}`
+    const linkElement = document.createElement("a")
+    linkElement.setAttribute("href", dataUri)
+    linkElement.setAttribute("download", "tailwind.config.js")
+    linkElement.click()
+  }
+
   const importTokens = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
@@ -370,9 +565,17 @@ export function ThemeStudio() {
                 <RotateCcw className="h-4 w-4 mr-2" />
                 Reset
               </Button>
+              <Button variant="outline" size="sm" onClick={copyCSSVariables}>
+                {copiedCSS ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
+                {copiedCSS ? "Copied!" : "Copy CSS"}
+              </Button>
+              <Button variant="outline" size="sm" onClick={exportTailwindConfig}>
+                <Download className="h-4 w-4 mr-2" />
+                Tailwind
+              </Button>
               <Button variant="outline" size="sm" onClick={exportTokens}>
                 <Download className="h-4 w-4 mr-2" />
-                Export
+                JSON
               </Button>
               <label>
                 <Button variant="outline" size="sm" asChild>
@@ -412,11 +615,14 @@ export function ThemeStudio() {
                   <SelectValue placeholder="Choose a preset..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="seamless-default">Seamless Default</SelectItem>
-                  <SelectItem value="material">Material Design</SelectItem>
-                  <SelectItem value="linear">Linear</SelectItem>
-                  <SelectItem value="github">GitHub</SelectItem>
-                  <SelectItem value="stripe">Stripe</SelectItem>
+                  <SelectItem value="midnight-aubergine">Midnight Aubergine</SelectItem>
+                  <SelectItem value="together">Together</SelectItem>
+                  <SelectItem value="airtable">Airtable</SelectItem>
+                  <SelectItem value="claude">Claude</SelectItem>
+                  <SelectItem value="discord">Discord</SelectItem>
+                  <SelectItem value="elevenlabs">ElevenLabs</SelectItem>
+                  <SelectItem value="ibm">IBM</SelectItem>
+                  <SelectItem value="meta">Meta</SelectItem>
                 </SelectContent>
               </Select>
             </div>
