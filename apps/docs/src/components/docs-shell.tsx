@@ -27,7 +27,7 @@ const topNavLinks = [
   { name: "Components", href: "/components" },
   { name: "Blocks", href: "/blocks" },
   { name: "Themes", href: "/themes" },
-  { name: "Registry", href: "/registry" },
+  { name: "Platform", href: "/layout" },
 ]
 
 const componentLinks = [
@@ -87,6 +87,42 @@ const componentLinks = [
   { name: "Tooltip", href: "/components/tooltip" },
   { name: "Typography", href: "/components/typography" },
 ]
+
+const getStartedGroup = [
+  { name: "Getting Started", href: "/getting-started" },
+  { name: "Foundations", href: "/foundations" },
+]
+const themesGroup = [
+  { name: "Themes", href: "/themes" },
+  { name: "Theme Studio", href: "/theme-studio" },
+  { name: "Design Systems", href: "/design-systems" },
+]
+const platformGroup = [
+  { name: "Layout", href: "/layout" },
+  { name: "SaaS", href: "/saas" },
+  { name: "AI", href: "/ai" },
+  { name: "Patterns", href: "/patterns" },
+  { name: "Registry", href: "/registry" },
+]
+const blocksGroup = [
+  { name: "Blocks", href: "/blocks" },
+]
+function getSidebarGroups(pathname: string) {
+  const p = pathname || "/"
+  if (p.startsWith("/themes") || p.startsWith("/theme-studio") || p.startsWith("/design-systems")) {
+    return [{ header: "Themes", items: themesGroup }]
+  }
+  if (p.startsWith("/blocks")) {
+    return [{ header: "Blocks", items: blocksGroup }]
+  }
+  if (p.startsWith("/layout") || p.startsWith("/saas") || p.startsWith("/ai") || p.startsWith("/patterns") || p.startsWith("/registry")) {
+    return [{ header: "Platform", items: platformGroup }]
+  }
+  return [
+    { header: "Get Started", items: getStartedGroup },
+    { header: "Components", items: componentLinks },
+  ]
+}
 
 interface DocsShellProps {
   children: React.ReactNode
@@ -332,74 +368,36 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
             overflowY: 'auto',
             padding: '24px 16px'
           }} className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            {navigation.map((item) => {
-              const isActive = pathname === item.href || pathname?.startsWith(item.href + "/")
-              const Icon = item.icon
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    padding: '8px 12px',
-                    fontSize: '14px',
-                    fontWeight: isActive ? 500 : 400,
-                    borderRadius: '6px',
-                    color: isActive ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
-                    background: isActive ? 'var(--color-muted)' : 'transparent',
-                    transition: 'background 0.15s ease, color 0.15s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)'
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = 'transparent'
-                    }
-                  }}
-                >
-                  <Icon style={{ width: '16px', height: '16px', flexShrink: 0 }} />
-                  <span>{item.name}</span>
-                </Link>
-              )
-            })}
-          </nav>
-
-          {/* Components list (shadcn-style) */}
-          <div style={{ marginTop: '20px' }}>
-            <div style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-muted-foreground)', padding: '0 12px', marginBottom: '8px' }}>Components</div>
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
-              {componentLinks.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    style={{
-                      padding: '6px 12px',
-                      fontSize: '14px',
-                      borderRadius: '6px',
-                      color: isActive ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
-                      background: isActive ? 'var(--color-muted)' : 'transparent',
-                      fontWeight: isActive ? 500 : 400,
-                      transition: 'background 0.15s ease, color 0.15s ease'
-                    }}
-                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)' }}
-                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.background = 'transparent' }}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
+          {getSidebarGroups(pathname || "/").map((group) => (
+            <div key={group.header} style={{ marginBottom: '20px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-muted-foreground)', padding: '0 12px', marginBottom: '8px' }}>{group.header}</div>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+                {group.items.map((item) => {
+                  const isActive = pathname === item.href
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{
+                        padding: '6px 12px',
+                        fontSize: '14px',
+                        borderRadius: '6px',
+                        color: isActive ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
+                        background: isActive ? 'var(--color-muted)' : 'transparent',
+                        fontWeight: isActive ? 500 : 400,
+                        transition: 'background 0.15s ease, color 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)' }}
+                      onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.background = 'transparent' }}
+                    >
+                      {item.name}
+                    </Link>
+                  )
+                })}
+              </nav>
+            </div>
+          ))}
           </aside>
         )}
 
