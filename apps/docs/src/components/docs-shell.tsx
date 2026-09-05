@@ -30,6 +30,64 @@ const topNavLinks = [
   { name: "Registry", href: "/registry" },
 ]
 
+const componentLinks = [
+  { name: "Accordion", href: "/components/accordion" },
+  { name: "Alert", href: "/components/alert" },
+  { name: "Alert Dialog", href: "/components/alert-dialog" },
+  { name: "Aspect Ratio", href: "/components/aspect-ratio" },
+  { name: "Avatar", href: "/components/avatar" },
+  { name: "Badge", href: "/components/badge" },
+  { name: "Breadcrumb", href: "/components/breadcrumb" },
+  { name: "Button", href: "/components/button" },
+  { name: "Button Group", href: "/components/button-group" },
+  { name: "Calendar", href: "/components/calendar" },
+  { name: "Card", href: "/components/card" },
+  { name: "Carousel", href: "/components/carousel" },
+  { name: "Chart", href: "/components/chart" },
+  { name: "Checkbox", href: "/components/checkbox" },
+  { name: "Collapsible", href: "/components/collapsible" },
+  { name: "Combobox", href: "/components/combobox" },
+  { name: "Command", href: "/components/command" },
+  { name: "Context Menu", href: "/components/context-menu" },
+  { name: "Data Table", href: "/components/data-table" },
+  { name: "Date Picker", href: "/components/date-picker" },
+  { name: "Dialog", href: "/components/dialog" },
+  { name: "Drawer", href: "/components/drawer" },
+  { name: "Dropdown Menu", href: "/components/dropdown-menu" },
+  { name: "Empty", href: "/components/empty" },
+  { name: "Field", href: "/components/field" },
+  { name: "Hover Card", href: "/components/hover-card" },
+  { name: "Input", href: "/components/input" },
+  { name: "Input Group", href: "/components/input-group" },
+  { name: "Input OTP", href: "/components/input-otp" },
+  { name: "Kbd", href: "/components/kbd" },
+  { name: "Label", href: "/components/label" },
+  { name: "Menubar", href: "/components/menubar" },
+  { name: "Native Select", href: "/components/native-select" },
+  { name: "Navigation Menu", href: "/components/navigation-menu" },
+  { name: "Pagination", href: "/components/pagination" },
+  { name: "Popover", href: "/components/popover" },
+  { name: "Progress", href: "/components/progress" },
+  { name: "Radio Group", href: "/components/radio-group" },
+  { name: "Resizable", href: "/components/resizable" },
+  { name: "Scroll Area", href: "/components/scroll-area" },
+  { name: "Select", href: "/components/select" },
+  { name: "Separator", href: "/components/separator" },
+  { name: "Sheet", href: "/components/sheet" },
+  { name: "Skeleton", href: "/components/skeleton" },
+  { name: "Slider", href: "/components/slider" },
+  { name: "Spinner", href: "/components/spinner" },
+  { name: "Switch", href: "/components/switch" },
+  { name: "Table", href: "/components/table" },
+  { name: "Tabs", href: "/components/tabs" },
+  { name: "Textarea", href: "/components/textarea" },
+  { name: "Toast", href: "/components/toast" },
+  { name: "Toggle", href: "/components/toggle" },
+  { name: "Toggle Group", href: "/components/toggle-group" },
+  { name: "Tooltip", href: "/components/tooltip" },
+  { name: "Typography", href: "/components/typography" },
+]
+
 interface DocsShellProps {
   children: React.ReactNode
   title?: string
@@ -313,33 +371,34 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
             })}
           </nav>
 
-          {/* External links */}
-          <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--color-border)' }}>
-            <a
-              href="https://storybook.goseamless.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '8px 12px',
-                fontSize: '14px',
-                borderRadius: '6px',
-                color: 'var(--color-muted-foreground)',
-                transition: 'background 0.15s ease, color 0.15s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent'
-              }}
-            >
-              <BookOpen style={{ width: '16px', height: '16px', flexShrink: 0 }} />
-              <span>Storybook</span>
-              <span style={{ marginLeft: 'auto', fontSize: '12px' }}>↗</span>
-            </a>
+          {/* Components list (shadcn-style) */}
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-muted-foreground)', padding: '0 12px', marginBottom: '8px' }}>Components</div>
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+              {componentLinks.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{
+                      padding: '6px 12px',
+                      fontSize: '14px',
+                      borderRadius: '6px',
+                      color: isActive ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
+                      background: isActive ? 'var(--color-muted)' : 'transparent',
+                      fontWeight: isActive ? 500 : 400,
+                      transition: 'background 0.15s ease, color 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)' }}
+                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.background = 'transparent' }}
+                  >
+                    {item.name}
+                  </Link>
+                )
+              })}
+            </nav>
           </div>
           </aside>
         )}
