@@ -58,23 +58,23 @@ export default function RegistryPage() {
               <div className="space-y-3">
                 <div>
                   <code className="bg-muted px-2 py-1 rounded text-sm font-mono">@seamless/ui/*</code>
-                  <p className="text-sm text-muted-foreground mt-1">Core UI components (28 total)</p>
+                  <p className="text-sm text-muted-foreground mt-1">Core UI components (28 components)</p>
                 </div>
                 <div>
                   <code className="bg-muted px-2 py-1 rounded text-sm font-mono">@seamless/layout/*</code>
-                  <p className="text-sm text-muted-foreground mt-1">Layout primitives (Container, Grid, Stack)</p>
+                  <p className="text-sm text-muted-foreground mt-1">Layout primitives (14 components)</p>
                 </div>
                 <div>
                   <code className="bg-muted px-2 py-1 rounded text-sm font-mono">@seamless/saas/*</code>
-                  <p className="text-sm text-muted-foreground mt-1">SaaS-specific components</p>
+                  <p className="text-sm text-muted-foreground mt-1">SaaS-specific components (4 components)</p>
                 </div>
                 <div>
                   <code className="bg-muted px-2 py-1 rounded text-sm font-mono">@seamless/ai/*</code>
-                  <p className="text-sm text-muted-foreground mt-1">AI and agent components</p>
+                  <p className="text-sm text-muted-foreground mt-1">AI and agent components (1 component)</p>
                 </div>
                 <div>
                   <code className="bg-muted px-2 py-1 rounded text-sm font-mono">@seamless/blocks/*</code>
-                  <p className="text-sm text-muted-foreground mt-1">Pre-built composition blocks</p>
+                  <p className="text-sm text-muted-foreground mt-1">Pre-built composition blocks (1 block)</p>
                 </div>
               </div>
             </CardContent>
