@@ -183,17 +183,23 @@ function RightRailTOC({ pathname }: { pathname: string }) {
 
 export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
   const pathname = usePathname()
-  const [currentTheme, setCurrentTheme] = useState<Theme>("midnight-aubergine")
+  const [currentTheme, setCurrentTheme] = useState<string>("default")
   const [currentMode, setCurrentMode] = useState<Mode>("light")
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const isHomePage = pathname === "/"
 
   useEffect(() => {
-    // Default look = shadcn-neutral (no brand data-theme). Only track light/dark mode.
-    document.documentElement.setAttribute("data-mode", currentMode)
-    document.documentElement.removeAttribute("data-theme")
-  }, [currentMode])
+    let t = "default"; let m: Mode = "light"
+    try {
+      t = localStorage.getItem("sui-theme") || "default"
+      const sm = localStorage.getItem("sui-mode"); if (sm === "dark" || sm === "light") m = sm
+    } catch {}
+    setCurrentTheme(t); setCurrentMode(m)
+    if (t === "default") document.documentElement.removeAttribute("data-theme")
+    else document.documentElement.setAttribute("data-theme", t)
+    document.documentElement.setAttribute("data-mode", m)
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -206,14 +212,24 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [])
 
-  const handleThemeChange = (theme: Theme) => {
-    setCurrentTheme(theme)
-    applyTheme({ theme, mode: currentMode })
+  const THEME_LABELS: Record<string, string> = {
+    default: "Default", "midnight-aubergine": "Midnight Aubergine", together: "Together",
+    airtable: "Airtable", claude: "Claude", discord: "Discord", elevenlabs: "ElevenLabs", ibm: "IBM", meta: "Meta",
   }
-
+  const applyChoice = (theme: string, mode: Mode) => {
+    if (theme === "default") document.documentElement.removeAttribute("data-theme")
+    else document.documentElement.setAttribute("data-theme", theme)
+    document.documentElement.setAttribute("data-mode", mode)
+  }
+  const handleThemeChange = (theme: string) => {
+    setCurrentTheme(theme)
+    applyChoice(theme, currentMode)
+    try { localStorage.setItem("sui-theme", theme) } catch {}
+  }
   const handleModeChange = (mode: Mode) => {
     setCurrentMode(mode)
-    applyTheme({ theme: currentTheme, mode })
+    applyChoice(currentTheme, mode)
+    try { localStorage.setItem("sui-mode", mode) } catch {}
   }
 
   return (
@@ -328,6 +344,16 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                 borderRadius: '4px'
               }}>⌘K</kbd>
             </Button>
+
+            {/* Theme switcher — swaps the whole UI live */}
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <Palette style={{ width: "14px", height: "14px", position: "absolute", left: "8px", pointerEvents: "none", color: "var(--color-muted-foreground)" }} />
+              <select value={currentTheme} onChange={(e) => handleThemeChange(e.target.value)} aria-label="Theme"
+                style={{ height: "32px", paddingLeft: "26px", paddingRight: "24px", borderRadius: "8px", border: "1px solid var(--color-border)", background: "var(--color-background)", color: "var(--color-foreground)", fontSize: "13px", cursor: "pointer", WebkitAppearance: "none", appearance: "none" }}>
+                <option value="default">Default</option>
+                {themes.map((t) => (<option key={t} value={t}>{THEME_LABELS[t] || t}</option>))}
+              </select>
+            </div>
 
             {/* Theme toggle */}
             <div style={{
