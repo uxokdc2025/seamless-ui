@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm --filter @seamless/storybook build",
+  "outputDirectory": "storybook-static",
+  "installCommand": "pnpm install"
+}
