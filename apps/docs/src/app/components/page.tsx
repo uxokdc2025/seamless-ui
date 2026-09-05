@@ -191,7 +191,7 @@ export default function ComponentsPage() {
           </div>
 
           {/* Component Grid with Live Previews */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
             {filtered.map((component) => (
               <Link
                 key={component.name}
@@ -203,12 +203,13 @@ export default function ComponentsPage() {
                 }}
               >
                 <div 
-                  className="border rounded-lg overflow-hidden"
                   style={{
                     height: '100%',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
-                    borderColor: 'var(--color-border)'
+                    border: '1px solid var(--color-border)',
+                    borderRadius: '8px',
+                    overflow: 'hidden'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-primary) calc(0.5 * 100%), transparent)'
@@ -226,7 +227,7 @@ export default function ComponentsPage() {
                     justifyContent: 'center',
                     minHeight: '180px',
                     padding: '24px',
-                    background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)'
+                    background: 'var(--color-muted)'
                   }}>
                     <ComponentPreview componentName={component.preview} />
                   </div>
