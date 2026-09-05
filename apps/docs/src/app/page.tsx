@@ -10,12 +10,12 @@ export default function HomePage() {
     {
       icon: <Zap className="h-6 w-6" />,
       title: "Production Ready",
-      description: "47 fully accessible components built with Radix UI and styled with Tailwind CSS.",
+      description: "28 fully accessible UI components built with Radix UI and styled with Tailwind CSS.",
     },
     {
       icon: <Palette className="h-6 w-6" />,
       title: "Themeable",
-      description: "8 built-in themes with live preview. Create custom themes with the Theme Studio.",
+      description: "5 built-in themes with live preview. Create custom themes with the Theme Studio.",
     },
     {
       icon: <Box className="h-6 w-6" />,
@@ -29,8 +29,8 @@ export default function HomePage() {
     },
     {
       icon: <Blocks className="h-6 w-6" />,
-      title: "Pre-built Patterns",
-      description: "12 design patterns for common UI challenges: forms, data tables, modals, and more.",
+      title: "Pre-built Blocks",
+      description: "10 production-ready blocks for common patterns: dashboards, forms, auth, and more.",
     },
     {
       icon: <Github className="h-6 w-6" />,
@@ -40,9 +40,9 @@ export default function HomePage() {
   ]
 
   const stats = [
-    { label: "Components", value: "47" },
-    { label: "Themes", value: "8" },
-    { label: "Patterns", value: "12" },
+    { label: "Components", value: "28" },
+    { label: "Themes", value: "5" },
+    { label: "Blocks", value: "10" },
   ]
 
   return (
