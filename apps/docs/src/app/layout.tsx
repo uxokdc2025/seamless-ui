@@ -16,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <body>
+        <div hidden aria-hidden className="bg-primary bg-primary/90 bg-primary/80 hover:bg-primary/90 text-primary text-primary-foreground border-primary ring-primary bg-secondary bg-secondary/80 hover:bg-secondary/80 text-secondary text-secondary-foreground bg-destructive bg-destructive/90 hover:bg-destructive/90 text-destructive text-destructive-foreground bg-accent hover:bg-accent text-accent-foreground hover:text-accent-foreground bg-muted bg-muted/50 hover:bg-muted text-muted-foreground bg-background text-foreground bg-card text-card-foreground bg-popover text-popover-foreground border border-input border-border ring-ring ring-offset-background outline-ring hover:underline underline-offset-4 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary fill-primary stroke-primary bg-input" />
         {children}
       </body>
     </html>
