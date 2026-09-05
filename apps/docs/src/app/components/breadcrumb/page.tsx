@@ -2,8 +2,16 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Copy, Check, Download, ArrowRight, Trash2, Mail } from "lucide-react"
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+} from "@seamless/ui"
+import { Copy, Check, Slash } from "lucide-react"
 
 const codeBlockStyle: React.CSSProperties = {
   margin: 0,
@@ -216,12 +224,12 @@ function PropsTable({
   )
 }
 
-export default function ButtonPageDoc() {
+export default function BreadcrumbPageDoc() {
   return (
-    <DocsShell title="Button">
+    <DocsShell title="Breadcrumb">
       <div style={{ maxWidth: "860px" }}>
         <h1 style={{ fontSize: "34px", fontWeight: 700, marginBottom: "8px" }}>
-          Button
+          Breadcrumb
         </h1>
         <p
           style={{
@@ -230,186 +238,192 @@ export default function ButtonPageDoc() {
             marginBottom: "28px",
           }}
         >
-          Displays a button or a component that looks like a button, with
-          variants and sizes.
+          Displays the path to the current resource using a hierarchy of links.
         </p>
 
         <PreviewCard>
-          <Button>Button</Button>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Components</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </PreviewCard>
 
         <SectionTitle>Installation</SectionTitle>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/button`} />
+        <CodeBlock
+          code={`pnpm dlx shadcn@latest add @seamless/ui/breadcrumb`}
+        />
 
         <SectionTitle>Usage</SectionTitle>
         <CodeBlock
-          code={`import { Button } from "@seamless/ui"
+          code={`import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@seamless/ui"
 
 export default function Example() {
-  return <Button variant="outline">Click me</Button>
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Current</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  )
 }`}
+        />
+
+        <SectionTitle>Composition</SectionTitle>
+        <CodeBlock
+          code={`Breadcrumb
+└── BreadcrumbList
+    ├── BreadcrumbItem
+    │   ├── BreadcrumbLink
+    │   └── BreadcrumbPage
+    ├── BreadcrumbSeparator
+    └── BreadcrumbEllipsis`}
         />
 
         <SectionTitle>Examples</SectionTitle>
 
         <Example
-          title="Variants"
-          description="Six variants cover the full action hierarchy."
-          code={`<Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>`}
+          title="Custom separator"
+          description="Pass any node as a child of BreadcrumbSeparator to replace the default chevron."
+          code={`<BreadcrumbSeparator>
+  <Slash />
+</BreadcrumbSeparator>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button>Default</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
-          </div>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Slash />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Docs</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Slash />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </Example>
+
+        <Example
+          title="With ellipsis"
+          description="Collapse the middle of a long path with BreadcrumbEllipsis."
+          code={`<BreadcrumbItem>
+  <BreadcrumbEllipsis />
+</BreadcrumbItem>`}
+        >
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbEllipsis />
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Components</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </Example>
 
         <Example
           title="Sizes"
-          description="Three text sizes plus a square icon size."
-          code={`<Button size="sm">Small</Button>
-<Button>Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><Mail className="h-4 w-4" /></Button>`}
+          description="Use the size prop for small, medium, or large breadcrumbs."
+          code={`<Breadcrumb size="sm"> ... </Breadcrumb>
+<Breadcrumb size="lg"> ... </Breadcrumb>`}
         >
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
+              gap: "16px",
               alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
             }}
           >
-            <Button size="sm">Small</Button>
-            <Button>Default</Button>
-            <Button size="lg">Large</Button>
-            <Button size="icon">
-              <Mail style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="With icon"
-          description="Compose an icon and label; use a small gap between them."
-          code={`<Button style={{ gap: 8 }}>
-  <Download className="h-4 w-4" />
-  Download
-</Button>
-<Button variant="outline" style={{ gap: 8 }}>
-  Continue
-  <ArrowRight className="h-4 w-4" />
-</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button style={{ gap: "8px" }}>
-              <Download style={{ width: "16px", height: "16px" }} />
-              Download
-            </Button>
-            <Button variant="outline" style={{ gap: "8px" }}>
-              Continue
-              <ArrowRight style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Icon only"
-          description="Use the icon size for square, icon-only buttons. Always provide an aria-label."
-          code={`<Button size="icon" aria-label="Download">
-  <Download className="h-4 w-4" />
-</Button>
-<Button size="icon" variant="outline" aria-label="Delete">
-  <Trash2 className="h-4 w-4" />
-</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button size="icon" aria-label="Download">
-              <Download style={{ width: "16px", height: "16px" }} />
-            </Button>
-            <Button size="icon" variant="outline" aria-label="Delete">
-              <Trash2 style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled buttons are non-interactive and rendered at reduced opacity."
-          code={`<Button disabled>Disabled</Button>
-<Button variant="outline" disabled>Disabled</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button disabled>Disabled</Button>
-            <Button variant="outline" disabled>
-              Disabled
-            </Button>
+            <Breadcrumb size="sm">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Small</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+            <Breadcrumb size="lg">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Large</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
         </Example>
 
         <SectionTitle>API Reference</SectionTitle>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "var(--color-muted-foreground)",
+            marginBottom: "16px",
+          }}
+        >
+          Props on the <code>Breadcrumb</code> root (a <code>nav</code>
+          element):
+        </p>
         <PropsTable
           rows={[
             {
-              prop: "variant",
-              type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"',
-              def: '"default"',
-              desc: "The visual style of the button.",
-            },
-            {
               prop: "size",
-              type: '"default" | "sm" | "lg" | "icon"',
-              def: '"default"',
-              desc: "The size of the button.",
+              type: '"sm" | "md" | "lg"',
+              def: '"md"',
+              desc: "The text size of the breadcrumb trail.",
             },
             {
-              prop: "asChild",
-              type: "boolean",
-              def: "false",
-              desc: "Merge props onto the child element instead of rendering a button (Radix Slot).",
-            },
-            {
-              prop: "disabled",
-              type: "boolean",
-              def: "false",
-              desc: "Whether the button is disabled.",
+              prop: "className",
+              type: "string",
+              def: "—",
+              desc: "Additional classes merged onto the nav element.",
             },
           ]}
         />

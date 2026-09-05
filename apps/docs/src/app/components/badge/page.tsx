@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Copy, Check, Download, ArrowRight, Trash2, Mail } from "lucide-react"
+import { Badge } from "@seamless/ui"
+import { Copy, Check, BadgeCheck, ArrowRight } from "lucide-react"
 
 const codeBlockStyle: React.CSSProperties = {
   margin: 0,
@@ -133,7 +133,7 @@ function Example({
           border: "1px solid var(--color-border)",
           borderRadius: "8px",
           background: "var(--color-muted)",
-          minHeight: "120px",
+          minHeight: "140px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -216,12 +216,12 @@ function PropsTable({
   )
 }
 
-export default function ButtonPageDoc() {
+export default function BadgePage() {
   return (
-    <DocsShell title="Button">
+    <DocsShell title="Badge">
       <div style={{ maxWidth: "860px" }}>
         <h1 style={{ fontSize: "34px", fontWeight: 700, marginBottom: "8px" }}>
-          Button
+          Badge
         </h1>
         <p
           style={{
@@ -230,23 +230,22 @@ export default function ButtonPageDoc() {
             marginBottom: "28px",
           }}
         >
-          Displays a button or a component that looks like a button, with
-          variants and sizes.
+          A small label for statuses, counts, and categories.
         </p>
 
         <PreviewCard>
-          <Button>Button</Button>
+          <Badge>Badge</Badge>
         </PreviewCard>
 
         <SectionTitle>Installation</SectionTitle>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/button`} />
+        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/badge`} />
 
         <SectionTitle>Usage</SectionTitle>
         <CodeBlock
-          code={`import { Button } from "@seamless/ui"
+          code={`import { Badge } from "@seamless/ui"
 
 export default function Example() {
-  return <Button variant="outline">Click me</Button>
+  return <Badge variant="secondary">New</Badge>
 }`}
         />
 
@@ -254,134 +253,78 @@ export default function Example() {
 
         <Example
           title="Variants"
-          description="Six variants cover the full action hierarchy."
-          code={`<Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>`}
+          description="Five variants: default, secondary, destructive, success, and outline."
+          code={`<Badge>Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="destructive">Destructive</Badge>
+<Badge variant="success">Success</Badge>
+<Badge variant="outline">Outline</Badge>`}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "8px",
               flexWrap: "wrap",
               justifyContent: "center",
             }}
           >
-            <Button>Default</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Sizes"
-          description="Three text sizes plus a square icon size."
-          code={`<Button size="sm">Small</Button>
-<Button>Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><Mail className="h-4 w-4" /></Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button size="sm">Small</Button>
-            <Button>Default</Button>
-            <Button size="lg">Large</Button>
-            <Button size="icon">
-              <Mail style={{ width: "16px", height: "16px" }} />
-            </Button>
+            <Badge>Default</Badge>
+            <Badge variant="secondary">Secondary</Badge>
+            <Badge variant="destructive">Destructive</Badge>
+            <Badge variant="success">Success</Badge>
+            <Badge variant="outline">Outline</Badge>
           </div>
         </Example>
 
         <Example
           title="With icon"
-          description="Compose an icon and label; use a small gap between them."
-          code={`<Button style={{ gap: 8 }}>
-  <Download className="h-4 w-4" />
-  Download
-</Button>
-<Button variant="outline" style={{ gap: 8 }}>
-  Continue
-  <ArrowRight className="h-4 w-4" />
-</Button>`}
+          description="Place an icon before the label for extra context."
+          code={`<Badge variant="success">
+  <BadgeCheck className="h-3 w-3" style={{ marginRight: 4 }} />
+  Verified
+</Badge>`}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "8px",
               flexWrap: "wrap",
               justifyContent: "center",
             }}
           >
-            <Button style={{ gap: "8px" }}>
-              <Download style={{ width: "16px", height: "16px" }} />
-              Download
-            </Button>
-            <Button variant="outline" style={{ gap: "8px" }}>
-              Continue
-              <ArrowRight style={{ width: "16px", height: "16px" }} />
-            </Button>
+            <Badge variant="success">
+              <BadgeCheck
+                style={{ width: "12px", height: "12px", marginRight: "4px" }}
+              />
+              Verified
+            </Badge>
+            <Badge variant="secondary">
+              <span style={{ marginRight: "4px" }}>●</span>
+              Live
+            </Badge>
           </div>
         </Example>
 
         <Example
-          title="Icon only"
-          description="Use the icon size for square, icon-only buttons. Always provide an aria-label."
-          code={`<Button size="icon" aria-label="Download">
-  <Download className="h-4 w-4" />
-</Button>
-<Button size="icon" variant="outline" aria-label="Delete">
-  <Trash2 className="h-4 w-4" />
-</Button>`}
+          title="As a link"
+          description="Render a badge as an anchor to make it interactive."
+          code={`<a href="#" style={{ textDecoration: "none" }}>
+  <Badge style={{ cursor: "pointer" }}>
+    View changelog
+    <ArrowRight className="h-3 w-3" style={{ marginLeft: 4 }} />
+  </Badge>
+</a>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button size="icon" aria-label="Download">
-              <Download style={{ width: "16px", height: "16px" }} />
-            </Button>
-            <Button size="icon" variant="outline" aria-label="Delete">
-              <Trash2 style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled buttons are non-interactive and rendered at reduced opacity."
-          code={`<Button disabled>Disabled</Button>
-<Button variant="outline" disabled>Disabled</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button disabled>Disabled</Button>
-            <Button variant="outline" disabled>
-              Disabled
-            </Button>
-          </div>
+          <a href="#" style={{ textDecoration: "none" }}>
+            <Badge style={{ cursor: "pointer" }}>
+              View changelog
+              <ArrowRight
+                style={{ width: "12px", height: "12px", marginLeft: "4px" }}
+              />
+            </Badge>
+          </a>
         </Example>
 
         <SectionTitle>API Reference</SectionTitle>
@@ -389,27 +332,15 @@ export default function Example() {
           rows={[
             {
               prop: "variant",
-              type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"',
+              type: '"default" | "secondary" | "destructive" | "success" | "outline"',
               def: '"default"',
-              desc: "The visual style of the button.",
+              desc: "The visual style of the badge.",
             },
             {
-              prop: "size",
-              type: '"default" | "sm" | "lg" | "icon"',
-              def: '"default"',
-              desc: "The size of the button.",
-            },
-            {
-              prop: "asChild",
-              type: "boolean",
-              def: "false",
-              desc: "Merge props onto the child element instead of rendering a button (Radix Slot).",
-            },
-            {
-              prop: "disabled",
-              type: "boolean",
-              def: "false",
-              desc: "Whether the button is disabled.",
+              prop: "className",
+              type: "string",
+              def: "—",
+              desc: "Additional classes merged onto the badge element.",
             },
           ]}
         />

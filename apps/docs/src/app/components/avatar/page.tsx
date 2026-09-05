@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Copy, Check, Download, ArrowRight, Trash2, Mail } from "lucide-react"
+import { Avatar, AvatarImage, AvatarFallback } from "@seamless/ui"
+import { Copy, Check } from "lucide-react"
 
 const codeBlockStyle: React.CSSProperties = {
   margin: 0,
@@ -133,7 +133,7 @@ function Example({
           border: "1px solid var(--color-border)",
           borderRadius: "8px",
           background: "var(--color-muted)",
-          minHeight: "120px",
+          minHeight: "140px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -216,12 +216,12 @@ function PropsTable({
   )
 }
 
-export default function ButtonPageDoc() {
+export default function AvatarPage() {
   return (
-    <DocsShell title="Button">
+    <DocsShell title="Avatar">
       <div style={{ maxWidth: "860px" }}>
         <h1 style={{ fontSize: "34px", fontWeight: 700, marginBottom: "8px" }}>
-          Button
+          Avatar
         </h1>
         <p
           style={{
@@ -230,186 +230,171 @@ export default function ButtonPageDoc() {
             marginBottom: "28px",
           }}
         >
-          Displays a button or a component that looks like a button, with
-          variants and sizes.
+          An image element with a fallback for representing a user, with support
+          for multiple sizes.
         </p>
 
         <PreviewCard>
-          <Button>Button</Button>
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
         </PreviewCard>
 
         <SectionTitle>Installation</SectionTitle>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/button`} />
+        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/avatar`} />
 
         <SectionTitle>Usage</SectionTitle>
         <CodeBlock
-          code={`import { Button } from "@seamless/ui"
+          code={`import { Avatar, AvatarImage, AvatarFallback } from "@seamless/ui"
 
 export default function Example() {
-  return <Button variant="outline">Click me</Button>
+  return (
+    <Avatar>
+      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+  )
 }`}
+        />
+
+        <SectionTitle>Composition</SectionTitle>
+        <CodeBlock
+          code={`Avatar
+├── AvatarImage
+└── AvatarFallback`}
         />
 
         <SectionTitle>Examples</SectionTitle>
 
         <Example
-          title="Variants"
-          description="Six variants cover the full action hierarchy."
-          code={`<Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>`}
+          title="Fallback"
+          description="When no src is provided or the image fails to load, the fallback is shown."
+          code={`<Avatar>
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button>Default</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
-          </div>
+          <Avatar>
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
         </Example>
 
         <Example
           title="Sizes"
-          description="Three text sizes plus a square icon size."
-          code={`<Button size="sm">Small</Button>
-<Button>Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><Mail className="h-4 w-4" /></Button>`}
+          description="Avatars come in four sizes: sm, default, lg, and xl."
+          code={`<Avatar size="sm">
+  <AvatarFallback>SM</AvatarFallback>
+</Avatar>
+<Avatar>
+  <AvatarFallback>MD</AvatarFallback>
+</Avatar>
+<Avatar size="lg">
+  <AvatarFallback>LG</AvatarFallback>
+</Avatar>
+<Avatar size="xl">
+  <AvatarFallback>XL</AvatarFallback>
+</Avatar>`}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
+              gap: "16px",
             }}
           >
-            <Button size="sm">Small</Button>
-            <Button>Default</Button>
-            <Button size="lg">Large</Button>
-            <Button size="icon">
-              <Mail style={{ width: "16px", height: "16px" }} />
-            </Button>
+            <Avatar size="sm">
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>SM</AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>MD</AvatarFallback>
+            </Avatar>
+            <Avatar size="lg">
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>LG</AvatarFallback>
+            </Avatar>
+            <Avatar size="xl">
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>XL</AvatarFallback>
+            </Avatar>
           </div>
         </Example>
 
         <Example
-          title="With icon"
-          description="Compose an icon and label; use a small gap between them."
-          code={`<Button style={{ gap: 8 }}>
-  <Download className="h-4 w-4" />
-  Download
-</Button>
-<Button variant="outline" style={{ gap: 8 }}>
-  Continue
-  <ArrowRight className="h-4 w-4" />
-</Button>`}
+          title="Group"
+          description="Overlap multiple avatars to represent a group of users."
+          code={`<div style={{ display: "flex" }}>
+  <Avatar style={{ marginLeft: 0, boxShadow: "0 0 0 2px var(--color-background)" }}>
+    <AvatarFallback>AB</AvatarFallback>
+  </Avatar>
+  <Avatar style={{ marginLeft: -12, boxShadow: "0 0 0 2px var(--color-background)" }}>
+    <AvatarFallback>CD</AvatarFallback>
+  </Avatar>
+  <Avatar style={{ marginLeft: -12, boxShadow: "0 0 0 2px var(--color-background)" }}>
+    <AvatarFallback>+5</AvatarFallback>
+  </Avatar>
+</div>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button style={{ gap: "8px" }}>
-              <Download style={{ width: "16px", height: "16px" }} />
-              Download
-            </Button>
-            <Button variant="outline" style={{ gap: "8px" }}>
-              Continue
-              <ArrowRight style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Icon only"
-          description="Use the icon size for square, icon-only buttons. Always provide an aria-label."
-          code={`<Button size="icon" aria-label="Download">
-  <Download className="h-4 w-4" />
-</Button>
-<Button size="icon" variant="outline" aria-label="Delete">
-  <Trash2 className="h-4 w-4" />
-</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button size="icon" aria-label="Download">
-              <Download style={{ width: "16px", height: "16px" }} />
-            </Button>
-            <Button size="icon" variant="outline" aria-label="Delete">
-              <Trash2 style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled buttons are non-interactive and rendered at reduced opacity."
-          code={`<Button disabled>Disabled</Button>
-<Button variant="outline" disabled>Disabled</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button disabled>Disabled</Button>
-            <Button variant="outline" disabled>
-              Disabled
-            </Button>
+          <div style={{ display: "flex" }}>
+            <Avatar
+              style={{ boxShadow: "0 0 0 2px var(--color-background)" }}
+            >
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>AB</AvatarFallback>
+            </Avatar>
+            <Avatar
+              style={{
+                marginLeft: "-12px",
+                boxShadow: "0 0 0 2px var(--color-background)",
+              }}
+            >
+              <AvatarFallback>CD</AvatarFallback>
+            </Avatar>
+            <Avatar
+              style={{
+                marginLeft: "-12px",
+                boxShadow: "0 0 0 2px var(--color-background)",
+              }}
+            >
+              <AvatarFallback>EF</AvatarFallback>
+            </Avatar>
+            <Avatar
+              style={{
+                marginLeft: "-12px",
+                boxShadow: "0 0 0 2px var(--color-background)",
+              }}
+            >
+              <AvatarFallback>+5</AvatarFallback>
+            </Avatar>
           </div>
         </Example>
 
         <SectionTitle>API Reference</SectionTitle>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "var(--color-muted-foreground)",
+            marginBottom: "16px",
+          }}
+        >
+          Props on <code>Avatar</code> (root). <code>AvatarImage</code> accepts
+          standard <code>img</code> attributes; <code>AvatarFallback</code>{" "}
+          accepts standard <code>div</code> attributes.
+        </p>
         <PropsTable
           rows={[
             {
-              prop: "variant",
-              type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"',
-              def: '"default"',
-              desc: "The visual style of the button.",
-            },
-            {
               prop: "size",
-              type: '"default" | "sm" | "lg" | "icon"',
+              type: '"sm" | "default" | "lg" | "xl"',
               def: '"default"',
-              desc: "The size of the button.",
+              desc: "The diameter of the avatar (32 / 40 / 48 / 64px).",
             },
             {
-              prop: "asChild",
-              type: "boolean",
-              def: "false",
-              desc: "Merge props onto the child element instead of rendering a button (Radix Slot).",
-            },
-            {
-              prop: "disabled",
-              type: "boolean",
-              def: "false",
-              desc: "Whether the button is disabled.",
+              prop: "className",
+              type: "string",
+              def: "—",
+              desc: "Additional classes merged onto the root element.",
             },
           ]}
         />

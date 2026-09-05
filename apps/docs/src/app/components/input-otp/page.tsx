@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Input, Label, Button } from "@seamless/ui"
+import { OTPInput, Label } from "@seamless/ui"
 import { Copy, Check } from "lucide-react"
 
 const mono =
@@ -218,9 +218,14 @@ function PropsTable({ rows }: { rows: Prop[] }) {
   )
 }
 
-export default function InputPage() {
+export default function InputOTPPage() {
+  const [value, setValue] = React.useState("")
+  const [pin, setPin] = React.useState("")
+  const [masked, setMasked] = React.useState("")
+  const [code, setCode] = React.useState("")
+
   return (
-    <DocsShell title="Input">
+    <DocsShell title="Input OTP">
       <div style={{ maxWidth: 880, margin: "0 auto" }}>
         <h1
           style={{
@@ -230,7 +235,7 @@ export default function InputPage() {
             color: "var(--color-foreground)",
           }}
         >
-          Input
+          Input OTP
         </h1>
         <p
           style={{
@@ -240,141 +245,141 @@ export default function InputPage() {
             lineHeight: 1.6,
           }}
         >
-          Displays a form input field or a component that looks like an input
-          field.
+          Accessible one-time-password input with automatic focus management,
+          paste support, and keyboard navigation.
         </p>
 
         <PreviewCard>
-          <div style={{ width: 280 }}>
-            <Input type="email" placeholder="Email" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
+            <OTPInput value={value} onChange={setValue} />
+            <p
+              style={{
+                margin: 0,
+                fontSize: 13,
+                color: "var(--color-muted-foreground)",
+              }}
+            >
+              {value ? `Entered: ${value}` : "Enter your one-time password."}
+            </p>
           </div>
         </PreviewCard>
 
         <SectionHeading>Installation</SectionHeading>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/input`} />
+        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/input-otp`} />
 
         <SectionHeading>Usage</SectionHeading>
         <CodeBlock
-          code={`import { Input } from "@seamless/ui"
+          code={`import { OTPInput } from "@seamless/ui"
+import { useState } from "react"
 
 export default function Example() {
-  return <Input type="email" placeholder="Email" />
+  const [value, setValue] = useState("")
+  return <OTPInput value={value} onChange={setValue} />
 }`}
         />
 
         <SectionHeading>Examples</SectionHeading>
 
         <Example
-          title="Default"
-          description="A standard text input with a placeholder."
-          code={`<Input type="text" placeholder="Name" />`}
+          title="Four digits"
+          description="Set the length prop to control how many cells are rendered."
+          code={`<OTPInput length={4} value={pin} onChange={setPin} />`}
         >
-          <div style={{ width: 280 }}>
-            <Input type="text" placeholder="Name" />
-          </div>
+          <OTPInput length={4} value={pin} onChange={setPin} />
         </Example>
 
         <Example
-          title="With label"
-          description="Pair an input with a Label using a shared htmlFor / id."
-          code={`<div className="grid gap-2">
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" type="email" placeholder="Email" />
-</div>`}
+          title="Masked"
+          description="Pass mask to obscure entered characters, ideal for secure PINs."
+          code={`<OTPInput mask value={masked} onChange={setMasked} />`}
         >
-          <div
-            style={{
-              display: "grid",
-              gap: 8,
-              width: 280,
-            }}
-          >
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Email" />
-          </div>
+          <OTPInput mask value={masked} onChange={setMasked} />
+        </Example>
+
+        <Example
+          title="Alphanumeric"
+          description={
+            'Use pattern="alphanumeric" to accept letters and numbers (auto-uppercased).'
+          }
+          code={`<OTPInput pattern="alphanumeric" value={code} onChange={setCode} />`}
+        >
+          <OTPInput pattern="alphanumeric" value={code} onChange={setCode} />
         </Example>
 
         <Example
           title="Disabled"
           description="Disabled inputs are non-interactive and dimmed."
-          code={`<Input disabled type="email" placeholder="Email" />`}
+          code={`<OTPInput disabled value="123" onChange={() => {}} />`}
         >
-          <div style={{ width: 280 }}>
-            <Input disabled type="email" placeholder="Email" />
-          </div>
+          <OTPInput disabled value="123" onChange={() => {}} />
         </Example>
 
         <Example
-          title="File"
-          description={'Use type="file" for file selection inputs.'}
+          title="With label"
+          description="Pair the input with a Label to describe the expected value."
           code={`<div className="grid gap-2">
-  <Label htmlFor="picture">Picture</Label>
-  <Input id="picture" type="file" />
+  <Label>Verification code</Label>
+  <OTPInput value={value} onChange={setValue} />
 </div>`}
         >
-          <div style={{ display: "grid", gap: 8, width: 280 }}>
-            <Label htmlFor="picture">Picture</Label>
-            <Input id="picture" type="file" />
-          </div>
-        </Example>
-
-        <Example
-          title="With button"
-          description="Compose an input with a button for inline actions like subscribing."
-          code={`<div className="flex gap-2">
-  <Input type="email" placeholder="Email" />
-  <Button type="submit">Subscribe</Button>
-</div>`}
-        >
-          <div style={{ display: "flex", gap: 8, width: 320 }}>
-            <Input type="email" placeholder="Email" />
-            <Button type="submit">Subscribe</Button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <Label>Verification code</Label>
+            <OTPInput value={value} onChange={setValue} />
           </div>
         </Example>
 
         <SectionHeading>API Reference</SectionHeading>
-        <p
-          style={{
-            fontSize: 14,
-            color: "var(--color-muted-foreground)",
-            margin: "0 0 4px",
-          }}
-        >
-          Input accepts all standard{" "}
-          <code style={{ fontFamily: mono }}>&lt;input&gt;</code> attributes.
-        </p>
         <PropsTable
           rows={[
             {
-              name: "type",
-              type: "string",
-              default: '"text"',
-              description:
-                "The native input type (text, email, password, file, number, etc.).",
-            },
-            {
-              name: "placeholder",
-              type: "string",
-              default: "—",
-              description: "Placeholder text shown when the field is empty.",
+              name: "length",
+              type: "number",
+              default: "6",
+              description: "Number of input cells to render.",
             },
             {
               name: "value",
               type: "string",
-              default: "—",
+              default: '""',
               description: "The controlled value of the input.",
+            },
+            {
+              name: "onChange",
+              type: "(value: string) => void",
+              default: "—",
+              description: "Called with the full string whenever it changes.",
+            },
+            {
+              name: "pattern",
+              type: '"numeric" | "alphanumeric"',
+              default: '"numeric"',
+              description: "Restricts which characters are accepted.",
+            },
+            {
+              name: "mask",
+              type: "boolean",
+              default: "false",
+              description: "Obscures entered characters like a password field.",
             },
             {
               name: "disabled",
               type: "boolean",
               default: "false",
               description: "Whether the input is disabled.",
-            },
-            {
-              name: "className",
-              type: "string",
-              default: "—",
-              description: "Additional classes merged onto the input.",
             },
           ]}
         />

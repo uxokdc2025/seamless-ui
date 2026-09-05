@@ -2,8 +2,16 @@
 
 import * as React from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Input, Label, Button } from "@seamless/ui"
-import { Copy, Check } from "lucide-react"
+import {
+  Button,
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "@seamless/ui"
+import { CalendarDays, Copy, Check } from "lucide-react"
 
 const mono =
   "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
@@ -218,9 +226,9 @@ function PropsTable({ rows }: { rows: Prop[] }) {
   )
 }
 
-export default function InputPage() {
+export default function HoverCardPage() {
   return (
-    <DocsShell title="Input">
+    <DocsShell title="Hover Card">
       <div style={{ maxWidth: 880, margin: "0 auto" }}>
         <h1
           style={{
@@ -230,7 +238,7 @@ export default function InputPage() {
             color: "var(--color-foreground)",
           }}
         >
-          Input
+          Hover Card
         </h1>
         <p
           style={{
@@ -240,96 +248,151 @@ export default function InputPage() {
             lineHeight: 1.6,
           }}
         >
-          Displays a form input field or a component that looks like an input
-          field.
+          For sighted users to preview content available behind a link.
         </p>
 
         <PreviewCard>
-          <div style={{ width: 280 }}>
-            <Input type="email" placeholder="Email" />
-          </div>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button variant="link">@seamless</Button>
+            </HoverCardTrigger>
+            <HoverCardContent style={{ width: 288 }}>
+              <div style={{ display: "flex", gap: 16 }}>
+                <Avatar>
+                  <AvatarImage src="https://github.com/vercel.png" />
+                  <AvatarFallback>SM</AvatarFallback>
+                </Avatar>
+                <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <h4
+                    style={{
+                      margin: 0,
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: "var(--color-foreground)",
+                    }}
+                  >
+                    @seamless
+                  </h4>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 13,
+                      color: "var(--color-foreground)",
+                    }}
+                  >
+                    The design system for building beautiful, accessible product
+                    interfaces.
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      marginTop: 4,
+                      fontSize: 12,
+                      color: "var(--color-muted-foreground)",
+                    }}
+                  >
+                    <CalendarDays style={{ height: 14, width: 14 }} />
+                    <span>Joined December 2024</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </PreviewCard>
 
         <SectionHeading>Installation</SectionHeading>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/input`} />
+        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/hover-card`} />
 
         <SectionHeading>Usage</SectionHeading>
         <CodeBlock
-          code={`import { Input } from "@seamless/ui"
+          code={`import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@seamless/ui"
 
 export default function Example() {
-  return <Input type="email" placeholder="Email" />
+  return (
+    <HoverCard>
+      <HoverCardTrigger>Hover</HoverCardTrigger>
+      <HoverCardContent>
+        The React Framework – created and maintained by @vercel.
+      </HoverCardContent>
+    </HoverCard>
+  )
 }`}
+        />
+
+        <SectionHeading>Anatomy</SectionHeading>
+        <CodeBlock
+          code={`<HoverCard>
+  <HoverCardTrigger />
+  <HoverCardContent />
+</HoverCard>`}
         />
 
         <SectionHeading>Examples</SectionHeading>
 
         <Example
-          title="Default"
-          description="A standard text input with a placeholder."
-          code={`<Input type="text" placeholder="Name" />`}
+          title="Alignment"
+          description="Control where the card appears relative to the trigger using align and side."
+          code={`<HoverCard>
+  <HoverCardTrigger asChild>
+    <Button variant="outline">Aligned start</Button>
+  </HoverCardTrigger>
+  <HoverCardContent align="start">
+    This card is aligned to the start of the trigger.
+  </HoverCardContent>
+</HoverCard>`}
         >
-          <div style={{ width: 280 }}>
-            <Input type="text" placeholder="Name" />
-          </div>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button variant="outline">Aligned start</Button>
+            </HoverCardTrigger>
+            <HoverCardContent align="start">
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 13,
+                  color: "var(--color-foreground)",
+                }}
+              >
+                This card is aligned to the start of the trigger.
+              </p>
+            </HoverCardContent>
+          </HoverCard>
         </Example>
 
         <Example
-          title="With label"
-          description="Pair an input with a Label using a shared htmlFor / id."
-          code={`<div className="grid gap-2">
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" type="email" placeholder="Email" />
-</div>`}
+          title="Custom delay"
+          description="Tune openDelay and closeDelay to make the card feel more or less eager."
+          code={`<HoverCard openDelay={0} closeDelay={100}>
+  <HoverCardTrigger asChild>
+    <Button variant="outline">Instant open</Button>
+  </HoverCardTrigger>
+  <HoverCardContent>
+    Opens immediately on hover.
+  </HoverCardContent>
+</HoverCard>`}
         >
-          <div
-            style={{
-              display: "grid",
-              gap: 8,
-              width: 280,
-            }}
-          >
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Email" />
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled inputs are non-interactive and dimmed."
-          code={`<Input disabled type="email" placeholder="Email" />`}
-        >
-          <div style={{ width: 280 }}>
-            <Input disabled type="email" placeholder="Email" />
-          </div>
-        </Example>
-
-        <Example
-          title="File"
-          description={'Use type="file" for file selection inputs.'}
-          code={`<div className="grid gap-2">
-  <Label htmlFor="picture">Picture</Label>
-  <Input id="picture" type="file" />
-</div>`}
-        >
-          <div style={{ display: "grid", gap: 8, width: 280 }}>
-            <Label htmlFor="picture">Picture</Label>
-            <Input id="picture" type="file" />
-          </div>
-        </Example>
-
-        <Example
-          title="With button"
-          description="Compose an input with a button for inline actions like subscribing."
-          code={`<div className="flex gap-2">
-  <Input type="email" placeholder="Email" />
-  <Button type="submit">Subscribe</Button>
-</div>`}
-        >
-          <div style={{ display: "flex", gap: 8, width: 320 }}>
-            <Input type="email" placeholder="Email" />
-            <Button type="submit">Subscribe</Button>
-          </div>
+          <HoverCard openDelay={0} closeDelay={100}>
+            <HoverCardTrigger asChild>
+              <Button variant="outline">Instant open</Button>
+            </HoverCardTrigger>
+            <HoverCardContent>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 13,
+                  color: "var(--color-foreground)",
+                }}
+              >
+                Opens immediately on hover.
+              </p>
+            </HoverCardContent>
+          </HoverCard>
         </Example>
 
         <SectionHeading>API Reference</SectionHeading>
@@ -340,41 +403,66 @@ export default function Example() {
             margin: "0 0 4px",
           }}
         >
-          Input accepts all standard{" "}
-          <code style={{ fontFamily: mono }}>&lt;input&gt;</code> attributes.
+          HoverCard (Root)
         </p>
         <PropsTable
           rows={[
             {
-              name: "type",
-              type: "string",
-              default: '"text"',
+              name: "openDelay",
+              type: "number",
+              default: "700",
               description:
-                "The native input type (text, email, password, file, number, etc.).",
+                "Duration in ms before the card opens after the pointer enters.",
             },
             {
-              name: "placeholder",
-              type: "string",
-              default: "—",
-              description: "Placeholder text shown when the field is empty.",
+              name: "closeDelay",
+              type: "number",
+              default: "300",
+              description:
+                "Duration in ms before the card closes after the pointer leaves.",
             },
             {
-              name: "value",
-              type: "string",
-              default: "—",
-              description: "The controlled value of the input.",
-            },
-            {
-              name: "disabled",
+              name: "open",
               type: "boolean",
-              default: "false",
-              description: "Whether the input is disabled.",
+              default: "—",
+              description: "Controlled open state of the hover card.",
             },
             {
-              name: "className",
-              type: "string",
+              name: "onOpenChange",
+              type: "(open: boolean) => void",
               default: "—",
-              description: "Additional classes merged onto the input.",
+              description: "Event handler called when the open state changes.",
+            },
+          ]}
+        />
+        <p
+          style={{
+            fontSize: 14,
+            color: "var(--color-muted-foreground)",
+            margin: "24px 0 4px",
+          }}
+        >
+          HoverCardContent
+        </p>
+        <PropsTable
+          rows={[
+            {
+              name: "align",
+              type: '"start" | "center" | "end"',
+              default: '"center"',
+              description: "Preferred alignment against the trigger.",
+            },
+            {
+              name: "side",
+              type: '"top" | "right" | "bottom" | "left"',
+              default: '"bottom"',
+              description: "Preferred side of the trigger to render against.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              default: "4",
+              description: "Distance in pixels from the trigger.",
             },
           ]}
         />

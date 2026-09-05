@@ -2,8 +2,16 @@
 
 import * as React from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Input, Label, Button } from "@seamless/ui"
-import { Copy, Check } from "lucide-react"
+import {
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
+  InputLeftElement,
+  InputRightElement,
+  InputElement,
+  Label,
+} from "@seamless/ui"
+import { Search, DollarSign, Copy, Check } from "lucide-react"
 
 const mono =
   "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
@@ -218,9 +226,9 @@ function PropsTable({ rows }: { rows: Prop[] }) {
   )
 }
 
-export default function InputPage() {
+export default function InputGroupPage() {
   return (
-    <DocsShell title="Input">
+    <DocsShell title="Input Group">
       <div style={{ maxWidth: 880, margin: "0 auto" }}>
         <h1
           style={{
@@ -230,7 +238,7 @@ export default function InputPage() {
             color: "var(--color-foreground)",
           }}
         >
-          Input
+          Input Group
         </h1>
         <p
           style={{
@@ -240,95 +248,138 @@ export default function InputPage() {
             lineHeight: 1.6,
           }}
         >
-          Displays a form input field or a component that looks like an input
-          field.
+          Group an input with addons and inline elements — icons, prefixes, and
+          suffixes — inside a single bordered control.
         </p>
 
         <PreviewCard>
-          <div style={{ width: 280 }}>
-            <Input type="email" placeholder="Email" />
-          </div>
+          <InputGroup style={{ width: 320 }}>
+            <InputLeftAddon>https://</InputLeftAddon>
+            <InputElement placeholder="yoursite" />
+            <InputRightAddon>.com</InputRightAddon>
+          </InputGroup>
         </PreviewCard>
 
         <SectionHeading>Installation</SectionHeading>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/input`} />
+        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/input-group`} />
 
         <SectionHeading>Usage</SectionHeading>
         <CodeBlock
-          code={`import { Input } from "@seamless/ui"
+          code={`import {
+  InputGroup,
+  InputLeftAddon,
+  InputElement,
+} from "@seamless/ui"
 
 export default function Example() {
-  return <Input type="email" placeholder="Email" />
+  return (
+    <InputGroup>
+      <InputLeftAddon>https://</InputLeftAddon>
+      <InputElement placeholder="yoursite" />
+    </InputGroup>
+  )
 }`}
+        />
+
+        <SectionHeading>Anatomy</SectionHeading>
+        <CodeBlock
+          code={`<InputGroup>
+  <InputLeftAddon />
+  <InputLeftElement />
+  <InputElement />
+  <InputRightElement />
+  <InputRightAddon />
+</InputGroup>`}
         />
 
         <SectionHeading>Examples</SectionHeading>
 
         <Example
-          title="Default"
-          description="A standard text input with a placeholder."
-          code={`<Input type="text" placeholder="Name" />`}
+          title="Left icon element"
+          description="Use InputLeftElement to place a non-interactive icon inside the field."
+          code={`<InputGroup>
+  <InputLeftElement>
+    <Search className="h-4 w-4" />
+  </InputLeftElement>
+  <InputElement placeholder="Search..." />
+</InputGroup>`}
         >
-          <div style={{ width: 280 }}>
-            <Input type="text" placeholder="Name" />
+          <InputGroup style={{ width: 320 }}>
+            <InputLeftElement>
+              <Search style={{ height: 16, width: 16 }} />
+            </InputLeftElement>
+            <InputElement placeholder="Search..." />
+          </InputGroup>
+        </Example>
+
+        <Example
+          title="Currency addon"
+          description="Combine a left element and a right addon for currency amounts."
+          code={`<InputGroup>
+  <InputLeftElement>
+    <DollarSign className="h-4 w-4" />
+  </InputLeftElement>
+  <InputElement placeholder="0.00" />
+  <InputRightAddon>USD</InputRightAddon>
+</InputGroup>`}
+        >
+          <InputGroup style={{ width: 320 }}>
+            <InputLeftElement>
+              <DollarSign style={{ height: 16, width: 16 }} />
+            </InputLeftElement>
+            <InputElement placeholder="0.00" />
+            <InputRightAddon>USD</InputRightAddon>
+          </InputGroup>
+        </Example>
+
+        <Example
+          title="Sizes"
+          description="Use the size prop to render small, default, or large groups."
+          code={`<InputGroup size="sm">
+  <InputLeftAddon>@</InputLeftAddon>
+  <InputElement placeholder="username" />
+</InputGroup>
+<InputGroup size="lg">
+  <InputLeftAddon>@</InputLeftAddon>
+  <InputElement placeholder="username" />
+</InputGroup>`}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+              width: 320,
+            }}
+          >
+            <InputGroup size="sm">
+              <InputLeftAddon>@</InputLeftAddon>
+              <InputElement placeholder="username" />
+            </InputGroup>
+            <InputGroup size="lg">
+              <InputLeftAddon>@</InputLeftAddon>
+              <InputElement placeholder="username" />
+            </InputGroup>
           </div>
         </Example>
 
         <Example
           title="With label"
-          description="Pair an input with a Label using a shared htmlFor / id."
+          description="Pair a group with a Label for accessible forms."
           code={`<div className="grid gap-2">
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" type="email" placeholder="Email" />
+  <Label htmlFor="site">Website</Label>
+  <InputGroup>
+    <InputLeftAddon>https://</InputLeftAddon>
+    <InputElement id="site" placeholder="yoursite" />
+  </InputGroup>
 </div>`}
         >
-          <div
-            style={{
-              display: "grid",
-              gap: 8,
-              width: 280,
-            }}
-          >
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Email" />
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled inputs are non-interactive and dimmed."
-          code={`<Input disabled type="email" placeholder="Email" />`}
-        >
-          <div style={{ width: 280 }}>
-            <Input disabled type="email" placeholder="Email" />
-          </div>
-        </Example>
-
-        <Example
-          title="File"
-          description={'Use type="file" for file selection inputs.'}
-          code={`<div className="grid gap-2">
-  <Label htmlFor="picture">Picture</Label>
-  <Input id="picture" type="file" />
-</div>`}
-        >
-          <div style={{ display: "grid", gap: 8, width: 280 }}>
-            <Label htmlFor="picture">Picture</Label>
-            <Input id="picture" type="file" />
-          </div>
-        </Example>
-
-        <Example
-          title="With button"
-          description="Compose an input with a button for inline actions like subscribing."
-          code={`<div className="flex gap-2">
-  <Input type="email" placeholder="Email" />
-  <Button type="submit">Subscribe</Button>
-</div>`}
-        >
-          <div style={{ display: "flex", gap: 8, width: 320 }}>
-            <Input type="email" placeholder="Email" />
-            <Button type="submit">Subscribe</Button>
+          <div style={{ display: "grid", gap: 8, width: 320 }}>
+            <Label htmlFor="site">Website</Label>
+            <InputGroup>
+              <InputLeftAddon>https://</InputLeftAddon>
+              <InputElement id="site" placeholder="yoursite" />
+            </InputGroup>
           </div>
         </Example>
 
@@ -340,41 +391,54 @@ export default function Example() {
             margin: "0 0 4px",
           }}
         >
-          Input accepts all standard{" "}
-          <code style={{ fontFamily: mono }}>&lt;input&gt;</code> attributes.
+          InputGroup
         </p>
         <PropsTable
           rows={[
             {
-              name: "type",
-              type: "string",
-              default: '"text"',
-              description:
-                "The native input type (text, email, password, file, number, etc.).",
-            },
-            {
-              name: "placeholder",
-              type: "string",
-              default: "—",
-              description: "Placeholder text shown when the field is empty.",
-            },
-            {
-              name: "value",
-              type: "string",
-              default: "—",
-              description: "The controlled value of the input.",
-            },
-            {
-              name: "disabled",
-              type: "boolean",
-              default: "false",
-              description: "Whether the input is disabled.",
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              default: '"default"',
+              description: "Controls the height and text size of the group.",
             },
             {
               name: "className",
               type: "string",
               default: "—",
-              description: "Additional classes merged onto the input.",
+              description: "Additional classes merged onto the group container.",
+            },
+          ]}
+        />
+        <p
+          style={{
+            fontSize: 14,
+            color: "var(--color-muted-foreground)",
+            margin: "24px 0 4px",
+          }}
+        >
+          Subcomponents
+        </p>
+        <PropsTable
+          rows={[
+            {
+              name: "InputElement",
+              type: "React.InputHTMLAttributes",
+              default: "—",
+              description: "The editable input; accepts all native input props.",
+            },
+            {
+              name: "InputLeftAddon / InputRightAddon",
+              type: "React.HTMLAttributes<HTMLDivElement>",
+              default: "—",
+              description:
+                "Bordered, muted segments rendered before or after the input.",
+            },
+            {
+              name: "InputLeftElement / InputRightElement",
+              type: "React.HTMLAttributes<HTMLDivElement>",
+              default: "—",
+              description:
+                "Inline overlays (usually icons) inside the field's padding.",
             },
           ]}
         />

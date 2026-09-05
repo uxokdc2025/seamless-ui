@@ -2,8 +2,17 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Copy, Check, Download, ArrowRight, Trash2, Mail } from "lucide-react"
+import { ButtonGroup, Button } from "@seamless/ui"
+import {
+  Copy,
+  Check,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  Bold,
+  Italic,
+  Underline,
+} from "lucide-react"
 
 const codeBlockStyle: React.CSSProperties = {
   margin: 0,
@@ -133,7 +142,7 @@ function Example({
           border: "1px solid var(--color-border)",
           borderRadius: "8px",
           background: "var(--color-muted)",
-          minHeight: "120px",
+          minHeight: "140px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -216,12 +225,12 @@ function PropsTable({
   )
 }
 
-export default function ButtonPageDoc() {
+export default function ButtonGroupPage() {
   return (
-    <DocsShell title="Button">
+    <DocsShell title="Button Group">
       <div style={{ maxWidth: "860px" }}>
         <h1 style={{ fontSize: "34px", fontWeight: 700, marginBottom: "8px" }}>
-          Button
+          Button Group
         </h1>
         <p
           style={{
@@ -230,186 +239,128 @@ export default function ButtonPageDoc() {
             marginBottom: "28px",
           }}
         >
-          Displays a button or a component that looks like a button, with
-          variants and sizes.
+          Groups a set of related buttons together, joining their edges into a
+          single segmented control.
         </p>
 
         <PreviewCard>
-          <Button>Button</Button>
+          <ButtonGroup>
+            <Button variant="outline">Years</Button>
+            <Button variant="outline">Months</Button>
+            <Button variant="outline">Days</Button>
+          </ButtonGroup>
         </PreviewCard>
 
         <SectionTitle>Installation</SectionTitle>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/button`} />
+        <CodeBlock
+          code={`pnpm dlx shadcn@latest add @seamless/ui/button-group`}
+        />
 
         <SectionTitle>Usage</SectionTitle>
         <CodeBlock
-          code={`import { Button } from "@seamless/ui"
+          code={`import { ButtonGroup, Button } from "@seamless/ui"
 
 export default function Example() {
-  return <Button variant="outline">Click me</Button>
+  return (
+    <ButtonGroup>
+      <Button variant="outline">Left</Button>
+      <Button variant="outline">Middle</Button>
+      <Button variant="outline">Right</Button>
+    </ButtonGroup>
+  )
 }`}
+        />
+
+        <SectionTitle>Composition</SectionTitle>
+        <CodeBlock
+          code={`ButtonGroup
+├── Button
+├── Button
+└── Button`}
         />
 
         <SectionTitle>Examples</SectionTitle>
 
         <Example
-          title="Variants"
-          description="Six variants cover the full action hierarchy."
-          code={`<Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>`}
+          title="Horizontal (joined)"
+          description="By default, buttons join at their edges into a segmented control."
+          code={`<ButtonGroup>
+  <Button variant="outline"><AlignLeft className="h-4 w-4" /></Button>
+  <Button variant="outline"><AlignCenter className="h-4 w-4" /></Button>
+  <Button variant="outline"><AlignRight className="h-4 w-4" /></Button>
+</ButtonGroup>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button>Default</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
-          </div>
+          <ButtonGroup>
+            <Button variant="outline" size="icon" aria-label="Align left">
+              <AlignLeft style={{ width: "16px", height: "16px" }} />
+            </Button>
+            <Button variant="outline" size="icon" aria-label="Align center">
+              <AlignCenter style={{ width: "16px", height: "16px" }} />
+            </Button>
+            <Button variant="outline" size="icon" aria-label="Align right">
+              <AlignRight style={{ width: "16px", height: "16px" }} />
+            </Button>
+          </ButtonGroup>
         </Example>
 
         <Example
-          title="Sizes"
-          description="Three text sizes plus a square icon size."
-          code={`<Button size="sm">Small</Button>
-<Button>Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><Mail className="h-4 w-4" /></Button>`}
+          title="Vertical"
+          description="Set orientation to vertical to stack the buttons."
+          code={`<ButtonGroup orientation="vertical">
+  <Button variant="outline">Top</Button>
+  <Button variant="outline">Middle</Button>
+  <Button variant="outline">Bottom</Button>
+</ButtonGroup>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button size="sm">Small</Button>
-            <Button>Default</Button>
-            <Button size="lg">Large</Button>
-            <Button size="icon">
-              <Mail style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
+          <ButtonGroup orientation="vertical">
+            <Button variant="outline">Top</Button>
+            <Button variant="outline">Middle</Button>
+            <Button variant="outline">Bottom</Button>
+          </ButtonGroup>
         </Example>
 
         <Example
-          title="With icon"
-          description="Compose an icon and label; use a small gap between them."
-          code={`<Button style={{ gap: 8 }}>
-  <Download className="h-4 w-4" />
-  Download
-</Button>
-<Button variant="outline" style={{ gap: 8 }}>
-  Continue
-  <ArrowRight className="h-4 w-4" />
-</Button>`}
+          title="Spacing"
+          description="Use the spacing prop to separate buttons instead of joining them."
+          code={`<ButtonGroup spacing="md">
+  <Button><Bold className="h-4 w-4" /></Button>
+  <Button variant="secondary"><Italic className="h-4 w-4" /></Button>
+  <Button variant="outline"><Underline className="h-4 w-4" /></Button>
+</ButtonGroup>`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button style={{ gap: "8px" }}>
-              <Download style={{ width: "16px", height: "16px" }} />
-              Download
+          <ButtonGroup spacing="md">
+            <Button size="icon" aria-label="Bold">
+              <Bold style={{ width: "16px", height: "16px" }} />
             </Button>
-            <Button variant="outline" style={{ gap: "8px" }}>
-              Continue
-              <ArrowRight style={{ width: "16px", height: "16px" }} />
+            <Button size="icon" variant="secondary" aria-label="Italic">
+              <Italic style={{ width: "16px", height: "16px" }} />
             </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Icon only"
-          description="Use the icon size for square, icon-only buttons. Always provide an aria-label."
-          code={`<Button size="icon" aria-label="Download">
-  <Download className="h-4 w-4" />
-</Button>
-<Button size="icon" variant="outline" aria-label="Delete">
-  <Trash2 className="h-4 w-4" />
-</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button size="icon" aria-label="Download">
-              <Download style={{ width: "16px", height: "16px" }} />
+            <Button size="icon" variant="outline" aria-label="Underline">
+              <Underline style={{ width: "16px", height: "16px" }} />
             </Button>
-            <Button size="icon" variant="outline" aria-label="Delete">
-              <Trash2 style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled buttons are non-interactive and rendered at reduced opacity."
-          code={`<Button disabled>Disabled</Button>
-<Button variant="outline" disabled>Disabled</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button disabled>Disabled</Button>
-            <Button variant="outline" disabled>
-              Disabled
-            </Button>
-          </div>
+          </ButtonGroup>
         </Example>
 
         <SectionTitle>API Reference</SectionTitle>
         <PropsTable
           rows={[
             {
-              prop: "variant",
-              type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"',
-              def: '"default"',
-              desc: "The visual style of the button.",
+              prop: "orientation",
+              type: '"horizontal" | "vertical"',
+              def: '"horizontal"',
+              desc: "The direction in which the buttons are laid out.",
             },
             {
-              prop: "size",
-              type: '"default" | "sm" | "lg" | "icon"',
-              def: '"default"',
-              desc: "The size of the button.",
+              prop: "spacing",
+              type: '"none" | "sm" | "md" | "lg"',
+              def: '"none"',
+              desc: 'Gap between buttons. "none" joins their edges into a segmented control.',
             },
             {
-              prop: "asChild",
-              type: "boolean",
-              def: "false",
-              desc: "Merge props onto the child element instead of rendering a button (Radix Slot).",
-            },
-            {
-              prop: "disabled",
-              type: "boolean",
-              def: "false",
-              desc: "Whether the button is disabled.",
+              prop: "className",
+              type: "string",
+              def: "—",
+              desc: "Additional classes merged onto the group element.",
             },
           ]}
         />

@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { DocsShell } from "../../../components/docs-shell"
-import { Button } from "@seamless/ui"
-import { Copy, Check, Download, ArrowRight, Trash2, Mail } from "lucide-react"
+import { Alert, AlertTitle, AlertDescription } from "@seamless/ui"
+import { Copy, Check, Terminal, RocketIcon } from "lucide-react"
 
 const codeBlockStyle: React.CSSProperties = {
   margin: 0,
@@ -133,7 +133,7 @@ function Example({
           border: "1px solid var(--color-border)",
           borderRadius: "8px",
           background: "var(--color-muted)",
-          minHeight: "120px",
+          minHeight: "140px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -216,12 +216,12 @@ function PropsTable({
   )
 }
 
-export default function ButtonPageDoc() {
+export default function AlertPage() {
   return (
-    <DocsShell title="Button">
+    <DocsShell title="Alert">
       <div style={{ maxWidth: "860px" }}>
         <h1 style={{ fontSize: "34px", fontWeight: 700, marginBottom: "8px" }}>
-          Button
+          Alert
         </h1>
         <p
           style={{
@@ -230,158 +230,149 @@ export default function ButtonPageDoc() {
             marginBottom: "28px",
           }}
         >
-          Displays a button or a component that looks like a button, with
-          variants and sizes.
+          Displays a callout for user attention, with an optional icon, title,
+          and description.
         </p>
 
         <PreviewCard>
-          <Button>Button</Button>
+          <div style={{ width: "100%", maxWidth: "480px" }}>
+            <Alert>
+              <Terminal style={{ width: "16px", height: "16px" }} />
+              <AlertTitle>Heads up!</AlertTitle>
+              <AlertDescription>
+                You can add components to your app using the CLI.
+              </AlertDescription>
+            </Alert>
+          </div>
         </PreviewCard>
 
         <SectionTitle>Installation</SectionTitle>
-        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/button`} />
+        <CodeBlock code={`pnpm dlx shadcn@latest add @seamless/ui/alert`} />
 
         <SectionTitle>Usage</SectionTitle>
         <CodeBlock
-          code={`import { Button } from "@seamless/ui"
+          code={`import { Alert, AlertTitle, AlertDescription } from "@seamless/ui"
+import { Terminal } from "lucide-react"
 
 export default function Example() {
-  return <Button variant="outline">Click me</Button>
+  return (
+    <Alert>
+      <Terminal className="h-4 w-4" />
+      <AlertTitle>Heads up!</AlertTitle>
+      <AlertDescription>
+        You can add components to your app using the CLI.
+      </AlertDescription>
+    </Alert>
+  )
 }`}
+        />
+
+        <SectionTitle>Composition</SectionTitle>
+        <CodeBlock
+          code={`Alert
+├── (icon)
+├── AlertTitle
+└── AlertDescription`}
         />
 
         <SectionTitle>Examples</SectionTitle>
 
         <Example
+          title="Default"
+          description="The neutral variant, used for general informational callouts."
+          code={`<Alert>
+  <RocketIcon className="h-4 w-4" />
+  <AlertTitle>New feature</AlertTitle>
+  <AlertDescription>
+    Command palette is now available. Press Cmd+K to open it.
+  </AlertDescription>
+</Alert>`}
+        >
+          <div style={{ width: "100%", maxWidth: "480px" }}>
+            <Alert>
+              <RocketIcon style={{ width: "16px", height: "16px" }} />
+              <AlertTitle>New feature</AlertTitle>
+              <AlertDescription>
+                Command palette is now available. Press Cmd+K to open it.
+              </AlertDescription>
+            </Alert>
+          </div>
+        </Example>
+
+        <Example
           title="Variants"
-          description="Six variants cover the full action hierarchy."
-          code={`<Button>Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>`}
+          description="Semantic variants convey status: success, warning, error, and info."
+          code={`<Alert variant="success">
+  <AlertTitle>Payment received</AlertTitle>
+  <AlertDescription>Your subscription is now active.</AlertDescription>
+</Alert>
+
+<Alert variant="warning">
+  <AlertTitle>Storage almost full</AlertTitle>
+  <AlertDescription>You have used 90% of your quota.</AlertDescription>
+</Alert>
+
+<Alert variant="error">
+  <AlertTitle>Payment failed</AlertTitle>
+  <AlertDescription>Update your card to continue.</AlertDescription>
+</Alert>
+
+<Alert variant="info">
+  <AlertTitle>Scheduled maintenance</AlertTitle>
+  <AlertDescription>The API will be down Sunday 2-3am UTC.</AlertDescription>
+</Alert>`}
         >
           <div
             style={{
+              width: "100%",
+              maxWidth: "480px",
               display: "flex",
-              alignItems: "center",
+              flexDirection: "column",
               gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
             }}
           >
-            <Button>Default</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="destructive">Destructive</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="link">Link</Button>
+            <Alert variant="success">
+              <AlertTitle>Payment received</AlertTitle>
+              <AlertDescription>
+                Your subscription is now active.
+              </AlertDescription>
+            </Alert>
+            <Alert variant="warning">
+              <AlertTitle>Storage almost full</AlertTitle>
+              <AlertDescription>
+                You have used 90% of your quota.
+              </AlertDescription>
+            </Alert>
+            <Alert variant="error">
+              <AlertTitle>Payment failed</AlertTitle>
+              <AlertDescription>
+                Update your card to continue.
+              </AlertDescription>
+            </Alert>
+            <Alert variant="info">
+              <AlertTitle>Scheduled maintenance</AlertTitle>
+              <AlertDescription>
+                The API will be down Sunday 2-3am UTC.
+              </AlertDescription>
+            </Alert>
           </div>
         </Example>
 
         <Example
-          title="Sizes"
-          description="Three text sizes plus a square icon size."
-          code={`<Button size="sm">Small</Button>
-<Button>Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><Mail className="h-4 w-4" /></Button>`}
+          title="Dismissible"
+          description="Set dismissible and pass onDismiss to render a close button."
+          code={`function Example() {
+  const [open, setOpen] = React.useState(true)
+  if (!open) return null
+  return (
+    <Alert variant="info" dismissible onDismiss={() => setOpen(false)}>
+      <AlertTitle>Tip</AlertTitle>
+      <AlertDescription>You can dismiss this alert.</AlertDescription>
+    </Alert>
+  )
+}`}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button size="sm">Small</Button>
-            <Button>Default</Button>
-            <Button size="lg">Large</Button>
-            <Button size="icon">
-              <Mail style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="With icon"
-          description="Compose an icon and label; use a small gap between them."
-          code={`<Button style={{ gap: 8 }}>
-  <Download className="h-4 w-4" />
-  Download
-</Button>
-<Button variant="outline" style={{ gap: 8 }}>
-  Continue
-  <ArrowRight className="h-4 w-4" />
-</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <Button style={{ gap: "8px" }}>
-              <Download style={{ width: "16px", height: "16px" }} />
-              Download
-            </Button>
-            <Button variant="outline" style={{ gap: "8px" }}>
-              Continue
-              <ArrowRight style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Icon only"
-          description="Use the icon size for square, icon-only buttons. Always provide an aria-label."
-          code={`<Button size="icon" aria-label="Download">
-  <Download className="h-4 w-4" />
-</Button>
-<Button size="icon" variant="outline" aria-label="Delete">
-  <Trash2 className="h-4 w-4" />
-</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button size="icon" aria-label="Download">
-              <Download style={{ width: "16px", height: "16px" }} />
-            </Button>
-            <Button size="icon" variant="outline" aria-label="Delete">
-              <Trash2 style={{ width: "16px", height: "16px" }} />
-            </Button>
-          </div>
-        </Example>
-
-        <Example
-          title="Disabled"
-          description="Disabled buttons are non-interactive and rendered at reduced opacity."
-          code={`<Button disabled>Disabled</Button>
-<Button variant="outline" disabled>Disabled</Button>`}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            <Button disabled>Disabled</Button>
-            <Button variant="outline" disabled>
-              Disabled
-            </Button>
-          </div>
+          <DismissibleDemo />
         </Example>
 
         <SectionTitle>API Reference</SectionTitle>
@@ -389,31 +380,62 @@ export default function Example() {
           rows={[
             {
               prop: "variant",
-              type: '"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"',
+              type: '"default" | "success" | "warning" | "error" | "info"',
               def: '"default"',
-              desc: "The visual style of the button.",
+              desc: "The visual style conveying the alert's severity.",
             },
             {
-              prop: "size",
-              type: '"default" | "sm" | "lg" | "icon"',
-              def: '"default"',
-              desc: "The size of the button.",
+              prop: "icon",
+              type: "React.ReactNode",
+              def: "auto",
+              desc: "Override the default icon. Pass null to hide the icon.",
             },
             {
-              prop: "asChild",
+              prop: "dismissible",
               type: "boolean",
               def: "false",
-              desc: "Merge props onto the child element instead of rendering a button (Radix Slot).",
+              desc: "Renders a close button in the top-right corner.",
             },
             {
-              prop: "disabled",
-              type: "boolean",
-              def: "false",
-              desc: "Whether the button is disabled.",
+              prop: "onDismiss",
+              type: "() => void",
+              def: "—",
+              desc: "Callback fired when the dismiss button is clicked.",
             },
           ]}
         />
       </div>
     </DocsShell>
+  )
+}
+
+function DismissibleDemo() {
+  const [open, setOpen] = useState(true)
+  return (
+    <div style={{ width: "100%", maxWidth: "480px" }}>
+      {open ? (
+        <Alert variant="info" dismissible onDismiss={() => setOpen(false)}>
+          <AlertTitle>Tip</AlertTitle>
+          <AlertDescription>You can dismiss this alert.</AlertDescription>
+        </Alert>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          style={{
+            fontSize: "14px",
+            color: "var(--color-muted-foreground)",
+            background: "transparent",
+            border: "1px dashed var(--color-border)",
+            borderRadius: "8px",
+            padding: "12px 16px",
+            width: "100%",
+            cursor: "pointer",
+          }}
+        >
+          Alert dismissed — click to restore
+        </button>
+      )}
+    </div>
   )
 }
