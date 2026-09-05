@@ -45,17 +45,15 @@ const AppShell = React.forwardRef<HTMLDivElement, AppShellProps>(
         )}
         <div className="flex h-[calc(100vh-4rem)]">
           {sidebar && (
-            <>
+            <Sidebar
+              state={sidebarState}
+              onStateChange={onSidebarStateChange}
+              storageKey={sidebarStorageKey}
+              collapsible={sidebarCollapsible}
+            >
               <SidebarOverlay />
-              <Sidebar
-                state={sidebarState}
-                onStateChange={onSidebarStateChange}
-                storageKey={sidebarStorageKey}
-                collapsible={sidebarCollapsible}
-              >
-                {sidebar}
-              </Sidebar>
-            </>
+              {sidebar}
+            </Sidebar>
           )}
           <main
             className={cn(
