@@ -2,42 +2,106 @@
 
 import { DocsShell } from "../../components/docs-shell"
 import { Container, Stack, Grid } from "@seamless/layout"
-import { Card, CardHeader, CardTitle, CardContent, Input, Badge } from "@seamless/ui"
+import { Card, CardHeader, CardTitle, CardContent, Input, Badge, Button } from "@seamless/ui"
 import { useState } from "react"
 import { Search } from "lucide-react"
+import Link from "next/link"
+
+// Import actual components for live previews
+import * as UIComponents from "@seamless/ui"
 
 const components = [
-  { name: "Autocomplete", category: "Form", status: "stable", description: "Search with suggestions" },
-  { name: "Badge", category: "Display", status: "stable", description: "Status indicators" },
-  { name: "Button", category: "Action", status: "stable", description: "Primary action trigger" },
-  { name: "Button Group", category: "Action", status: "stable", description: "Grouped buttons" },
-  { name: "Calendar", category: "Form", status: "stable", description: "Date selection" },
-  { name: "Card", category: "Layout", status: "stable", description: "Content container" },
-  { name: "Checkbox", category: "Form", status: "stable", description: "Boolean selection" },
-  { name: "Combobox", category: "Form", status: "stable", description: "Select with search" },
-  { name: "Date Picker", category: "Form", status: "stable", description: "Single date picker" },
-  { name: "Date Range Picker", category: "Form", status: "stable", description: "Date range selection" },
-  { name: "Dialog", category: "Overlay", status: "stable", description: "Modal dialogs" },
-  { name: "File Upload", category: "Form", status: "stable", description: "File input" },
-  { name: "Form Field", category: "Form", status: "stable", description: "Form field wrapper" },
-  { name: "Icon Button", category: "Action", status: "stable", description: "Icon-only button" },
-  { name: "Input", category: "Form", status: "stable", description: "Text input" },
-  { name: "Input Group", category: "Form", status: "stable", description: "Input with addons" },
-  { name: "Label", category: "Form", status: "stable", description: "Form labels" },
-  { name: "Native Select", category: "Form", status: "stable", description: "Native select" },
-  { name: "Number Input", category: "Form", status: "stable", description: "Numeric input" },
-  { name: "OTP Input", category: "Form", status: "stable", description: "One-time password" },
-  { name: "Password Input", category: "Form", status: "stable", description: "Password field" },
-  { name: "Radio", category: "Form", status: "stable", description: "Radio buttons" },
-  { name: "Search", category: "Form", status: "stable", description: "Search input" },
-  { name: "Select", category: "Form", status: "stable", description: "Custom select" },
-  { name: "Slider", category: "Form", status: "stable", description: "Range slider" },
-  { name: "Switch", category: "Form", status: "stable", description: "Toggle switch" },
-  { name: "Tabs", category: "Navigation", status: "stable", description: "Tab navigation" },
-  { name: "Textarea", category: "Form", status: "stable", description: "Multi-line input" },
+  { name: "Autocomplete", category: "Form", status: "stable", description: "Search with suggestions", preview: "Input" },
+  { name: "Badge", category: "Display", status: "stable", description: "Status indicators", preview: "Badge" },
+  { name: "Button", category: "Action", status: "stable", description: "Primary action trigger", preview: "Button" },
+  { name: "Button Group", category: "Action", status: "stable", description: "Grouped buttons", preview: "Button" },
+  { name: "Calendar", category: "Form", status: "stable", description: "Date selection", preview: "Calendar" },
+  { name: "Card", category: "Layout", status: "stable", description: "Content container", preview: "Card" },
+  { name: "Checkbox", category: "Form", status: "stable", description: "Boolean selection", preview: "Checkbox" },
+  { name: "Combobox", category: "Form", status: "stable", description: "Select with search", preview: "Select" },
+  { name: "Date Picker", category: "Form", status: "stable", description: "Single date picker", preview: "Input" },
+  { name: "Date Range Picker", category: "Form", status: "stable", description: "Date range selection", preview: "Input" },
+  { name: "Dialog", category: "Overlay", status: "stable", description: "Modal dialogs", preview: "Button" },
+  { name: "File Upload", category: "Form", status: "stable", description: "File input", preview: "Input" },
+  { name: "Form Field", category: "Form", status: "stable", description: "Form field wrapper", preview: "Input" },
+  { name: "Icon Button", category: "Action", status: "stable", description: "Icon-only button", preview: "Button" },
+  { name: "Input", category: "Form", status: "stable", description: "Text input", preview: "Input" },
+  { name: "Input Group", category: "Form", status: "stable", description: "Input with addons", preview: "Input" },
+  { name: "Label", category: "Form", status: "stable", description: "Form labels", preview: "Label" },
+  { name: "Native Select", category: "Form", status: "stable", description: "Native select", preview: "Select" },
+  { name: "Number Input", category: "Form", status: "stable", description: "Numeric input", preview: "Input" },
+  { name: "OTP Input", category: "Form", status: "stable", description: "One-time password", preview: "Input" },
+  { name: "Password Input", category: "Form", status: "stable", description: "Password field", preview: "Input" },
+  { name: "Radio", category: "Form", status: "stable", description: "Radio buttons", preview: "Radio" },
+  { name: "Search", category: "Form", status: "stable", description: "Search input", preview: "Input" },
+  { name: "Select", category: "Form", status: "stable", description: "Custom select", preview: "Select" },
+  { name: "Slider", category: "Form", status: "stable", description: "Range slider", preview: "Slider" },
+  { name: "Switch", category: "Form", status: "stable", description: "Toggle switch", preview: "Switch" },
+  { name: "Tabs", category: "Navigation", status: "stable", description: "Tab navigation", preview: "Tabs" },
+  { name: "Textarea", category: "Form", status: "stable", description: "Multi-line input", preview: "Textarea" },
 ]
 
 const categories = Array.from(new Set(components.map(c => c.category))).sort()
+
+function ComponentPreview({ componentName }: { componentName: string }) {
+  // Render a simple live preview of the component
+  try {
+    switch (componentName) {
+      case "Button":
+        return <UIComponents.Button>Click me</UIComponents.Button>
+      case "Badge":
+        return <UIComponents.Badge>New</UIComponents.Badge>
+      case "Input":
+        return <UIComponents.Input placeholder="Enter text..." style={{ width: '100%' }} />
+      case "Checkbox":
+        return <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <UIComponents.Checkbox id="preview" />
+          <UIComponents.Label htmlFor="preview">Check me</UIComponents.Label>
+        </div>
+      case "Switch":
+        return <UIComponents.Switch />
+      case "Select":
+        return (
+          <UIComponents.Select defaultValue="option1">
+            <UIComponents.SelectTrigger style={{ width: '180px' }}>
+              <UIComponents.SelectValue />
+            </UIComponents.SelectTrigger>
+            <UIComponents.SelectContent>
+              <UIComponents.SelectItem value="option1">Option 1</UIComponents.SelectItem>
+              <UIComponents.SelectItem value="option2">Option 2</UIComponents.SelectItem>
+            </UIComponents.SelectContent>
+          </UIComponents.Select>
+        )
+      case "Slider":
+        return <UIComponents.Slider defaultValue={[50]} max={100} step={1} style={{ width: '100%' }} />
+      case "Textarea":
+        return <UIComponents.Textarea placeholder="Type here..." style={{ width: '100%' }} />
+      case "Label":
+        return <UIComponents.Label>Form Label</UIComponents.Label>
+      case "Card":
+        return (
+          <UIComponents.Card style={{ width: '100%' }}>
+            <UIComponents.CardHeader>
+              <UIComponents.CardTitle style={{ fontSize: '14px' }}>Card</UIComponents.CardTitle>
+            </UIComponents.CardHeader>
+          </UIComponents.Card>
+        )
+      case "Tabs":
+        return (
+          <UIComponents.Tabs defaultValue="tab1" style={{ width: '100%' }}>
+            <UIComponents.TabsList>
+              <UIComponents.TabsTrigger value="tab1">Tab 1</UIComponents.TabsTrigger>
+              <UIComponents.TabsTrigger value="tab2">Tab 2</UIComponents.TabsTrigger>
+            </UIComponents.TabsList>
+          </UIComponents.Tabs>
+        )
+      default:
+        return <UIComponents.Button size="sm">Preview</UIComponents.Button>
+    }
+  } catch (e) {
+    return <UIComponents.Button size="sm">Preview</UIComponents.Button>
+  }
+}
 
 export default function ComponentsPage() {
   const [search, setSearch] = useState("")
@@ -52,95 +116,179 @@ export default function ComponentsPage() {
 
   return (
     <DocsShell title="Components">
-      <Container size="lg" className="py-8">
+      <div style={{ maxWidth: '1200px' }}>
         <Stack gap="xl">
           <div>
-            <h1 className="text-4xl font-bold mb-4">Components</h1>
-            <p className="text-lg text-muted-foreground">
-              28 production-ready components built with Radix UI and Tailwind CSS.
-              All components are fully accessible, themeable, and installable via CLI.
+            <h1 style={{ 
+              fontSize: '48px', 
+              fontWeight: 700, 
+              marginBottom: '16px',
+              letterSpacing: '-0.02em'
+            }}>
+              Components
+            </h1>
+            <p style={{ 
+              fontSize: '18px', 
+              color: 'hsl(var(--color-muted-foreground))',
+              lineHeight: 1.6,
+              maxWidth: '700px'
+            }}>
+              Beautifully designed, accessible components. Built with Radix UI and styled with our design system tokens.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search components..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
+          {/* Search and Filter Bar */}
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            gap: '16px' 
+          }}>
+            <div style={{ position: 'relative', maxWidth: '400px' }}>
+              <Search style={{ 
+                position: 'absolute', 
+                left: '12px', 
+                top: '50%', 
+                transform: 'translateY(-50%)',
+                width: '16px',
+                height: '16px',
+                color: 'hsl(var(--color-muted-foreground))'
+              }} />
+              <Input
+                placeholder="Search components..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ paddingLeft: '40px' }}
+              />
             </div>
-            <div className="flex gap-2 flex-wrap">
-              <button
+            
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant={!selectedCategory ? "default" : "outline"}
+                size="sm"
                 onClick={() => setSelectedCategory(null)}
-                className={`px-3 py-2 text-sm rounded-md transition-colors ${
-                  !selectedCategory
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted hover:bg-muted/80"
-                }`}
               >
                 All
-              </button>
+              </Button>
               {categories.map(cat => (
-                <button
+                <Button
                   key={cat}
+                  variant={selectedCategory === cat ? "default" : "outline"}
+                  size="sm"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-2 text-sm rounded-md transition-colors ${
-                    selectedCategory === cat
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted hover:bg-muted/80"
-                  }`}
                 >
                   {cat}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
 
-          <div className="text-sm text-muted-foreground">
+          <div style={{ 
+            fontSize: '14px', 
+            color: 'hsl(var(--color-muted-foreground))',
+            marginTop: '8px'
+          }}>
             Showing {filtered.length} of {components.length} components
           </div>
 
-          <Grid cols={3} gap="md" className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {/* Component Grid with Live Previews */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+            gap: '16px'
+          }}>
             {filtered.map((component) => (
-              <a
+              <Link
                 key={component.name}
                 href={`/components/${component.name.toLowerCase().replace(/\s+/g, "-")}`}
-                className="block group"
+                style={{ 
+                  display: 'block',
+                  textDecoration: 'none',
+                  color: 'inherit'
+                }}
               >
-                <Card className="h-full hover:shadow-lg hover:border-primary/50 transition-all">
-                  <CardHeader>
-                    <div className="flex items-start justify-between mb-2">
-                      <Badge variant="outline" className="text-xs">
-                        {component.category}
-                      </Badge>
-                      <Badge variant={component.status === "stable" ? "default" : "secondary"} className="text-xs">
-                        {component.status}
-                      </Badge>
+                <Card 
+                  style={{
+                    height: '100%',
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
+                    border: '1px solid hsl(var(--color-border))'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'hsl(var(--color-primary) / 0.5)'
+                    e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'hsl(var(--color-border))'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                >
+                  <CardContent style={{ padding: '0' }}>
+                    {/* Live Preview Area */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: '160px',
+                      padding: '24px',
+                      borderBottom: '1px solid hsl(var(--color-border))',
+                      background: 'hsl(var(--color-muted) / 0.2)'
+                    }}>
+                      <ComponentPreview componentName={component.preview} />
                     </div>
-                    <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                      {component.name}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">{component.description}</p>
+                    
+                    {/* Component Info */}
+                    <div style={{ padding: '16px' }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between',
+                        marginBottom: '8px'
+                      }}>
+                        <Badge 
+                          variant="outline" 
+                          style={{ 
+                            fontSize: '11px',
+                            fontWeight: 500,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.5px'
+                          }}
+                        >
+                          {component.category}
+                        </Badge>
+                      </div>
+                      <h3 style={{ 
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        marginBottom: '6px',
+                        color: 'hsl(var(--color-foreground))'
+                      }}>
+                        {component.name}
+                      </h3>
+                      <p style={{ 
+                        fontSize: '13px',
+                        color: 'hsl(var(--color-muted-foreground))',
+                        lineHeight: 1.5
+                      }}>
+                        {component.description}
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
-              </a>
+              </Link>
             ))}
-          </Grid>
+          </div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">No components found matching your search.</p>
+            <div style={{ 
+              textAlign: 'center', 
+              padding: '64px 0',
+              color: 'hsl(var(--color-muted-foreground))'
+            }}>
+              <p>No components found matching your search.</p>
             </div>
           )}
         </Stack>
-      </Container>
+      </div>
     </DocsShell>
   )
 }

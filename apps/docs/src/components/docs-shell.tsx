@@ -1,26 +1,33 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AppShell } from "@seamless/saas"
-import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Input } from "@seamless/ui"
+import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@seamless/ui"
 import { applyTheme, themes, modes, type Theme, type Mode } from "@seamless/themes"
-import { Search, Moon, Sun, Monitor, Menu } from "lucide-react"
+import { Search, Moon, Sun, Github, Menu, X, Home, BookOpen, Blocks, Palette, Layers, Brain, Target } from "lucide-react"
 import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 const navigation = [
-  { name: "Getting Started", href: "/getting-started", icon: "🚀" },
-  { name: "Foundations", href: "/foundations", icon: "🎨" },
-  { name: "Components", href: "/components", icon: "🧩" },
-  { name: "Layout", href: "/layout", icon: "📐" },
-  { name: "SaaS", href: "/saas", icon: "💼" },
-  { name: "AI", href: "/ai", icon: "🤖" },
-  { name: "Patterns (Roadmap)", href: "/patterns", icon: "🎯" },
-  { name: "Blocks", href: "/blocks", icon: "🧱" },
-  { name: "Themes", href: "/themes", icon: "🎨" },
-  { name: "Theme Studio", href: "/theme-studio", icon: "🎛️" },
-  { name: "Design Systems", href: "/design-systems", icon: "📚" },
-  { name: "Registry", href: "/registry", icon: "📦" },
-  { name: "Storybook", href: "https://storybook.goseamless.ai", icon: "📖", external: true },
+  { name: "Getting Started", href: "/getting-started", icon: Home },
+  { name: "Foundations", href: "/foundations", icon: Palette },
+  { name: "Components", href: "/components", icon: Blocks },
+  { name: "Layout", href: "/layout", icon: Layers },
+  { name: "SaaS", href: "/saas", icon: Brain },
+  { name: "AI", href: "/ai", icon: Brain },
+  { name: "Patterns (Roadmap)", href: "/patterns", icon: Target },
+  { name: "Blocks", href: "/blocks", icon: Blocks },
+  { name: "Themes", href: "/themes", icon: Palette },
+  { name: "Theme Studio", href: "/theme-studio", icon: Palette },
+  { name: "Design Systems", href: "/design-systems", icon: BookOpen },
+  { name: "Registry", href: "/registry", icon: Blocks },
+]
+
+const topNavLinks = [
+  { name: "Docs", href: "/getting-started" },
+  { name: "Components", href: "/components" },
+  { name: "Blocks", href: "/blocks" },
+  { name: "Themes", href: "/themes" },
+  { name: "Registry", href: "/registry" },
 ]
 
 interface DocsShellProps {
@@ -31,7 +38,7 @@ interface DocsShellProps {
 export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
   const pathname = usePathname()
   const [currentTheme, setCurrentTheme] = useState<Theme>("midnight-aubergine")
-  const [currentMode, setCurrentMode] = useState<Mode>("dark")
+  const [currentMode, setCurrentMode] = useState<Mode>("light")
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -60,123 +67,341 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
     applyTheme({ theme: currentTheme, mode })
   }
 
-  const sidebar = (
-    <div className="space-y-6 p-4">
-      <div>
-        <div className="flex items-center gap-2 mb-6">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center text-lg font-bold">
-            S
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold">Seamless UI</h2>
-            <p className="text-xs text-muted-foreground">v0.1.0</p>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <Button
-            variant="outline"
-            className="w-full justify-start gap-2 text-muted-foreground"
-            onClick={() => setSearchOpen(true)}
-          >
-            <Search className="h-4 w-4" />
-            <span>Search...</span>
-            <kbd className="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded">⌘K</kbd>
-          </Button>
-        </div>
-
-        <nav className="space-y-1">
-          {navigation.map((item) => {
-            const isActive = pathname === item.href || pathname?.startsWith(item.href + "/")
-            return (
-              <a
-                key={item.name}
-                href={item.href}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
-                  isActive
-                    ? "bg-primary text-primary-foreground font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.name}</span>
-                {item.external && <span className="ml-auto text-xs">↗</span>}
-              </a>
-            )
-          })}
-        </nav>
-      </div>
-    </div>
-  )
-
-  const header = (
-    <div className="flex items-center justify-between h-16 px-6 border-b border-border">
-      <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
-        <h1 className="text-lg font-semibold">{title}</h1>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Select value={currentTheme} onValueChange={handleThemeChange}>
-          <SelectTrigger className="w-44 hidden sm:flex">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {themes.map((theme) => (
-              <SelectItem key={theme} value={theme}>
-                {theme.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <div className="flex items-center border border-border rounded-md">
-          <Button
-            variant={currentMode === "light" ? "default" : "ghost"}
-            size="icon"
-            className="h-8 w-8 rounded-r-none"
-            onClick={() => handleModeChange("light")}
-          >
-            <Sun className="h-4 w-4" />
-          </Button>
-          <Button
-            variant={currentMode === "dark" ? "default" : "ghost"}
-            size="icon"
-            className="h-8 w-8 rounded-l-none"
-            onClick={() => handleModeChange("dark")}
-          >
-            <Moon className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <a
-          href="https://github.com/seamless-ui"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden sm:flex"
-        >
-          <Button variant="outline" size="icon">
-            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
-            </svg>
-          </Button>
-        </a>
-      </div>
-    </div>
-  )
-
   return (
-    <AppShell sidebar={sidebar} header={header} sidebarCollapsible>
-      {children}
-    </AppShell>
+    <div className="min-h-screen" style={{ 
+      background: 'hsl(var(--color-background))',
+      color: 'hsl(var(--color-foreground))'
+    }}>
+      {/* Top Navigation Bar */}
+      <header style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        width: '100%',
+        borderBottom: '1px solid hsl(var(--color-border))',
+        background: 'hsl(var(--color-background))',
+        backdropFilter: 'blur(8px)'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          height: '60px',
+          maxWidth: '1600px',
+          margin: '0 auto',
+          padding: '0 24px',
+          gap: '24px'
+        }}>
+          {/* Logo */}
+          <Link href="/" style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            fontWeight: 600,
+            fontSize: '16px',
+            marginRight: '16px'
+          }}>
+            <div style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '6px',
+              background: 'hsl(var(--color-primary))',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'hsl(var(--color-primary-foreground))',
+              fontWeight: 700,
+              fontSize: '16px'
+            }}>
+              S
+            </div>
+            <span>Seamless</span>
+          </Link>
+
+          {/* Top Nav Links (desktop) */}
+          <nav style={{ 
+            display: 'flex', 
+            gap: '2px',
+            flex: 1
+          }} className="hidden-mobile">
+            {topNavLinks.map((item) => {
+              const isActive = pathname === item.href || pathname?.startsWith(item.href + "/")
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    borderRadius: '6px',
+                    color: isActive ? 'hsl(var(--color-foreground))' : 'hsl(var(--color-muted-foreground))',
+                    transition: 'color 0.15s ease, background 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'hsl(var(--color-muted) / 0.5)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent'
+                  }}
+                >
+                  {item.name}
+                </Link>
+              )
+            })}
+          </nav>
+
+          {/* Right side controls */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            marginLeft: 'auto'
+          }}>
+            {/* Search button */}
+            <Button
+              variant="outline"
+              style={{
+                gap: '8px',
+                minWidth: '200px',
+                justifyContent: 'flex-start',
+                color: 'hsl(var(--color-muted-foreground))'
+              }}
+              className="hidden-mobile"
+              onClick={() => setSearchOpen(true)}
+            >
+              <Search style={{ width: '16px', height: '16px' }} />
+              <span>Search...</span>
+              <kbd style={{
+                marginLeft: 'auto',
+                padding: '2px 6px',
+                fontSize: '12px',
+                background: 'hsl(var(--color-muted))',
+                borderRadius: '4px'
+              }}>⌘K</kbd>
+            </Button>
+
+            {/* Theme toggle */}
+            <div style={{
+              display: 'flex',
+              border: '1px solid hsl(var(--color-border))',
+              borderRadius: '6px',
+              padding: '2px'
+            }}>
+              <Button
+                variant="ghost"
+                size="icon"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  padding: 0,
+                  background: currentMode === "light" ? 'hsl(var(--color-muted))' : 'transparent'
+                }}
+                onClick={() => handleModeChange("light")}
+              >
+                <Sun style={{ width: '16px', height: '16px' }} />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  padding: 0,
+                  background: currentMode === "dark" ? 'hsl(var(--color-muted))' : 'transparent'
+                }}
+                onClick={() => handleModeChange("dark")}
+              >
+                <Moon style={{ width: '16px', height: '16px' }} />
+              </Button>
+            </div>
+
+            {/* GitHub */}
+            <a
+              href="https://github.com/seamless-ui"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '36px',
+                height: '36px',
+                borderRadius: '6px',
+                border: '1px solid hsl(var(--color-border))',
+                transition: 'background 0.15s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'hsl(var(--color-muted))'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent'
+              }}
+            >
+              <Github style={{ width: '18px', height: '18px' }} />
+            </a>
+
+            {/* Mobile menu toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="mobile-only"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X style={{ width: '20px', height: '20px' }} /> : <Menu style={{ width: '20px', height: '20px' }} />}
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Layout: Sidebar + Content */}
+      <div style={{ 
+        display: 'flex',
+        maxWidth: '1600px',
+        margin: '0 auto'
+      }}>
+        {/* Left Sidebar */}
+        <aside style={{
+          width: '260px',
+          flexShrink: 0,
+          borderRight: '1px solid hsl(var(--color-border))',
+          height: 'calc(100vh - 60px)',
+          position: 'sticky',
+          top: '60px',
+          overflowY: 'auto',
+          padding: '24px 16px'
+        }} className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            {navigation.map((item) => {
+              const isActive = pathname === item.href || pathname?.startsWith(item.href + "/")
+              const Icon = item.icon
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '8px 12px',
+                    fontSize: '14px',
+                    fontWeight: isActive ? 500 : 400,
+                    borderRadius: '6px',
+                    color: isActive ? 'hsl(var(--color-foreground))' : 'hsl(var(--color-muted-foreground))',
+                    background: isActive ? 'hsl(var(--color-muted))' : 'transparent',
+                    transition: 'background 0.15s ease, color 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'hsl(var(--color-muted) / 0.5)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'transparent'
+                    }
+                  }}
+                >
+                  <Icon style={{ width: '16px', height: '16px', flexShrink: 0 }} />
+                  <span>{item.name}</span>
+                </Link>
+              )
+            })}
+          </nav>
+
+          {/* Theme selector in sidebar */}
+          <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid hsl(var(--color-border))' }}>
+            <label style={{ 
+              display: 'block', 
+              fontSize: '12px', 
+              fontWeight: 500,
+              marginBottom: '8px',
+              color: 'hsl(var(--color-muted-foreground))',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>
+              Theme
+            </label>
+            <Select value={currentTheme} onValueChange={handleThemeChange}>
+              <SelectTrigger className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {themes.map((theme) => (
+                  <SelectItem key={theme} value={theme}>
+                    {theme.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* External links */}
+          <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
+            <a
+              href="https://storybook.goseamless.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '8px 12px',
+                fontSize: '14px',
+                borderRadius: '6px',
+                color: 'hsl(var(--color-muted-foreground))',
+                transition: 'background 0.15s ease, color 0.15s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'hsl(var(--color-muted) / 0.5)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent'
+              }}
+            >
+              <BookOpen style={{ width: '16px', height: '16px', flexShrink: 0 }} />
+              <span>Storybook</span>
+              <span style={{ marginLeft: 'auto', fontSize: '12px' }}>↗</span>
+            </a>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main style={{ 
+          flex: 1,
+          minWidth: 0,
+          padding: '32px'
+        }}>
+          {children}
+        </main>
+      </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .hidden-mobile {
+            display: none !important;
+          }
+          .mobile-only {
+            display: flex !important;
+          }
+          .sidebar {
+            position: fixed;
+            left: -260px;
+            top: 60px;
+            z-index: 40;
+            background: hsl(var(--color-background));
+            transition: left 0.3s ease;
+          }
+          .sidebar.mobile-open {
+            left: 0;
+          }
+        }
+        @media (min-width: 769px) {
+          .mobile-only {
+            display: none !important;
+          }
+        }
+      `}</style>
+    </div>
   )
 }
