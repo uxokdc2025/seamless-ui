@@ -128,3 +128,14 @@ a:hover {
   --color-info:#3b82f6;
   --color-border:#27272a; --color-input:#27272a; --color-ring:#d4d4d8;
 }
+
+/* Force-generate semantic color utilities so component-only classes (e.g. bg-primary,
+   used only inside packages/ui) are always compiled, regardless of cross-package @source scanning. */
+@source inline("{bg,text,border,ring,fill,stroke,divide}-{background,foreground,card,popover,primary,secondary,muted,accent,destructive,border,input,ring}");
+@source inline("{bg,text,border}-{card,popover,primary,secondary,muted,accent,destructive}-foreground");
+@source inline("hover:{bg,text,border}-{background,foreground,card,primary,secondary,muted,accent,destructive}");
+@source inline("hover:{bg,text}-{accent,primary,secondary,muted,card,popover}-foreground");
+@source inline("{bg,hover:bg}-{primary,secondary,destructive,accent,muted}/{90,80,70,50,30,20,10}");
+@source inline("focus-visible:{ring,border}-{ring,destructive,input}");
+@source inline("data-[state=active]:{bg,text}-{background,foreground}");
+@source inline("data-[state=checked]:{bg,text,border}-{primary,primary-foreground}");
