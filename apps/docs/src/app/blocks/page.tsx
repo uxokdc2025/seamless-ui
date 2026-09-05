@@ -52,14 +52,14 @@ export default function BlocksPage() {
                 style={{
                   transition: 'all 0.2s ease',
                   cursor: 'pointer',
-                  borderColor: 'hsl(var(--color-border))'
+                  borderColor: 'var(--color-border)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'hsl(var(--color-primary) / 0.5)'
+                  e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-primary) calc(0.5 * 100%), transparent)'
                   e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'hsl(var(--color-border))'
+                  e.currentTarget.style.borderColor = 'var(--color-border)'
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
@@ -70,24 +70,24 @@ export default function BlocksPage() {
                   justifyContent: 'center',
                   minHeight: '180px',
                   padding: '24px',
-                  background: 'hsl(var(--color-muted) / 0.3)'
+                  background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)'
                 }}>
                   <div style={{ 
                     fontSize: '14px', 
-                    color: 'hsl(var(--color-muted-foreground))' 
+                    color: 'var(--color-muted-foreground)' 
                   }}>
                     Preview
                   </div>
                 </div>
                 
                 {/* Block Info */}
-                <div style={{ padding: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
+                <div style={{ padding: '16px', borderTop: '1px solid var(--color-border)' }}>
                   <div style={{ 
                     fontSize: '12px',
                     fontWeight: 500,
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
-                    color: 'hsl(var(--color-muted-foreground))',
+                    color: 'var(--color-muted-foreground)',
                     marginBottom: '8px'
                   }}>
                     {block.category}
@@ -96,13 +96,13 @@ export default function BlocksPage() {
                     fontSize: '14px',
                     fontWeight: 500,
                     marginBottom: '4px',
-                    color: 'hsl(var(--color-foreground))'
+                    color: 'var(--color-foreground)'
                   }}>
                     {block.name}
                   </h3>
                   <p style={{ 
                     fontSize: '14px',
-                    color: 'hsl(var(--color-muted-foreground))',
+                    color: 'var(--color-muted-foreground)',
                     lineHeight: 1.5
                   }}>
                     {block.description}

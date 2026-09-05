@@ -44,8 +44,10 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
   const isHomePage = pathname === "/"
 
   useEffect(() => {
-    applyTheme({ theme: currentTheme, mode: currentMode })
-  }, [currentTheme, currentMode])
+    // Default look = shadcn-neutral (no brand data-theme). Only track light/dark mode.
+    document.documentElement.setAttribute("data-mode", currentMode)
+    document.documentElement.removeAttribute("data-theme")
+  }, [currentMode])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -70,8 +72,8 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
 
   return (
     <div className="min-h-screen" style={{ 
-      background: 'hsl(var(--color-background))',
-      color: 'hsl(var(--color-foreground))'
+      background: 'var(--color-background)',
+      color: 'var(--color-foreground)'
     }}>
       {/* Top Navigation Bar */}
       <header style={{
@@ -79,8 +81,8 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
         top: 0,
         zIndex: 50,
         width: '100%',
-        borderBottom: '1px solid hsl(var(--color-border))',
-        background: 'hsl(var(--color-background))',
+        borderBottom: '1px solid var(--color-border)',
+        background: 'var(--color-background)',
         backdropFilter: 'blur(8px)'
       }}>
         <div style={{
@@ -105,11 +107,11 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
               width: '28px',
               height: '28px',
               borderRadius: '6px',
-              background: 'hsl(var(--color-primary))',
+              background: 'var(--color-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'hsl(var(--color-primary-foreground))',
+              color: 'var(--color-primary-foreground)',
               fontWeight: 700,
               fontSize: '16px'
             }}>
@@ -135,11 +137,11 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                     fontSize: '14px',
                     fontWeight: 500,
                     borderRadius: '6px',
-                    color: isActive ? 'hsl(var(--color-foreground))' : 'hsl(var(--color-muted-foreground))',
+                    color: isActive ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
                     transition: 'color 0.15s ease, background 0.15s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'hsl(var(--color-muted) / 0.5)'
+                    e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)'
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = 'transparent'
@@ -165,7 +167,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                 gap: '8px',
                 minWidth: '200px',
                 justifyContent: 'flex-start',
-                color: 'hsl(var(--color-muted-foreground))'
+                color: 'var(--color-muted-foreground)'
               }}
               className="hidden-mobile"
               onClick={() => setSearchOpen(true)}
@@ -176,7 +178,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                 marginLeft: 'auto',
                 padding: '2px 6px',
                 fontSize: '12px',
-                background: 'hsl(var(--color-muted))',
+                background: 'var(--color-muted)',
                 borderRadius: '4px'
               }}>⌘K</kbd>
             </Button>
@@ -184,7 +186,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
             {/* Theme toggle */}
             <div style={{
               display: 'flex',
-              border: '1px solid hsl(var(--color-border))',
+              border: '1px solid var(--color-border)',
               borderRadius: '6px',
               padding: '2px'
             }}>
@@ -195,7 +197,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                   width: '32px',
                   height: '32px',
                   padding: 0,
-                  background: currentMode === "light" ? 'hsl(var(--color-muted))' : 'transparent'
+                  background: currentMode === "light" ? 'var(--color-muted)' : 'transparent'
                 }}
                 onClick={() => handleModeChange("light")}
               >
@@ -208,7 +210,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                   width: '32px',
                   height: '32px',
                   padding: 0,
-                  background: currentMode === "dark" ? 'hsl(var(--color-muted))' : 'transparent'
+                  background: currentMode === "dark" ? 'var(--color-muted)' : 'transparent'
                 }}
                 onClick={() => handleModeChange("dark")}
               >
@@ -228,11 +230,11 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                 width: '36px',
                 height: '36px',
                 borderRadius: '6px',
-                border: '1px solid hsl(var(--color-border))',
+                border: '1px solid var(--color-border)',
                 transition: 'background 0.15s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'hsl(var(--color-muted))'
+                e.currentTarget.style.background = 'var(--color-muted)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
@@ -265,7 +267,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
           <aside style={{
             width: '260px',
             flexShrink: 0,
-            borderRight: '1px solid hsl(var(--color-border))',
+            borderRight: '1px solid var(--color-border)',
             height: 'calc(100vh - 60px)',
             position: 'sticky',
             top: '60px',
@@ -289,13 +291,13 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                     fontSize: '14px',
                     fontWeight: isActive ? 500 : 400,
                     borderRadius: '6px',
-                    color: isActive ? 'hsl(var(--color-foreground))' : 'hsl(var(--color-muted-foreground))',
-                    background: isActive ? 'hsl(var(--color-muted))' : 'transparent',
+                    color: isActive ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
+                    background: isActive ? 'var(--color-muted)' : 'transparent',
                     transition: 'background 0.15s ease, color 0.15s ease'
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.background = 'hsl(var(--color-muted) / 0.5)'
+                      e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)'
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -312,7 +314,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
           </nav>
 
           {/* External links */}
-          <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
+          <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--color-border)' }}>
             <a
               href="https://storybook.goseamless.ai"
               target="_blank"
@@ -324,11 +326,11 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
                 padding: '8px 12px',
                 fontSize: '14px',
                 borderRadius: '6px',
-                color: 'hsl(var(--color-muted-foreground))',
+                color: 'var(--color-muted-foreground)',
                 transition: 'background 0.15s ease, color 0.15s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'hsl(var(--color-muted) / 0.5)'
+                e.currentTarget.style.background = 'color-mix(in srgb, var(--color-muted) calc(0.5 * 100%), transparent)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
@@ -365,7 +367,7 @@ export function DocsShell({ children, title = "Seamless UI" }: DocsShellProps) {
             left: -260px;
             top: 60px;
             z-index: 40;
-            background: hsl(var(--color-background));
+            background: var(--color-background);
             transition: left 0.3s ease;
           }
           .sidebar.mobile-open {

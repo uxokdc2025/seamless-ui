@@ -65,7 +65,7 @@ export default function ThemesPage() {
             </h1>
             <p style={{ 
               fontSize: '18px', 
-              color: 'hsl(var(--color-muted-foreground))',
+              color: 'var(--color-muted-foreground)',
               lineHeight: 1.6,
               maxWidth: '700px'
             }}>
@@ -75,10 +75,10 @@ export default function ThemesPage() {
 
           {/* Installation */}
           <div style={{
-            border: '1px solid hsl(var(--color-border))',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
             padding: '24px',
-            background: 'hsl(var(--color-muted) / 0.2)'
+            background: 'color-mix(in srgb, var(--color-muted) calc(0.2 * 100%), transparent)'
           }}>
             <h2 style={{ 
               fontSize: '16px', 
@@ -90,8 +90,8 @@ export default function ThemesPage() {
             <pre style={{
               margin: 0,
               padding: '16px',
-              background: 'hsl(var(--color-background))',
-              border: '1px solid hsl(var(--color-border))',
+              background: 'var(--color-background)',
+              border: '1px solid var(--color-border)',
               borderRadius: '6px',
               fontSize: '14px',
               fontFamily: 'var(--font-geist-mono), monospace',
@@ -117,7 +117,7 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                 <div
                   key={theme}
                   style={{
-                    border: `2px solid ${isActive ? 'hsl(var(--color-primary))' : 'hsl(var(--color-border))'}`,
+                    border: `2px solid ${isActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
                     borderRadius: '12px',
                     overflow: 'hidden',
                     transition: 'all 0.2s ease',
@@ -133,7 +133,7 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '12px',
-                      background: 'hsl(var(--color-muted) / 0.3)'
+                      background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)'
                     }}
                     onClick={(e) => {
                       e.stopPropagation()
@@ -146,29 +146,29 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                         width: '60px',
                         height: '28px',
                         borderRadius: '6px',
-                        background: 'hsl(var(--color-primary))',
-                        border: '1px solid hsl(var(--color-border))'
+                        background: 'var(--color-primary)',
+                        border: '1px solid var(--color-border)'
                       }} />
                       <div style={{
                         width: '60px',
                         height: '28px',
                         borderRadius: '6px',
-                        background: 'hsl(var(--color-secondary))',
-                        border: '1px solid hsl(var(--color-border))'
+                        background: 'var(--color-secondary)',
+                        border: '1px solid var(--color-border)'
                       }} />
                       <div style={{
                         width: '60px',
                         height: '28px',
                         borderRadius: '6px',
-                        background: 'hsl(var(--color-muted))',
-                        border: '1px solid hsl(var(--color-border))'
+                        background: 'var(--color-muted)',
+                        border: '1px solid var(--color-border)'
                       }} />
                     </div>
                     <div style={{
                       flex: 1,
                       borderRadius: '8px',
-                      background: 'hsl(var(--color-background))',
-                      border: '1px solid hsl(var(--color-border))',
+                      background: 'var(--color-background)',
+                      border: '1px solid var(--color-border)',
                       padding: '12px',
                       display: 'flex',
                       flexDirection: 'column',
@@ -178,19 +178,19 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                         height: '12px',
                         width: '80%',
                         borderRadius: '4px',
-                        background: 'hsl(var(--color-foreground) / 0.8)'
+                        background: 'color-mix(in srgb, var(--color-foreground) calc(0.8 * 100%), transparent)'
                       }} />
                       <div style={{
                         height: '10px',
                         width: '60%',
                         borderRadius: '4px',
-                        background: 'hsl(var(--color-muted-foreground) / 0.5)'
+                        background: 'color-mix(in srgb, var(--color-muted-foreground) calc(0.5 * 100%), transparent)'
                       }} />
                       <div style={{
                         height: '10px',
                         width: '50%',
                         borderRadius: '4px',
-                        background: 'hsl(var(--color-muted-foreground) / 0.5)'
+                        background: 'color-mix(in srgb, var(--color-muted-foreground) calc(0.5 * 100%), transparent)'
                       }} />
                     </div>
                   </div>
@@ -198,7 +198,7 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                   {/* Theme Info */}
                   <div style={{
                     padding: '20px',
-                    background: 'hsl(var(--color-background))'
+                    background: 'var(--color-background)'
                   }}>
                     <div style={{ 
                       display: 'flex',
@@ -220,8 +220,8 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                           gap: '4px',
                           padding: '4px 8px',
                           borderRadius: '4px',
-                          background: 'hsl(var(--color-primary))',
-                          color: 'hsl(var(--color-primary-foreground))',
+                          background: 'var(--color-primary)',
+                          color: 'var(--color-primary-foreground)',
                           fontSize: '12px',
                           fontWeight: 500
                         }}>
@@ -232,7 +232,7 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
                     </div>
                     <p style={{ 
                       fontSize: '14px',
-                      color: 'hsl(var(--color-muted-foreground))',
+                      color: 'var(--color-muted-foreground)',
                       lineHeight: 1.5,
                       margin: 0
                     }}>
@@ -247,9 +247,9 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
           {/* Light/Dark Mode Note */}
           <div style={{
             padding: '20px',
-            border: '1px solid hsl(var(--color-border))',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
-            background: 'hsl(var(--color-muted) / 0.2)'
+            background: 'color-mix(in srgb, var(--color-muted) calc(0.2 * 100%), transparent)'
           }}>
             <h3 style={{ 
               fontSize: '16px',
@@ -260,7 +260,7 @@ applyTheme({ theme: "midnight-aubergine", mode: "light" })`}</code>
             </h3>
             <p style={{ 
               fontSize: '14px',
-              color: 'hsl(var(--color-muted-foreground))',
+              color: 'var(--color-muted-foreground)',
               lineHeight: 1.6,
               margin: 0
             }}>

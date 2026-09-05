@@ -53,8 +53,8 @@ export default function HomePage() {
         <section style={{
           position: 'relative',
           overflow: 'hidden',
-          borderBottom: '1px solid hsl(var(--color-border))',
-          background: 'linear-gradient(to bottom, hsl(var(--color-background)), hsl(var(--color-muted) / 0.2))',
+          borderBottom: '1px solid var(--color-border)',
+          background: 'linear-gradient(to bottom, var(--color-background), color-mix(in srgb, var(--color-muted) calc(0.2 * 100%), transparent))',
           padding: '120px 32px'
         }}>
           <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
@@ -72,7 +72,7 @@ export default function HomePage() {
                     width: '100%',
                     height: '100%',
                     borderRadius: '50%',
-                    background: 'hsl(var(--color-primary))',
+                    background: 'var(--color-primary)',
                     opacity: 0.75,
                     animation: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite'
                   }}></span>
@@ -82,7 +82,7 @@ export default function HomePage() {
                     borderRadius: '50%',
                     width: '8px',
                     height: '8px',
-                    background: 'hsl(var(--color-primary))'
+                    background: 'var(--color-primary)'
                   }}></span>
                 </span>
                 v0.1.0 — Now in Beta
@@ -93,7 +93,7 @@ export default function HomePage() {
                 fontWeight: 700,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                background: 'linear-gradient(to right, hsl(var(--color-foreground)), hsl(var(--color-foreground) / 0.7))',
+                background: 'linear-gradient(to right, var(--color-foreground), color-mix(in srgb, var(--color-foreground) calc(0.7 * 100%), transparent))',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -104,7 +104,7 @@ export default function HomePage() {
 
               <p style={{
                 fontSize: '20px',
-                color: 'hsl(var(--color-muted-foreground))',
+                color: 'var(--color-muted-foreground)',
                 lineHeight: 1.6,
                 maxWidth: '700px',
                 margin: '0 auto'
@@ -148,7 +148,7 @@ export default function HomePage() {
                 {stats.map((stat, idx) => (
                   <div key={idx} style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '36px', fontWeight: 700 }}>{stat.value}</div>
-                    <div style={{ fontSize: '14px', color: 'hsl(var(--color-muted-foreground))' }}>
+                    <div style={{ fontSize: '14px', color: 'var(--color-muted-foreground)' }}>
                       {stat.label}
                     </div>
                   </div>
@@ -166,7 +166,7 @@ export default function HomePage() {
                 <h2 style={{ fontSize: '36px', fontWeight: 700, marginBottom: '16px', letterSpacing: '-0.01em' }}>
                   Everything you need
                 </h2>
-                <p style={{ fontSize: '18px', color: 'hsl(var(--color-muted-foreground))', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '18px', color: 'var(--color-muted-foreground)', lineHeight: 1.6 }}>
                   A complete design system platform with all the building blocks for modern web applications.
                 </p>
               </div>
@@ -185,13 +185,13 @@ export default function HomePage() {
                     }}
                   >
                     <CardHeader>
-                      <div style={{ marginBottom: '12px', color: 'hsl(var(--color-primary))' }}>
+                      <div style={{ marginBottom: '12px', color: 'var(--color-primary)' }}>
                         {feature.icon}
                       </div>
                       <CardTitle style={{ fontSize: '20px' }}>{feature.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p style={{ color: 'hsl(var(--color-muted-foreground))', lineHeight: 1.6 }}>
+                      <p style={{ color: 'var(--color-muted-foreground)', lineHeight: 1.6 }}>
                         {feature.description}
                       </p>
                     </CardContent>
@@ -205,9 +205,9 @@ export default function HomePage() {
         {/* Quick Start */}
         <section style={{
           padding: '80px 32px',
-          background: 'hsl(var(--color-muted) / 0.2)',
-          borderTop: '1px solid hsl(var(--color-border))',
-          borderBottom: '1px solid hsl(var(--color-border))'
+          background: 'color-mix(in srgb, var(--color-muted) calc(0.2 * 100%), transparent)',
+          borderTop: '1px solid var(--color-border)',
+          borderBottom: '1px solid var(--color-border)'
         }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <Stack gap="xl">
@@ -215,7 +215,7 @@ export default function HomePage() {
                 <h2 style={{ fontSize: '36px', fontWeight: 700, marginBottom: '16px', letterSpacing: '-0.01em' }}>
                   Quick Start
                 </h2>
-                <p style={{ fontSize: '18px', color: 'hsl(var(--color-muted-foreground))', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '18px', color: 'var(--color-muted-foreground)', lineHeight: 1.6 }}>
                   Get up and running in minutes with our CLI tool.
                 </p>
               </div>
@@ -227,13 +227,13 @@ export default function HomePage() {
                 <CardContent>
                   <Stack gap="md">
                     <div style={{
-                      background: 'hsl(var(--color-muted))',
+                      background: 'var(--color-muted)',
                       borderRadius: '6px',
                       padding: '16px',
                       fontFamily: 'var(--font-geist-mono), monospace',
                       fontSize: '14px'
                     }}>
-                      <div style={{ color: 'hsl(var(--color-muted-foreground))' }}>
+                      <div style={{ color: 'var(--color-muted-foreground)' }}>
                         # Install the button component
                       </div>
                       <div style={{ marginTop: '8px' }}>
@@ -241,13 +241,13 @@ export default function HomePage() {
                       </div>
                     </div>
                     <div style={{
-                      background: 'hsl(var(--color-muted))',
+                      background: 'var(--color-muted)',
                       borderRadius: '6px',
                       padding: '16px',
                       fontFamily: 'var(--font-geist-mono), monospace',
                       fontSize: '14px'
                     }}>
-                      <div style={{ color: 'hsl(var(--color-muted-foreground))' }}>
+                      <div style={{ color: 'var(--color-muted-foreground)' }}>
                         # Use in your app
                       </div>
                       <div style={{ marginTop: '8px' }}>
@@ -277,9 +277,9 @@ export default function HomePage() {
         <section style={{ padding: '80px 32px' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <Card style={{
-              background: 'hsl(var(--color-primary))',
-              color: 'hsl(var(--color-primary-foreground))',
-              border: '1px solid hsl(var(--color-primary))'
+              background: 'var(--color-primary)',
+              color: 'var(--color-primary-foreground)',
+              border: '1px solid var(--color-primary)'
             }}>
               <CardContent style={{ padding: '64px 32px' }}>
                 <div style={{ textAlign: 'center' }}>
@@ -301,8 +301,8 @@ export default function HomePage() {
                           size="lg" 
                           variant="outline"
                           style={{
-                            borderColor: 'hsl(var(--color-primary-foreground))',
-                            color: 'hsl(var(--color-primary-foreground))'
+                            borderColor: 'var(--color-primary-foreground)',
+                            color: 'var(--color-primary-foreground)'
                           }}
                         >
                           Browse Components

@@ -129,7 +129,7 @@ export default function ComponentsPage() {
             </h1>
             <p style={{ 
               fontSize: '18px', 
-              color: 'hsl(var(--color-muted-foreground))',
+              color: 'var(--color-muted-foreground)',
               lineHeight: 1.6,
               maxWidth: '700px'
             }}>
@@ -151,7 +151,7 @@ export default function ComponentsPage() {
                 transform: 'translateY(-50%)',
                 width: '16px',
                 height: '16px',
-                color: 'hsl(var(--color-muted-foreground))'
+                color: 'var(--color-muted-foreground)'
               }} />
               <Input
                 placeholder="Search components..."
@@ -184,7 +184,7 @@ export default function ComponentsPage() {
 
           <div style={{ 
             fontSize: '14px', 
-            color: 'hsl(var(--color-muted-foreground))',
+            color: 'var(--color-muted-foreground)',
             marginTop: '8px'
           }}>
             Showing {filtered.length} of {components.length} components
@@ -208,14 +208,14 @@ export default function ComponentsPage() {
                     height: '100%',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
-                    borderColor: 'hsl(var(--color-border))'
+                    borderColor: 'var(--color-border)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'hsl(var(--color-primary) / 0.5)'
+                    e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--color-primary) calc(0.5 * 100%), transparent)'
                     e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'hsl(var(--color-border))'
+                    e.currentTarget.style.borderColor = 'var(--color-border)'
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
@@ -226,19 +226,19 @@ export default function ComponentsPage() {
                     justifyContent: 'center',
                     minHeight: '180px',
                     padding: '24px',
-                    background: 'hsl(var(--color-muted) / 0.3)'
+                    background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)'
                   }}>
                     <ComponentPreview componentName={component.preview} />
                   </div>
                   
                   {/* Component Info */}
-                  <div style={{ padding: '16px', borderTop: '1px solid hsl(var(--color-border))' }}>
+                  <div style={{ padding: '16px', borderTop: '1px solid var(--color-border)' }}>
                     <div style={{ 
                       fontSize: '12px',
                       fontWeight: 500,
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
-                      color: 'hsl(var(--color-muted-foreground))',
+                      color: 'var(--color-muted-foreground)',
                       marginBottom: '8px'
                     }}>
                       {component.category}
@@ -247,13 +247,13 @@ export default function ComponentsPage() {
                       fontSize: '14px',
                       fontWeight: 500,
                       marginBottom: '4px',
-                      color: 'hsl(var(--color-foreground))'
+                      color: 'var(--color-foreground)'
                     }}>
                       {component.name}
                     </h3>
                     <p style={{ 
                       fontSize: '14px',
-                      color: 'hsl(var(--color-muted-foreground))',
+                      color: 'var(--color-muted-foreground)',
                       lineHeight: 1.5
                     }}>
                       {component.description}
@@ -268,7 +268,7 @@ export default function ComponentsPage() {
             <div style={{ 
               textAlign: 'center', 
               padding: '64px 0',
-              color: 'hsl(var(--color-muted-foreground))'
+              color: 'var(--color-muted-foreground)'
             }}>
               <p>No components found matching your search.</p>
             </div>

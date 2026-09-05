@@ -107,7 +107,7 @@ export function ComponentPage({
           </div>
           <p style={{ 
             fontSize: '18px', 
-            color: 'hsl(var(--color-muted-foreground))',
+            color: 'var(--color-muted-foreground)',
             lineHeight: 1.6,
             maxWidth: '700px'
           }}>
@@ -117,7 +117,7 @@ export function ComponentPage({
 
         {/* Large Live Preview with Preview/Code Toggle */}
         <div style={{
-          border: '1px solid hsl(var(--color-border))',
+          border: '1px solid var(--color-border)',
           borderRadius: '8px',
           overflow: 'hidden'
         }}>
@@ -127,8 +127,8 @@ export function ComponentPage({
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '12px 16px',
-            borderBottom: '1px solid hsl(var(--color-border))',
-            background: 'hsl(var(--color-muted) / 0.3)'
+            borderBottom: '1px solid var(--color-border)',
+            background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)'
           }}>
             <div style={{ display: 'flex', gap: '4px' }}>
               <button
@@ -139,8 +139,8 @@ export function ComponentPage({
                   fontWeight: 500,
                   border: 'none',
                   borderRadius: '6px',
-                  background: mainTab === "preview" ? 'hsl(var(--color-background))' : 'transparent',
-                  color: mainTab === "preview" ? 'hsl(var(--color-foreground))' : 'hsl(var(--color-muted-foreground))',
+                  background: mainTab === "preview" ? 'var(--color-background)' : 'transparent',
+                  color: mainTab === "preview" ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease'
                 }}
@@ -155,8 +155,8 @@ export function ComponentPage({
                   fontWeight: 500,
                   border: 'none',
                   borderRadius: '6px',
-                  background: mainTab === "code" ? 'hsl(var(--color-background))' : 'transparent',
-                  color: mainTab === "code" ? 'hsl(var(--color-foreground))' : 'hsl(var(--color-muted-foreground))',
+                  background: mainTab === "code" ? 'var(--color-background)' : 'transparent',
+                  color: mainTab === "code" ? 'var(--color-foreground)' : 'var(--color-muted-foreground)',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease'
                 }}
@@ -187,7 +187,7 @@ export function ComponentPage({
               justifyContent: 'center',
               minHeight: '280px',
               padding: '48px',
-              background: 'hsl(var(--color-background))'
+              background: 'var(--color-background)'
             }}>
               {preview}
             </div>
@@ -198,7 +198,7 @@ export function ComponentPage({
               <pre style={{
                 margin: 0,
                 padding: '24px',
-                background: 'hsl(var(--color-muted) / 0.3)',
+                background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)',
                 overflowX: 'auto',
                 fontSize: '13px',
                 lineHeight: 1.6,
@@ -222,14 +222,14 @@ export function ComponentPage({
           </h2>
           <div style={{
             position: 'relative',
-            border: '1px solid hsl(var(--color-border))',
+            border: '1px solid var(--color-border)',
             borderRadius: '8px',
             overflow: 'hidden'
           }}>
             <pre style={{
               margin: 0,
               padding: '16px',
-              background: 'hsl(var(--color-muted) / 0.3)',
+              background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)',
               fontSize: '14px',
               fontFamily: 'var(--font-geist-mono), monospace'
             }}>
@@ -267,7 +267,7 @@ export function ComponentPage({
               Props
             </h2>
             <div style={{
-              border: '1px solid hsl(var(--color-border))',
+              border: '1px solid var(--color-border)',
               borderRadius: '8px',
               overflow: 'hidden'
             }}>
@@ -279,8 +279,8 @@ export function ComponentPage({
                 }}>
                   <thead>
                     <tr style={{ 
-                      borderBottom: '1px solid hsl(var(--color-border))',
-                      background: 'hsl(var(--color-muted) / 0.3)'
+                      borderBottom: '1px solid var(--color-border)',
+                      background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)'
                     }}>
                       <th style={{ 
                         textAlign: 'left', 
@@ -320,7 +320,7 @@ export function ComponentPage({
                       <tr 
                         key={idx} 
                         style={{ 
-                          borderBottom: idx < props.length - 1 ? '1px solid hsl(var(--color-border))' : 'none'
+                          borderBottom: idx < props.length - 1 ? '1px solid var(--color-border)' : 'none'
                         }}
                       >
                         <td style={{ 
@@ -334,7 +334,7 @@ export function ComponentPage({
                           padding: '12px 16px',
                           fontFamily: 'var(--font-geist-mono), monospace',
                           fontSize: '13px',
-                          color: 'hsl(var(--color-muted-foreground))'
+                          color: 'var(--color-muted-foreground)'
                         }}>
                           {prop.type}
                         </td>
@@ -342,13 +342,13 @@ export function ComponentPage({
                           padding: '12px 16px',
                           fontFamily: 'var(--font-geist-mono), monospace',
                           fontSize: '13px',
-                          color: 'hsl(var(--color-muted-foreground))'
+                          color: 'var(--color-muted-foreground)'
                         }}>
                           {prop.default || "—"}
                         </td>
                         <td style={{ 
                           padding: '12px 16px',
-                          color: 'hsl(var(--color-muted-foreground))'
+                          color: 'var(--color-muted-foreground)'
                         }}>
                           {prop.description}
                         </td>
@@ -377,15 +377,15 @@ export function ComponentPage({
                 <div 
                   key={idx}
                   style={{
-                    border: '1px solid hsl(var(--color-border))',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '8px',
                     overflow: 'hidden'
                   }}
                 >
                   <div style={{ 
                     padding: '16px',
-                    borderBottom: '1px solid hsl(var(--color-border))',
-                    background: 'hsl(var(--color-muted) / 0.2)'
+                    borderBottom: '1px solid var(--color-border)',
+                    background: 'color-mix(in srgb, var(--color-muted) calc(0.2 * 100%), transparent)'
                   }}>
                     <h3 style={{ 
                       fontSize: '16px', 
@@ -396,7 +396,7 @@ export function ComponentPage({
                     </h3>
                     <p style={{ 
                       fontSize: '14px', 
-                      color: 'hsl(var(--color-muted-foreground))',
+                      color: 'var(--color-muted-foreground)',
                       margin: 0
                     }}>
                       {variant.description}
@@ -433,15 +433,15 @@ export function ComponentPage({
                 <div 
                   key={idx}
                   style={{
-                    border: '1px solid hsl(var(--color-border))',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '8px',
                     overflow: 'hidden'
                   }}
                 >
                   <div style={{ 
                     padding: '16px',
-                    borderBottom: '1px solid hsl(var(--color-border))',
-                    background: 'hsl(var(--color-muted) / 0.2)'
+                    borderBottom: '1px solid var(--color-border)',
+                    background: 'color-mix(in srgb, var(--color-muted) calc(0.2 * 100%), transparent)'
                   }}>
                     <h3 style={{ 
                       fontSize: '16px', 
@@ -452,7 +452,7 @@ export function ComponentPage({
                     </h3>
                     <p style={{ 
                       fontSize: '14px', 
-                      color: 'hsl(var(--color-muted-foreground))',
+                      color: 'var(--color-muted-foreground)',
                       margin: 0
                     }}>
                       {example.description}
@@ -464,7 +464,7 @@ export function ComponentPage({
                     justifyContent: 'center',
                     minHeight: '120px',
                     padding: '32px',
-                    borderBottom: '1px solid hsl(var(--color-border))'
+                    borderBottom: '1px solid var(--color-border)'
                   }}>
                     {example.preview}
                   </div>
@@ -472,7 +472,7 @@ export function ComponentPage({
                     <pre style={{
                       margin: 0,
                       padding: '16px',
-                      background: 'hsl(var(--color-muted) / 0.3)',
+                      background: 'color-mix(in srgb, var(--color-muted) calc(0.3 * 100%), transparent)',
                       overflowX: 'auto',
                       fontSize: '13px',
                       lineHeight: 1.6,
@@ -513,7 +513,7 @@ export function ComponentPage({
           }}>
             {accessibility.length > 0 && (
               <div style={{
-                border: '1px solid hsl(var(--color-border))',
+                border: '1px solid var(--color-border)',
                 borderRadius: '8px',
                 padding: '20px'
               }}>
@@ -549,7 +549,7 @@ export function ComponentPage({
 
             {keyboard.length > 0 && (
               <div style={{
-                border: '1px solid hsl(var(--color-border))',
+                border: '1px solid var(--color-border)',
                 borderRadius: '8px',
                 padding: '20px'
               }}>
@@ -575,8 +575,8 @@ export function ComponentPage({
                         padding: '4px 8px',
                         fontSize: '13px',
                         fontFamily: 'var(--font-geist-mono), monospace',
-                        background: 'hsl(var(--color-muted))',
-                        border: '1px solid hsl(var(--color-border))',
+                        background: 'var(--color-muted)',
+                        border: '1px solid var(--color-border)',
                         borderRadius: '4px',
                         whiteSpace: 'nowrap'
                       }}>
